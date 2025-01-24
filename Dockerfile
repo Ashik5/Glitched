@@ -1,11 +1,16 @@
 FROM php:8.0.3-apache
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     libzip-dev \
     zip \
-    unzip
+    unzip \
+    curl
+
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 # Install PHP extensions
 RUN docker-php-ext-install zip
@@ -13,16 +18,16 @@ RUN docker-php-ext-install zip
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy project files
-COPY . /var/www/html
-
 # Set working directory
 WORKDIR /var/www/html
 
-# Composer install
+# Copy project files
+COPY . /var/www/html
+
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Build assets
+# Install and build frontend assets
 RUN npm ci && npm run build
 
 # Expose port
