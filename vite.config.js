@@ -16,7 +16,7 @@ export default defineConfig(({ command }) => {
         server: {
             host: isProduction ? '0.0.0.0' : '127.0.0.1',
             port: 5173,
-            https: true, // Always enable HTTPS
+            https: isProduction, // HTTPS only in production
             strictPort: true,
             hmr: {
                 host: isProduction ? 'https://glitched.onrender.com' : 'localhost',
