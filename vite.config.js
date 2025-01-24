@@ -14,10 +14,12 @@ export default defineConfig(({ command }) => {
             react(),
         ],
         server: {
-            host: isProduction ? true : '127.0.0.1',
+            host: '0.0.0.0',
             port: 5173,
-            https: isProduction,
             strictPort: true,
+            hmr: {
+                host: 'localhost',
+            },
         },
         build: {
             rollupOptions: {
