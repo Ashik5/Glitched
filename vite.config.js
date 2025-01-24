@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command }) => {
     const isProduction = command === 'build' || process.env.APP_ENV === 'production';
 
     return {
@@ -14,8 +14,9 @@ export default defineConfig(({ command, mode }) => {
             react(),
         ],
         server: {
-            host: '127.0.0.1', // Localhost for local development
-            port: 5173, // Vite development server port
+            host: isProduction ? '0.0.0.0' : '127.0.0.1',  // Use 0.0.0.0 for Render (production), 127.0.0.1 for local dev
+            port: 5173,
+            https: isProduction, // Enable HTTPS in production
             strictPort: true,
             hmr: {
                 host: 'localhost', // HMR host for local dev
