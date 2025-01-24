@@ -10,15 +10,17 @@ export default defineConfig({
         }),
         react(),
     ],
-    // Add this section for production
     server: {
+        https: true,
         host: true,
-        port: 5173,
-        strictPort: true,
     },
-    preview: {
-        host: true,
-        port: 5173,
-        strictPort: true,
-    },
+    build: {
+        rollupOptions: {
+            output: {
+                entryFileNames: 'assets/[name]-[hash].js',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                assetFileNames: 'assets/[name]-[hash][extname]'
+            }
+        }
+    }
 });
