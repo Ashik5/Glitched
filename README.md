@@ -92,3 +92,6 @@ The mock user interface for Glitched has been designed using Figma. It includes 
 - Add an analytics section showing trending tags or most viewed blogs.  
 
 ---
+
+
+
