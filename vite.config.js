@@ -9,26 +9,23 @@ export default defineConfig(({ command }) => {
         plugins: [
             laravel({
                 input: ['resources/js/app.jsx'],
-                refresh: true,
+                refresh: !isProduction, // Enable refresh only in development
             }),
             react(),
         ],
         server: {
-            host: '0.0.0.0',
+            host: '0.0.0.0', // Bind to all network interfaces
             port: 5173,
             strictPort: true,
-            hmr: {
-                host: 'localhost',
-            },
         },
         build: {
             rollupOptions: {
                 output: {
                     entryFileNames: 'assets/[name]-[hash].js',
                     chunkFileNames: 'assets/[name]-[hash].js',
-                    assetFileNames: 'assets/[name]-[hash][extname]'
-                }
-            }
-        }
+                    assetFileNames: 'assets/[name]-[hash][extname]',
+                },
+            },
+        },
     };
 });
