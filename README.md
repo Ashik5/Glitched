@@ -90,3 +90,8 @@ The mock user interface for Glitched has been designed using Figma. It includes 
 - Optimize database queries for efficient filtering and retrieval.  
 - Include pagination for filtered results to enhance performance.  
 - Add an analytics section showing trending tags or most viewed blogs.  
+
+---
+
+
+
