@@ -1,0 +1,8 @@
+{
+    "build": {
+        "builder": "nixpkgs",
+        "config": {
+            "php": "php80"
+        }
+    }
+}
