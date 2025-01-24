@@ -1,8 +1,6 @@
 {
     "build": {
-        "builder": "nixpkgs",
-        "config": {
-            "php": "php80"
-        }
+        "builder": "dockerfile",
+        "dockerfilePath": "Dockerfile"
     }
 }
