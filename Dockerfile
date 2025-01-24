@@ -36,14 +36,11 @@ RUN a2enmod rewrite
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Run database migrations (assuming you're using Laravel or a similar framework)
-RUN php artisan migrate --force
-
 # Install and build frontend assets
 RUN npm ci && npm run build
 
 # Expose port
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Run migrations and start Apache
+CMD php artisan migrate --force && apache2-foreground
