@@ -6,14 +6,15 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     unzip \
-    curl
+    curl \
+    libpq-dev
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
 # Install PHP extensions
-RUN docker-php-ext-install zip pdo pdo_mysql
+RUN docker-php-ext-install zip pdo pdo_pgsql  # PostgreSQL extension
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
