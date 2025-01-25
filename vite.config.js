@@ -14,14 +14,14 @@ export default defineConfig(({ command }) => {
         .map(file => `resources/js/Pages/${file}`);
 
     return {
-        base: 'https://glitched.onrender.com',
+        base: isProduction ? 'https://glitched.onrender.com/' : '/', // Use HTTPS in production
         plugins: [
             laravel({
                 input: [
                     'resources/js/app.jsx',
                     ...pageFiles
                 ],
-                refresh: true,
+                refresh: !isProduction, // Enable HMR only for development
             }),
             react(),
         ],
@@ -31,18 +31,20 @@ export default defineConfig(({ command }) => {
                 output: {
                     entryFileNames: 'assets/[name]-[hash].js',
                     chunkFileNames: 'assets/[name]-[hash].js',
-                    assetFileNames: 'assets/[name]-[hash][extname]'
+                    assetFileNames: 'assets/[name]-[hash][extname]',
                 }
             }
         },
         server: {
-            https: true,
-            host: true,
+            https: false, // Keep HTTPS false for local development
+            host: '0.0.0.0', // Allow external access in development
             port: 5173,
             strictPort: true,
             hmr: {
-                host: 'glitched.onrender.com'
-            }
+                protocol: isProduction ? 'wss' : 'ws', // Use WebSocket Secure in production
+                host: isProduction ? 'glitched.onrender.com' : 'localhost',
+                clientPort: isProduction ? 443 : 5173, // Default HTTPS port for production
+            },
         }
     };
 });
