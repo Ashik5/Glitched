@@ -2,12 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use App\Models\Blogs;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class BlogsController extends Controller
 {
+    /**
+     * get all the blogs
+     */
+    public function getBlogs(Request $request, $id = null)
+    {
+        try {
+            // Check if a specific blog ID is requested
+            if ($id) {
+                $blog = Blogs::findOrFail($id); // Fetch blog by ID
+
+                return response()->json([
+                    'message' => 'Blog fetched successfully!',
+                    'blog' => $blog,
+                ], 200);
+            }
+
+            // Fetch all blogs with optional filters
+            $blogs = Blogs::query();
+
+            // Add filtering based on category or tags (if provided)
+            if ($request->has('category')) {
+                $blogs->where('category', $request->input('category'));
+            }
+            if ($request->has('tags')) {
+                $blogs->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+
+            // Paginate results
+            $blogs = $blogs->paginate(10); // Adjust pagination as needed
+
+            return Inertia::render('Blog/Index', [
+                'blogs' => $blogs,
+                'filters' => $request->only(['category', 'tags']),
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to fetch blogs',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
     /**
      * Create a new blog post
      */
@@ -86,9 +130,11 @@ class BlogsController extends Controller
 
             $blog->save(); // Save changes to the database
 
-            return response()->json([
-                'message' => 'Blog updated successfully!',
-                'blog' => $blog,
+            return Inertia::render('Dashboard', [
+                'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'message' => 'Profile updated successfully!',
+                'user' => $blog,
             ]);
 
         } catch (\Exception $e) {
