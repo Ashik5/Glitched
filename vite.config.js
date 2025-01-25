@@ -1,23 +1,22 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
-import path from 'path';
-import fs from 'fs';
 
 export default defineConfig(({ command }) => {
     const isProduction = command === 'build' || process.env.APP_ENV === 'production';
-
     return {
-        base: isProduction ? '/' : '/',
+        base: 'https://glitched.onrender.com/',
         plugins: [
             laravel({
                 input: ['resources/js/app.jsx'],
-                refresh: !isProduction,
+                refresh: true,
+                buildDirectory: 'build',
             }),
             react(),
         ],
         build: {
             manifest: true,
+            outDir: 'public/build',
             rollupOptions: {
                 output: {
                     entryFileNames: 'assets/[name]-[hash].js',
@@ -27,13 +26,13 @@ export default defineConfig(({ command }) => {
             },
         },
         server: {
-            https: false,
-            host: '0.0.0.0',
+            https: true,
+            host: true,
             port: 5173,
+            strictPort: true,
             hmr: {
-                protocol: isProduction ? 'wss' : 'ws',
-                host: isProduction ? 'glitched.onrender.com' : 'localhost',
-                clientPort: isProduction ? 443 : 5173,
+                protocol: 'https',
+                host: 'glitched.onrender.com',
             },
         },
     };
