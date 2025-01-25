@@ -36,5 +36,10 @@ export default defineConfig(({ command }) => {
                 },
             },
         },
+        resolve: {
+            alias: {
+                '@assets': '/resources/assets',
+            },
+        },
     };
 });
