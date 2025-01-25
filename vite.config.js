@@ -11,4 +11,13 @@ export default defineConfig({
         }),
         react(),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                assetFileNames: (assetInfo) => {
+                    return 'build/assets/[name]-[hash][extname]';
+                },
+            },
+        },
+    },
 });
