@@ -28,4 +28,4 @@ Route::middleware('auth')->group(function () {
     Route::put('/blogs/{id}', [BlogsController::class, 'updateBlog']);
 });
 
-Route::post('/blogs', [BlogsController::class, 'createBlog']); 
+Route::post('/blogs', [BlogsController::class, 'createBlog']);
