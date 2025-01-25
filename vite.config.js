@@ -7,21 +7,12 @@ import fs from 'fs';
 export default defineConfig(({ command }) => {
     const isProduction = command === 'build' || process.env.APP_ENV === 'production';
 
-    // Dynamically find all page components
-    const pagesDir = path.resolve(__dirname, 'resources/js/Pages');
-    const pageFiles = fs.readdirSync(pagesDir)
-        .filter(file => file.endsWith('.jsx'))
-        .map(file => `resources/js/Pages/${file}`);
-
     return {
-        base: isProduction ? 'https://glitched.onrender.com/' : '/', // Use HTTPS in production
+        base: isProduction ? '/' : '/',
         plugins: [
             laravel({
-                input: [
-                    'resources/js/app.jsx',
-                    ...pageFiles
-                ],
-                refresh: !isProduction, // Enable HMR only for development
+                input: ['resources/js/app.jsx'],
+                refresh: !isProduction,
             }),
             react(),
         ],
@@ -32,19 +23,18 @@ export default defineConfig(({ command }) => {
                     entryFileNames: 'assets/[name]-[hash].js',
                     chunkFileNames: 'assets/[name]-[hash].js',
                     assetFileNames: 'assets/[name]-[hash][extname]',
-                }
-            }
+                },
+            },
         },
         server: {
-            https: false, // Keep HTTPS false for local development
-            host: '0.0.0.0', // Allow external access in development
+            https: false,
+            host: '0.0.0.0',
             port: 5173,
-            strictPort: true,
             hmr: {
-                protocol: isProduction ? 'wss' : 'ws', // Use WebSocket Secure in production
+                protocol: isProduction ? 'wss' : 'ws',
                 host: isProduction ? 'glitched.onrender.com' : 'localhost',
-                clientPort: isProduction ? 443 : 5173, // Default HTTPS port for production
+                clientPort: isProduction ? 443 : 5173,
             },
-        }
+        },
     };
 });
