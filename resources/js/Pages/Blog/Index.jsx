@@ -7,15 +7,8 @@ const Index = (props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulated fetch for blog data
-        setTimeout(() => {
-            setBlogs([
-                { id: 1, title: 'First Blog', description: 'This is the first blog description.' },
-                { id: 2, title: 'Second Blog', description: 'This is the second blog description.' },
-                { id: 3, title: 'Third Blog', description: 'This is the third blog description.' }
-            ]);
-            setLoading(false);
-        }, 1000);
+        setBlogs(props.blogs.data);
+        setLoading(false);
     }, []);
 
     if (loading) {
@@ -34,7 +27,7 @@ const Index = (props) => {
                 {blogs.map((blog) => (
                     <li key={blog.id}>
                         <h2>{blog.title}</h2>
-                        <p>{blog.description}</p>
+                        <p>{blog.desc}</p>
                     </li>
                 ))}
             </ul>
