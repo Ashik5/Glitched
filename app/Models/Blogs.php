@@ -13,6 +13,9 @@ class Blogs extends Model
      *
      * @var array<int, string>
      */
+
+     protected $primaryKey = 'blog_id';
+
     protected $fillable = [
         'title',
         'desc',

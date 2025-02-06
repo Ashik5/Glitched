@@ -122,21 +122,40 @@ class BlogsController extends Controller
     /**
      * Delete a blog
      */
-    public function deleteBlog($id)
-    {
-        try {
-            if (!Auth::check()) {
-                return response()->json(['message' => 'Unauthorized'], 401);
-            }
+    public function deleteBlog(Request $request)
+{
+    \Log::info('Delete Blog Request:', $request->all());
 
-            $blog = Blogs::findOrFail($id);
-            $blog->delete();
-
-            return response()->json(['message' => 'Blog deleted successfully!'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
+    try {
+        if (!Auth::check()) {
+            \Log::warning('Unauthorized access attempt');
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
+
+        $id = $request->input('id');
+        if (!$id) {
+            \Log::error('No ID provided in request');
+            return response()->json(['message' => 'No ID provided'], 400);
+        }
+
+        \Log::info('Blog ID to delete:', ['id' => $id]);
+
+        $blog = Blogs::where('blog_id', $id)->firstOrFail(); // Use 'blog_id' to find the blog
+        $blog->delete();
+
+        \Log::info('Blog deleted successfully', ['id' => $id]);
+        return response()->json(['message' => 'Blog deleted successfully!'], 200);
+    } catch (\Exception $e) {
+        \Log::error('Failed to delete blog:', ['error' => $e->getMessage()]);
+        return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
     }
+}
+
+
+
+
+
+
 
     /**
      * Show the blog creation form
