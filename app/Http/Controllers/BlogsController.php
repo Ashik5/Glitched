@@ -7,29 +7,47 @@ use Illuminate\Http\Request;
 use App\Models\Blogs;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class BlogsController extends Controller
 {
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'desc' => 'required',
+            'tag' => 'required|in:valorant,csgo',
+            'category' => 'required|in:tips,news',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/blogs');
+            $validated['image'] = Storage::url($path);
+        }
+
+        $validated['author'] = Auth::id();
+        $validated['likes'] = 0;
+        $validated['dislikes'] = 0;
+        $validated['comments'] = [];
+
+        $blog = Blogs::create($validated);
+
+        return redirect()->route('blogs.index')
+            ->with('success', 'Blog created successfully.');
+    }
     /**
-     * get all the blogs
+     * Get all the blogs or a specific blog by ID
      */
     public function getBlogs(Request $request, $id = null)
     {
         try {
-            // Check if a specific blog ID is requested
             if ($id) {
-                $blog = Blogs::findOrFail($id); // Fetch blog by ID
-
-                return response()->json([
-                    'message' => 'Blog fetched successfully!',
-                    'blog' => $blog,
-                ], 200);
+                $blog = Blogs::findOrFail($id);
+                return response()->json(['message' => 'Blog fetched successfully!', 'blog' => $blog], 200);
             }
 
-            // Fetch all blogs with optional filters
             $blogs = Blogs::query();
-
-            // Add filtering based on category or tags (if provided)
             if ($request->has('category')) {
                 $blogs->where('category', $request->input('category'));
             }
@@ -37,65 +55,42 @@ class BlogsController extends Controller
                 $blogs->where('tags', 'like', '%' . $request->input('tags') . '%');
             }
 
-            // Paginate results
-            $blogs = $blogs->paginate(10); // Adjust pagination as needed
+            $blogs = $blogs->paginate(10);
 
-            return Inertia::render('Blog/Index', [
-                'blogs' => $blogs,
-                'filters' => $request->only(['category', 'tags']),
-            ]);
-
+            return Inertia::render('Blog/Index', ['blogs' => $blogs, 'filters' => $request->only(['category', 'tags'])]);
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Failed to fetch blogs',
-                'error' => $e->getMessage(),
-            ], 500);
+            return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
+
     /**
-     * Create a new blog post
+     * Look up blogs by title
      */
-    public function createBlog(Request $request)
+    public function searchByTitle(Request $request)
     {
-        try {
-            // Check if user is authenticated
-            if (!Auth::check()) {
-                return response()->json(['message' => 'Unauthorized'], 401);
-            }
+        $request->validate(['title' => 'required|string']);
+        $blogs = Blogs::where('title', 'like', '%' . $request->input('title') . '%')->get();
+        return response()->json(['message' => 'Blogs fetched successfully!', 'blogs' => $blogs], 200);
+    }
 
-            // Validate the incoming request
-            $validated = $request->validate([
-                'title' => 'required|string|max:255',
-                'desc' => 'required|string',
-                'image' => 'url|nullable',
-                'tags' => 'required|string',
-                'category' => 'required|string',
-            ]);
+    /**
+     * Look up blogs by category
+     */
+    public function searchByCategory(Request $request)
+    {
+        $request->validate(['category' => 'required|string']);
+        $blogs = Blogs::where('category', $request->input('category'))->get();
+        return response()->json(['message' => 'Blogs fetched successfully!', 'blogs' => $blogs], 200);
+    }
 
-            $blog = Blogs::create([
-                'title' => $validated['title'],
-                'desc' => $validated['desc'],
-                'author' => Auth::id(),
-                'image' => $validated['image'] ?? null,
-                'tags' => $validated['tags'],
-                'category' => $validated['category'],
-                'likes' => 0,
-                'dislikes' => 0,
-                'comments' => json_encode([]),
-            ]);
-
-            // Return a response
-            return response()->json([
-                'message' => 'Blog created successfully!',
-                'blog' => $blog,
-            ], 201);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Blog creation failed',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+    /**
+     * Look up blogs by tags
+     */
+    public function searchByTags(Request $request)
+    {
+        $request->validate(['tags' => 'required|string']);
+        $blogs = Blogs::where('tags', 'like', '%' . $request->input('tags') . '%')->get();
+        return response()->json(['message' => 'Blogs fetched successfully!', 'blogs' => $blogs], 200);
     }
 
     /**
@@ -104,16 +99,12 @@ class BlogsController extends Controller
     public function updateBlog(Request $request, $id)
     {
         try {
-            // Check if user is authenticated
             if (!Auth::check()) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
 
-            // Find the blog by ID
             $blog = Blogs::findOrFail($id);
-
-            // Validate the incoming data
-            $validatedData = $request->validate([
+            $validated = $request->validate([
                 'title' => 'string|max:255|nullable',
                 'desc' => 'string|nullable',
                 'image' => 'url|nullable',
@@ -121,27 +112,37 @@ class BlogsController extends Controller
                 'category' => 'string|nullable',
             ]);
 
-            // Update the fields if provided
-            if ($request->has('title')) $blog->title = $validatedData['title'];
-            if ($request->has('desc')) $blog->desc = $validatedData['desc'];
-            if ($request->has('image')) $blog->image = $validatedData['image'];
-            if ($request->has('tags')) $blog->tags = $validatedData['tags'];
-            if ($request->has('category')) $blog->category = $validatedData['category'];
-
-            $blog->save(); // Save changes to the database
-
-            return Inertia::render('Dashboard', [
-                'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-                'status' => session('status'),
-                'message' => 'Profile updated successfully!',
-                'user' => $blog,
-            ]);
-
+            $blog->update($validated);
+            return response()->json(['message' => 'Blog updated successfully!', 'blog' => $blog]);
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Blog update failed',
-                'error' => $e->getMessage()
-            ], 500);
+            return response()->json(['message' => 'Blog update failed', 'error' => $e->getMessage()], 500);
         }
+    }
+
+    /**
+     * Delete a blog
+     */
+    public function deleteBlog($id)
+    {
+        try {
+            if (!Auth::check()) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+
+            $blog = Blogs::findOrFail($id);
+            $blog->delete();
+
+            return response()->json(['message' => 'Blog deleted successfully!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Show the blog creation form
+     */
+    public function create()
+    {
+        return Inertia::render('Blog/CreateBlog');
     }
 }
