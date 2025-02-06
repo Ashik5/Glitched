@@ -29,3 +29,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/blogs', [BlogsController::class, 'createBlog']);
+Route::post('/upload-image', function (Request $request) {
+    $path = $request->file('file')->store('blog-images', 'public');
+    return response()->json(['location' => Storage::url($path)]);
+});
