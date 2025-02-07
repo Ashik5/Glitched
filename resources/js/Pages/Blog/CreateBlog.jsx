@@ -39,7 +39,7 @@ export default function Create(props) {
                         type="text"
                         value={data.title}
                         onChange={(e) => setData("title", e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                     />
                     {errors.title && (
                         <div className="text-red-500 text-xs">

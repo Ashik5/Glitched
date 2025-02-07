@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogsController;
+use App\Models\Blogs;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,9 @@ use App\Http\Controllers\BlogsController;
 */
 
 Route::get('/', function () {
+    $blogs = Blogs::with('author')->limit(5)->get();
     return Inertia::render('Welcome', [
+        'blogs' => $blogs,
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
