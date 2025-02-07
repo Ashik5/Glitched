@@ -1,3 +1,6 @@
+@import "tinymce/skins/content/default/content.css";
+@import "tinymce/skins/ui/oxide/content.min.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
