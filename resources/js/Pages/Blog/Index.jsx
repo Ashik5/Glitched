@@ -5,22 +5,28 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 const Index = (props) => {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [editingBlog, setEditingBlog] = useState(null);
+    const [formData, setFormData] = useState({
+        title: "",
+        desc: "",
+        image: "",
+        tags: "",
+        category: "",
+    });
 
     useEffect(() => {
         setBlogs(props.blogs.data);
         setLoading(false);
-    }, []);
+    }, [props.blogs.data]);
 
     const deleteBlog = (id) => {
-        console.log("Blog ID to delete:", id); // Log the ID
-
         if (confirm("Are you sure you want to delete this blog?")) {
             fetch(route("blogs.delete"), {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ id: id }), // Ensure the ID is included here
+                body: JSON.stringify({ id: id }),
             })
                 .then((response) => {
                     if (response.ok) {
@@ -41,6 +47,56 @@ const Index = (props) => {
                     alert("Error deleting blog: " + error.message);
                 });
         }
+    };
+
+    const startEditing = (blog) => {
+        setEditingBlog(blog);
+        setFormData({
+            title: blog.title,
+            desc: blog.desc,
+            image: blog.image,
+            tags: blog.tags,
+            category: blog.category,
+        });
+    };
+
+    const updateBlog = (id) => {
+        fetch(route("blogs.update", { id: id }), {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then((error) => {
+                        throw new Error(error.message);
+                    });
+                }
+            })
+            .then((data) => {
+                setBlogs((prevBlogs) =>
+                    prevBlogs.map((blog) =>
+                        blog.blog_id === id ? data.blog : blog
+                    )
+                );
+                setEditingBlog(null);
+            })
+            .catch((error) => {
+                console.error("There was an error updating the blog!", error);
+                alert("Error updating blog: " + error.message);
+            });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
     };
 
     if (loading) {
@@ -67,9 +123,60 @@ const Index = (props) => {
                         <button onClick={() => deleteBlog(blog.blog_id)}>
                             Delete
                         </button>
+                        <button onClick={() => startEditing(blog)}>
+                            Edit Blog
+                        </button>
                     </li>
                 ))}
             </ul>
+            {editingBlog && (
+                <div>
+                    <h2>Edit Blog</h2>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            updateBlog(editingBlog.blog_id);
+                        }}
+                    >
+                        <input
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleInputChange}
+                            placeholder="Title"
+                        />
+                        <input
+                            type="text"
+                            name="desc"
+                            value={formData.desc}
+                            onChange={handleInputChange}
+                            placeholder="Description"
+                        />
+                        <input
+                            type="text"
+                            name="image"
+                            value={formData.image}
+                            onChange={handleInputChange}
+                            placeholder="Image URL"
+                        />
+                        <input
+                            type="text"
+                            name="tags"
+                            value={formData.tags}
+                            onChange={handleInputChange}
+                            placeholder="Tags"
+                        />
+                        <input
+                            type="text"
+                            name="category"
+                            value={formData.category}
+                            onChange={handleInputChange}
+                            placeholder="Category"
+                        />
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
+            )}
         </AuthenticatedLayout>
     );
 };

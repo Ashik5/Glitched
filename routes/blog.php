@@ -11,3 +11,4 @@ Route::delete('/deleteblog', [BlogsController::class, 'deleteBlog'])->name('blog
 Route::get('/search', function () {
     return Inertia::render('Search/index');
 })->name('search');
+Route::put('/updateblog/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
