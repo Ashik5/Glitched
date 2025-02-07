@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./SwiperSlider.css";
+import { router } from "@inertiajs/react";
 
 
 const SwiperSlider = ({ title, items }) => {
@@ -29,8 +30,8 @@ const SwiperSlider = ({ title, items }) => {
                 }}
             >
                 {items.map((item) => (
-                    <SwiperSlide key={item.id}>
-                        <div className="bg-[#242244] rounded-lg overflow-hidden w-full h-[250px] flex flex-col">
+                    <SwiperSlide key={item.blog_id}>
+                        <div onClick={()=>{router.visit(route("blogs.single", { id: item.blog_id }));}} className="bg-[#242244] rounded-lg overflow-hidden w-full h-[250px] flex flex-col cursor-pointer">
                             <img
                                 src={item.image}
                                 alt={item.title}
@@ -41,7 +42,7 @@ const SwiperSlider = ({ title, items }) => {
                                     {item.title}
                                 </h3>
                                 <p className="text-gray-400 text-sm">
-                                    By {item.author} • {item.readTime}
+                                    By {item.author.name}
                                 </p>
                             </div>
                         </div>
