@@ -64,6 +64,14 @@ const Index = (props) => {
                     <li key={blog.blog_id}>
                         <h2>{blog.title}</h2>
                         <p>{blog.desc}</p>
+
+                        <div className="prose max-w-none rounded-lg p-8 shadow-sm">
+                            <div
+                                dangerouslySetInnerHTML={{ __html: blog.desc }}
+                                className="blog-content"
+                            />
+                        </div>
+
                         <button onClick={() => deleteBlog(blog.blog_id)}>
                             Delete
                         </button>
