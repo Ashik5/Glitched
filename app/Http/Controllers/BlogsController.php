@@ -99,9 +99,9 @@ class BlogsController extends Controller
     public function updateBlog(Request $request, $id)
     {
         try {
-            if (!Auth::check()) {
-                return response()->json(['message' => 'Unauthorized'], 401);
-            }
+            // if (!Auth::check()) {
+            //     return response()->json(['message' => 'Unauthorized'], 401);
+            // }
 
             $blog = Blogs::findOrFail($id);
             $validated = $request->validate([
@@ -150,12 +150,6 @@ class BlogsController extends Controller
         return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
     }
 }
-
-
-
-
-
-
 
     /**
      * Show the blog creation form
