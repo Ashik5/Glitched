@@ -12,3 +12,6 @@ Route::get('/search', function () {
     return Inertia::render('Search/index');
 })->name('search');
 Route::put('/updateblog/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
+Route::get('/singleblog', function () {
+    return Inertia::render('Blog/SingleBlog');
+})->name('blog.single');
