@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -28,8 +30,19 @@ class UserController extends Controller
 
         $user->save(); // Save changes to the database
 
-        return response()->json([
+        return Inertia::render('Dashboard', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
             'message' => 'Profile updated successfully!',
+            'user' => $user,
+        ]);
+    }
+
+    public function getUserData(Request $request): \Inertia\Response
+    {
+        $user = $request->user();
+
+        return Inertia::render('Dashboard', [
             'user' => $user,
         ]);
     }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Image1 from "../../assets/image_1.png";
+import Image1 from "@assets/image_1.png";
 import Image2 from "../../assets/image_2.png";
 import Image3 from "../../assets/image_3.png";
 import Image4 from "../../assets/image_4.png";
@@ -19,8 +19,10 @@ import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import SwiperSlider from "../Components/SwiperSlider/SwiperSlider";
 import SectionDivider from "../Components/SectionDivider/SectionDivider";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
 
-function App() {
+function App(props) {
     const [activeSection, setActiveSection] = useState("trending");
 
     const newsItems = [
@@ -109,83 +111,10 @@ function App() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#1a1832] flex flex-col">
-            {/* Navigation */}
-            <nav className="bg-[#1a1832] border-b border-gray-800">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        {/* Left Logo Section */}
-                        <div className="flex items-center">
-                            <img
-                                src={Logo}
-                                alt="Glitched Logo"
-                                className="h-12"
-                            />
-                        </div>
-
-                        {/* Center Navigation Links */}
-                        <div className="flex space-x-4 items-center">
-                            <button
-                                onClick={() => setActiveSection("trending")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "trending"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
-                            >
-                                <TrendingUp className="h-4 w-4 mr-2" />
-                                Trending
-                            </button>
-                            <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("news")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "news"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
-                            >
-                                <Newspaper className="h-4 w-4 mr-2" />
-                                News
-                            </button>
-                            <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("tips")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "tips"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
-                            >
-                                <Lightbulb className="h-4 w-4 mr-2" />
-                                Tips & Tricks
-                            </button>
-                            <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("reviews")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "reviews"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
-                            >
-                                Reviews
-                            </button>
-                        </div>
-
-                        {/* Right Icons */}
-                        <div className="flex items-center">
-                            <button className="p-1 text-gray-400 hover:text-white focus:outline-none">
-                                <Search className="h-6 w-6" />
-                            </button>
-                            <button className="ml-4 p-1 text-gray-400 hover:text-white focus:outline-none">
-                                <User className="h-6 w-6" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
+        <AuthenticatedLayout
+            auth={props.auth}
+            errors={props.errors}
+        >
             {/* Main Content */}
             <main className="flex-grow">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -285,69 +214,7 @@ function App() {
                     </div>
                 </div>
             </main>
-
-            {/* Footer */}
-            <footer className="bg-white py-8">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col items-center">
-                        <div className="flex items-center space-x-2 mb-6">
-                            <img
-                                src={Footer_Logo}
-                                alt="Glitched Logo"
-                                className="h-8"
-                            />
-                        </div>
-                        <div className="flex space-x-6 mb-6">
-                            <a
-                                href="#"
-                                className="flex items-center hover:text-gray-900 space-x-2"
-                            >
-                                <FaFacebookF className="h-5 w-5 text-[#1877F2]" />
-                                <span className="text-gray-600">Facebook</span>
-                            </a>
-                            <a
-                                href="#"
-                                className="flex items-center hover:text-gray-900 space-x-2"
-                            >
-                                <FaTwitter className="h-5 w-5 text-[#1DA1F2]" />
-                                <span className="text-gray-600">Twitter</span>
-                            </a>
-                            <a
-                                href="#"
-                                className="flex items-center hover:text-gray-900 space-x-2"
-                            >
-                                <FaYoutube className="h-5 w-5 text-[#FF0000]" />
-                                <span className="text-gray-600">YouTube</span>
-                            </a>
-                            <a
-                                href="#"
-                                className="flex items-center hover:text-gray-900 space-x-2"
-                            >
-                                <FaDiscord className="h-5 w-5 text-[#5865F2]" />
-                                <span className="text-gray-600">Discord</span>
-                            </a>
-                        </div>
-                        <div className="flex space-x-6 text-sm text-gray-600">
-                            <a href="#" className="hover:text-gray-900">
-                                About
-                            </a>
-                            <a href="#" className="hover:text-gray-900">
-                                Privacy
-                            </a>
-                            <a href="#" className="hover:text-gray-900">
-                                Terms of Use
-                            </a>
-                            <a href="#" className="hover:text-gray-900">
-                                Contact Us
-                            </a>
-                        </div>
-                        <div className="mt-6 text-sm text-gray-500">
-                            © 2024. All rights reserved by GLITCHED
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        </AuthenticatedLayout>
     );
 }
 
