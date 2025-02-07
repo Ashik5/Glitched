@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -22,18 +23,13 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+        $validated = $request->validate([
             'blog_id' => 'required|exists:blogs,blog_id',
-            'comment' => 'required|string|max:1000',
+            'comment' => 'required|string|max:1000'
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
-
-        $comment = Comment::create($request->all());
-        return response()->json(['message' => 'Comment created successfully', 'data' => $comment]);
+        $validated['user_id'] = Auth::id();
+        $comment = Comment::create($validated);
+        return back()->with('success', 'Comment posted successfully');
     }
 
     /**

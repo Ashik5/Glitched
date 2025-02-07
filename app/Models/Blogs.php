@@ -16,6 +16,11 @@ class Blogs extends Model
      */
     protected $primaryKey = 'blog_id';
 
+    // Ensure the primary key is not assumed to be 'id'
+    public $incrementing = true;
+
+    // Specify the data type of the primary key
+    protected $keyType = 'int';
     /**
      * Mass assignable attributes.
      */
@@ -43,7 +48,7 @@ class Blogs extends Model
     /**
      * Relationship with User.
      */
-    public function user()
+    public function author()
     {
         return $this->belongsTo(User::class, 'author', 'id');
     }
