@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Head } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { router } from "@inertiajs/react";
 
 const Index = (props) => {
     const [blogs, setBlogs] = useState([]);
@@ -90,6 +91,9 @@ const Index = (props) => {
                 alert("Error updating blog: " + error.message);
             });
     };
+    const handleSingleBlog = (id) => {
+        router.visit(route("blogs.single", { id: id }));
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -133,6 +137,9 @@ const Index = (props) => {
                         </button>
                         <button onClick={() => startEditing(blog)}>
                             Edit Blog
+                        </button>
+                        <button onClick={() => handleSingleBlog(blog.blog_id)}>
+                            View Blog
                         </button>
                     </li>
                 ))}

@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('blogs', function (Blueprint $table) {
-            $table->unsignedBigInteger('blog_id')->primary(); 
+            $table->id('blog_id'); 
             $table->string('title');
-            $table->text('desc');
+            $table->text('content');
             $table->string('image')->nullable();
             $table->unsignedBigInteger('author'); // Foreign key to users table
             $table->string('tag')->nullable(); // e.g., Valorant, CS:GO

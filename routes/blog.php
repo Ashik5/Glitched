@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CommentController;
 use Inertia\Inertia;
 
 Route::get('/blogs', [BlogsController::class, 'getBlogs'])->name('blogs.index');
@@ -14,6 +15,5 @@ Route::get('/search', function () {
     return Inertia::render('Search/index');
 })->name('search');
 Route::put('/updateblog/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
-Route::get('/singleblog', function () {
-    return Inertia::render('Blog/SingleBlog');
-})->name('blog.single');
+Route::get('/blog/{id}', [BlogsController::class, 'getBlogs'])->name('blogs.single');
+Route::post('/addcomment', [CommentController::class, 'store'])->name('comments.store');
