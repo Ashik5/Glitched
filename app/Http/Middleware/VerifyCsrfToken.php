@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         //
         '/createblog',
         '/deleteblog',
+        '/search',
         '/updateblog/*'
     ];
 }
