@@ -8,6 +8,6 @@ use Inertia\Inertia;
 Route::get('/blogs', [BlogsController::class, 'getBlogs'])->name('blogs.index');
 Route::post('/createblog', [BlogsController::class, 'store'])->name('blogs.store');
 Route::get('/createblog', function(){
-    return Inertia::render('Blogs/CreateBlog');
+    return Inertia::render('Blog/CreateBlog');
 })->name('blogs.create');
 Route::delete('/deleteblog', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
