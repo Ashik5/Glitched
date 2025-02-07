@@ -4,21 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Comment;
 
 class Blogs extends Model
 {
     use HasFactory;
+
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * The primary key associated with the table.
      */
+    protected $primaryKey = 'blog_id';
 
-     protected $primaryKey = 'blog_id';
-
+    /**
+     * Mass assignable attributes.
+     */
     protected $fillable = [
         'title',
-        'desc',
+        'content',
         'image',
         'author',
         'tag', // kon game (valorant ? csgo)
@@ -29,13 +32,27 @@ class Blogs extends Model
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * Attribute casting.
      */
     protected $casts = [
-        'comments' => 'array', // Cast comments as an array
-        'likes' => 'integer', // Cast likes as an integer
-        'dislikes' => 'integer', // Cast dislikes as an integer
+        'comments' => 'array',
+        'likes' => 'integer',
+        'dislikes' => 'integer',
     ];
+
+    /**
+     * Relationship with User.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author', 'id');
+    }
+
+    /**
+     * Relationship with Comments.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'blog_id', 'blog_id');
+    }
 }
