@@ -3,16 +3,17 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
-import {Lightbulb, Search } from "lucide-react";
+import { Lightbulb, Search } from "lucide-react";
 import { FaFacebookF, FaTwitter, FaYoutube, FaDiscord } from "react-icons/fa";
 import Footer_Logo from "../../assets/Footer_Logo.png";
-
 
 export default function Authenticated({ auth, header, children }) {
     const [activeSection, setActiveSection] = useState("trending");
 
     return (
-        <div className="min-h-screen bg-[#1a1b2e] text-white">
+        <div className="min-h-screen text-white bg-gradient-to-br from-[#080715] to-[#2D277B]">
+
+
             <nav className="bg-[#1a1832] border-b border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
@@ -65,9 +66,13 @@ export default function Authenticated({ auth, header, children }) {
 
                         {/* Right Icons */}
                         <div className="flex items-center">
-                            <button className="p-1 text-gray-400 hover:text-white focus:outline-none">
+                            <Link
+                                href={route("search")}
+                                className="p-1 text-gray-400 hover:text-white focus:outline-none"
+                            >
                                 <Search className="h-6 w-6" />
-                            </button>
+                            </Link>
+
                             <div className="hidden sm:flex sm:items-center sm:ml-6">
                                 <div className="ml-3 relative">
                                     <Dropdown>
