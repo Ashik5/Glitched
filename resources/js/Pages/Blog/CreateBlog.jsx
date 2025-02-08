@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 export default function Create(props) {
     const { data, setData, post, processing, errors } = useForm({
         title: "",
-        desc: "",
+        content: "",
         image: null,
         author: "", // This should probably come from auth user
         tag: "",
@@ -39,7 +39,7 @@ export default function Create(props) {
                         type="text"
                         value={data.title}
                         onChange={(e) => setData("title", e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                     />
                     {errors.title && (
                         <div className="text-red-500 text-xs">
@@ -53,8 +53,8 @@ export default function Create(props) {
                         Description
                     </label>
                     <TinyEditor
-                        value={data.desc}
-                        onChange={(content) => setData("desc", content)}
+                        value={data.content}
+                        onChange={(content) => setData("content", content)}
                     />
                     {errors.desc && (
                         <div className="text-red-500 text-xs">

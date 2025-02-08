@@ -15,7 +15,7 @@ class BlogsController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'desc' => 'required',
+            'content' => 'required',
             'tag' => 'required|in:valorant,csgo',
             'category' => 'required|in:tips,news',
             'image' => 'nullable|image|max:2048'
@@ -43,8 +43,8 @@ class BlogsController extends Controller
     {
         try {
             if ($id) {
-                $blog = Blogs::findOrFail($id);
-                return response()->json(['message' => 'Blog fetched successfully!', 'blog' => $blog], 200);
+                $blog = Blogs::with(['author','comments.user'])->findOrFail($id);
+                return Inertia::render('Blog/SingleBlog', ['blog' => $blog]);
             }
 
             $blogs = Blogs::query();
