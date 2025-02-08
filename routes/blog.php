@@ -20,4 +20,7 @@ Route::middleware('auth')->group(function () {
     })->name('search');
     Route::put('/updateblog/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
     Route::post('/addcomment', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/editblog', function () {
+        return Inertia::render('Blog/EditBlog');
+    })->name('blog.edit');
 });
