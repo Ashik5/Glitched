@@ -42,7 +42,7 @@ function Edit(props) {
             errors={props.errors}
         >
       {/* Profile Section */}
-      <div className="container mx-auto px-4 pt-24 bg-[#1a1b2e] text-white">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 bg-[#1a1b2e] text-white">
         <div className="flex items-center gap-6 mb-12">
           <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center">
             <User className="w-12 h-12 text-gray-400" />
@@ -94,7 +94,7 @@ function Edit(props) {
             ))}
           </div>
         </section>
-      </div>
+      </main>
       </AuthenticatedLayout>
 
       

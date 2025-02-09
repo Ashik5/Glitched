@@ -43,4 +43,4 @@ RUN npm ci && npm run build
 EXPOSE 80
 
 # Run migrations and start Apache
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate:fresh --force && apache2-foreground
