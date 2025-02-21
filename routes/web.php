@@ -20,7 +20,7 @@ use App\Models\Blogs;
 */
 
 Route::get('/', function () {
-    $blogs = Blogs::with('author')->limit(5)->get();
+    $blogs = Blogs::with('author')->where('status','approved')->limit(5)->get();
     return Inertia::render('Welcome', [
         'blogs' => $blogs,
         'canLogin' => Route::has('login'),
