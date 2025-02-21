@@ -1,13 +1,13 @@
 import React from "react";
 
 const Table = ({ children }) => (
-    <table className="w-full border border-gray-300 rounded-lg">
+    <table className="w-full rounded-lg">
         {children}
     </table>
 );
 
 const TableHeader = ({ children }) => (
-    <thead className="bg-gray-100">
+    <thead className="rounded-lg">
         {children}
     </thead>
 );
@@ -19,13 +19,13 @@ const TableBody = ({ children }) => (
 );
 
 const TableRow = ({ children }) => (
-    <tr className="border-t hover:bg-gray-50">
+    <tr className="hover:bg-gray-50 text-center">
         {children}
     </tr>
 );
 
 const TableHead = ({ children }) => (
-    <th className="px-4 py-2 text-left font-semibold">
+    <th className="px-4 py-2 text-left font-semibold text-center">
         {children}
     </th>
 );

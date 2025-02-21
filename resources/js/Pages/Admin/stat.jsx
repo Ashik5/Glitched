@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Users, FileText, UserCheck, Clock } from "lucide-react";
 import Dashboard from "../Admin/dashboard"; // Import your responsive sidebar
 import Card from "../../Components/Card";
-import CardContent from "../../Components/CardContent";
 import {
     Table,
     TableBody,
@@ -36,7 +35,7 @@ const AdminDashboard = () => {
         pendingPosts: 0,
     });
     console.log("Top Users:", topUsers);
-console.log("Top Posts:", topPosts);
+    console.log("Top Posts:", topPosts);
 
     return (
         <div className="flex bg-gray-900 text-white min-h-screen">
@@ -54,7 +53,9 @@ console.log("Top Posts:", topPosts);
                         <Users size={40} className="text-blue-400" />
                         <div>
                             <h3 className="text-lg font-medium">Total Users</h3>
-                            <p className="text-2xl font-bold">{stats.totalUsers}</p>
+                            <p className="text-2xl font-bold">
+                                {stats.totalUsers}
+                            </p>
                         </div>
                     </div>
 
@@ -63,7 +64,9 @@ console.log("Top Posts:", topPosts);
                         <FileText size={40} className="text-green-400" />
                         <div>
                             <h3 className="text-lg font-medium">Total Posts</h3>
-                            <p className="text-2xl font-bold">{stats.totalPosts}</p>
+                            <p className="text-2xl font-bold">
+                                {stats.totalPosts}
+                            </p>
                         </div>
                     </div>
 
@@ -71,8 +74,12 @@ console.log("Top Posts:", topPosts);
                     <div className="bg-[#1E1A4B] p-6 rounded-lg shadow-md flex items-center gap-4">
                         <UserCheck size={40} className="text-yellow-400" />
                         <div>
-                            <h3 className="text-lg font-medium">Pending Users</h3>
-                            <p className="text-2xl font-bold">{stats.pendingUsers}</p>
+                            <h3 className="text-lg font-medium">
+                                Pending Users
+                            </h3>
+                            <p className="text-2xl font-bold">
+                                {stats.pendingUsers}
+                            </p>
                         </div>
                     </div>
 
@@ -80,62 +87,95 @@ console.log("Top Posts:", topPosts);
                     <div className="bg-[#1E1A4B] p-6 rounded-lg shadow-md flex items-center gap-4">
                         <Clock size={40} className="text-red-400" />
                         <div>
-                            <h3 className="text-lg font-medium">Pending Posts</h3>
-                            <p className="text-2xl font-bold">{stats.pendingPosts}</p>
+                            <h3 className="text-lg font-medium">
+                                Pending Posts
+                            </h3>
+                            <p className="text-2xl font-bold">
+                                {stats.pendingPosts}
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    
                     {/* Top Users */}
                     <Card>
-                        <CardContent>
-                            <h2 className="text-xl font-semibold mb-4">🏆 Top Active Users</h2>
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Rank</TableHead>
-                                        <TableHead>Name</TableHead>
-                                        <TableHead>Posts</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {topUsers.map((user, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{index + 1}</TableCell>
-                                            <TableCell>{user.name}</TableCell>
-                                            <TableCell>{user.posts}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </CardContent>
+                        <h2 className="text-xl font-semibold mb-4">
+                            🏆 Top Active Users
+                        </h2>
+                        <table className="w-full rounded-lg">
+                            <thead className="rounded-lg">
+                                <tr className="text-center">
+                                    <th className="px-4 py-2 text-left font-semibold text-center">
+                                        Rank
+                                    </th>
+                                    <th className="px-4 py-2 text-left font-semibold text-center">
+                                        Name
+                                    </th>
+                                    <th className="px-4 py-2 text-left font-semibold text-center">
+                                        Posts
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {topUsers.map((user, index) => (
+                                    <tr
+                                        key={index}
+                                        className="hover:bg-blue-600 text-center"
+                                    >
+                                        <td className="px-4 py-2">
+                                            {index + 1}
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {user.name}
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {user.posts}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </Card>
 
                     {/* Top Posts */}
                     <Card>
-                        <CardContent>
-                            <h2 className="text-xl font-semibold mb-4">🔥 Most Liked Posts</h2>
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Rank</TableHead>
-                                        <TableHead>Title</TableHead>
-                                        <TableHead>Likes</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {topPosts.map((post, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{index + 1}</TableCell>
-                                            <TableCell>{post.title}</TableCell>
-                                            <TableCell>{post.likes}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </CardContent>
+                        <h2 className="text-xl font-semibold mb-4">
+                            🔥 Most Liked Posts
+                        </h2>
+                        <table className="w-full rounded-lg">
+                            <thead className="rounded-lg">
+                                <tr className="text-center">
+                                    <th className="px-4 py-2 text-left font-semibold text-center">
+                                        Rank
+                                    </th>
+                                    <th className="px-4 py-2 text-left font-semibold text-center">
+                                        Title
+                                    </th>
+                                    <th className="px-4 py-2 text-left font-semibold text-center">
+                                        Likes
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {topPosts.map((post, index) => (
+                                    <tr
+                                        key={index}
+                                        className="hover:bg-blue-600 text-center"
+                                    >
+                                        <td className="px-4 py-2">
+                                            {index + 1}
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {post.title}
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {post.likes}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </Card>
                 </div>
             </div>
