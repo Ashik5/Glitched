@@ -23,4 +23,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/editblog', function () {
         return Inertia::render('Blog/EditBlog');
     })->name('blog.edit');
+    
 });
+Route::get('/admin', function () {
+    return Inertia::render('Admin/index');
+})->name('blog.admin');
+Route::get('/admin/users', function () {
+    return Inertia::render('Admin/users');
+})->name('blog.admin.users');
+Route::get('/admin/stat', function () {
+    return Inertia::render('Admin/stat');
+})->name('blog.admin.stat');
