@@ -13,7 +13,7 @@ Route::get('/blog/{id}', [BlogsController::class, 'getBlogs'])->name('blogs.sing
 Route::middleware('auth')->group(function () {
     Route::post('/createblog', [BlogsController::class, 'store'])->name('blogs.store');
     Route::get('/createblog', function () {
-        return Inertia::render('Blog/CreateBlog');
+        return Inertia::render('Profile/CreateBlog');
     })->name('blogs.create');
     Route::delete('/deleteblog/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
     Route::delete('/deleteblog/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
@@ -26,29 +26,15 @@ Route::middleware('auth')->group(function () {
 
 
 });
-
-
-
-
 Route::get('/admin', function () {
     $totalPosts = Blogs::with('author')->count();
     $pendingPosts = Blogs::with('author')->where('status', 'pending')->count();
     $totalUsers = User::count();
     return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers]);
-    $totalPosts = Blogs::with('author')->count();
-    $pendingPosts = Blogs::with('author')->where('status', 'pending')->count();
-    $totalUsers = User::count();
-    return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers]);
 })->name('blog.admin');
-
-
-
-
 Route::get('/admin/users', function () {
     return Inertia::render('Admin/users');
 })->name('blog.admin.users');
-
-
 Route::get('/admin/posts', function () {
     $blogs = Blogs::with('author')->where('status', 'pending')->get();
     $verifiedBlogs = Blogs::with('author')->where('status', 'approved')->get();
@@ -58,10 +44,8 @@ Route::get('/admin/posts', function () {
 Route::put('/blogs/bulk-approve', [BlogsController::class, 'bulkApprove'])->name('blogs.bulkApprove');
 
 
-Route::get('/admin/posts', function () {
-    $blogs = Blogs::with('author')->where('status', 'pending')->get();
-    $verifiedBlogs = Blogs::with('author')->where('status', 'approved')->get();
-    return Inertia::render('Admin/posts', props: ['unverifiedBlogs' => $blogs, 'verifiedBlogs' => $verifiedBlogs]);
-})->name('blog.admin.posts');
-
-Route::put('/blogs/bulk-approve', [BlogsController::class, 'bulkApprove'])->name('blogs.bulkApprove');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/blogs/{blog_id}/like', [BlogsController::class, 'toggleLike'])->name('blog.like');
+    Route::post('/blogs/{blog_id}/dislike', [BlogsController::class, 'toggleDislike'])->name('blog.dislike');
+    Route::post('/blogs/{blog}/favourite', [BlogsController::class, 'toggleFavourite'])->name('blog.favourite');
+});

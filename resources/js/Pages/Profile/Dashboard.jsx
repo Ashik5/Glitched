@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckCircle, XCircle, Menu, Home, LogOut } from "lucide-react";
+import { CirclePlus, XCircle, Menu, Home, LogOut } from "lucide-react";
 
 const Dashboard = () => {
     return (
@@ -10,10 +10,16 @@ const Dashboard = () => {
                     <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
                     <nav className="space-y-4">
                         <a
-                            href="#"
+                            href={route("profile.index")}
                             className="flex items-center gap-2 hover:text-gray-300"
                         >
                             <Home size={20} /> Dashboard
+                        </a>
+                        <a
+                            href={route("blogs.create")}
+                            className="flex items-center gap-2 hover:text-gray-300"
+                        >
+                            <CirclePlus size={20} /> Create a Blog
                         </a>
                     </nav>
                 </div>
