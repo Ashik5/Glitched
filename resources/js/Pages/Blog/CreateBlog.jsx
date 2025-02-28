@@ -56,9 +56,9 @@ export default function Create(props) {
                         value={data.content}
                         onChange={(content) => setData("content", content)}
                     />
-                    {errors.desc && (
+                    {errors.content && (
                         <div className="text-red-500 text-xs">
-                            {errors.desc}
+                            {errors.content}
                         </div>
                     )}
                 </div>

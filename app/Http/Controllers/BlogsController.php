@@ -13,9 +13,16 @@ class BlogsController extends Controller
 {
     public function store(Request $request)
     {
+
+        $user = Auth::user();
+        if($user->banned){
+            return redirect()->route('blogs.index')
+                ->with('error', 'You are banned from creating blogs.');
+        }
+        
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'content' => 'required',
+            'content' => 'nullable|string',
             'tag' => 'required|in:valorant,csgo',
             'category' => 'required|in:tips,news',
             'image' => 'nullable|image|max:2048'
@@ -43,25 +50,32 @@ class BlogsController extends Controller
     {
         try {
             if ($id) {
-                $blog = Blogs::with(['author','comments.user'])->findOrFail($id);
+                $blog = Blogs::with(['author', 'comments.user'])->findOrFail($id);
                 return Inertia::render('Blog/SingleBlog', ['blog' => $blog]);
             }
 
-            $blogs = Blogs::query();
+            // Start with the query builder for approved blogs
+            $query = Blogs::where('status', 'approved');
+
+            // Apply category filter if present
             if ($request->has('category')) {
-                $blogs->where('category', $request->input('category'));
-            }
-            if ($request->has('tags')) {
-                $blogs->where('tags', 'like', '%' . $request->input('tags') . '%');
+                $query->where('category', $request->input('category'));
             }
 
-            $blogs = $blogs->paginate(10);
+            // Apply tags filter if present
+            if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+
+            // Execute the query with pagination
+            $blogs = $query->paginate(10);
 
             return Inertia::render('Blog/Index', ['blogs' => $blogs, 'filters' => $request->only(['category', 'tags'])]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
+
 
     /**
      * Look up blogs by title
@@ -96,60 +110,67 @@ class BlogsController extends Controller
     /**
      * Update an existing blog
      */
-    public function updateBlog(Request $request, $id)
-    {
-        try {
-            // if (!Auth::check()) {
-            //     return response()->json(['message' => 'Unauthorized'], 401);
-            // }
+    public function updateBlog(Request $request, $blog_id)  // Change $id to $blog_id
+{
+    try {
+        \Log::info(" Updating blog ID: " . $blog_id);
+        \Log::info(" Request data:", $request->all());
 
-            $blog = Blogs::findOrFail($id);
-            $validated = $request->validate([
-                'title' => 'string|max:255|nullable',
-                'desc' => 'string|nullable',
-                'image' => 'url|nullable',
-                'tags' => 'string|nullable',
-                'category' => 'string|nullable',
-            ]);
+        // Use 'blog_id' instead of 'id'
+        $blog = Blogs::where('blog_id', $blog_id)->firstOrFail();
 
-            $blog->update($validated);
-            return response()->json(['message' => 'Blog updated successfully!', 'blog' => $blog]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Blog update failed', 'error' => $e->getMessage()], 500);
+        \Log::info("📄 Before update:", $blog->toArray());
+
+        $validated = $request->validate([
+            'title' => 'string|max:255|nullable',
+            'content' => 'string|nullable',
+            'image' => 'nullable|image|max:2048',
+            'tag' => 'string|nullable',
+            'category' => 'string|nullable',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/blogs');
+            $validated['image'] = $path;
+            \Log::info(" Image uploaded: " . $path);
+        } else {
+            \Log::info(" No new image uploaded.");
         }
+
+        $blog->update($validated);
+
+        \Log::info(" Blog updated successfully!");
+        \Log::info("📄 After update:", $blog->toArray());
+
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!');
+    } catch (\Exception $e) {
+        \Log::error(" Blog update failed: " . $e->getMessage());
+        return response()->json(['message' => 'Blog update failed', 'error' => $e->getMessage()], 500);
     }
+}
+
+    
+
+
 
     /**
      * Delete a blog
      */
-    public function deleteBlog(Request $request)
-{
-    \Log::info('Delete Blog Request:', $request->all());
-
-    try {
-        if (!Auth::check()) {
-            \Log::warning('Unauthorized access attempt');
-            return response()->json(['message' => 'Unauthorized'], 401);
+    public function deleteBlog(Request $request, $id)
+    {
+        try {
+            if (!Auth::check()) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+            if (!$id) {
+                return response()->json(['message' => 'No ID provided'], 400);
+            }
+            $blog = Blogs::where('blog_id', $id)->firstOrFail();
+            $blog->delete();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
         }
-
-        $id = $request->input('id');
-        if (!$id) {
-            \Log::error('No ID provided in request');
-            return response()->json(['message' => 'No ID provided'], 400);
-        }
-
-        \Log::info('Blog ID to delete:', ['id' => $id]);
-
-        $blog = Blogs::where('blog_id', $id)->firstOrFail(); // Use 'blog_id' to find the blog
-        $blog->delete();
-
-        \Log::info('Blog deleted successfully', ['id' => $id]);
-        return response()->json(['message' => 'Blog deleted successfully!'], 200);
-    } catch (\Exception $e) {
-        \Log::error('Failed to delete blog:', ['error' => $e->getMessage()]);
-        return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
     }
-}
 
     /**
      * Show the blog creation form
@@ -158,4 +179,28 @@ class BlogsController extends Controller
     {
         return Inertia::render('Blog/CreateBlog');
     }
+
+    public function bulkApprove(Request $request)
+    {
+        $blogIds = $request->input('blogs');
+        if (!$blogIds || count($blogIds) === 0) {
+            return response()->json(['message' => 'No blogs selected'], 400);
+        }
+
+        Blogs::whereIn('blog_id', $blogIds)->update(['status' => 'approved']);
+    }
+
+    public function edit($id){
+    try {
+        $blog = Blogs::where('blog_id', $id)->firstOrFail();
+
+        return Inertia::render('Blog/EditBlog', [
+            'blog' => $blog, // Pass the full blog object
+        ]);
+    } catch (\Exception $e) {
+        return redirect()->route('blogs.index')->with('error', 'Blog not found');
+    }
+}
+
+
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Head } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { router } from "@inertiajs/react";
+import { useForm, router } from "@inertiajs/react";
 
 const Index = (props) => {
     const [blogs, setBlogs] = useState([]);
@@ -20,45 +20,10 @@ const Index = (props) => {
         setLoading(false);
     }, [props.blogs.data]);
 
-    const deleteBlog = (id) => {
-        if (confirm("Are you sure you want to delete this blog?")) {
-            fetch(route("blogs.delete"), {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ id: id }),
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        setBlogs((prevBlogs) =>
-                            prevBlogs.filter((blog) => blog.blog_id !== id)
-                        );
-                    } else {
-                        return response.json().then((error) => {
-                            throw new Error(error.message);
-                        });
-                    }
-                })
-                .catch((error) => {
-                    console.error(
-                        "There was an error deleting the blog!",
-                        error
-                    );
-                    alert("Error deleting blog: " + error.message);
-                });
-        }
-    };
+    const { delete: deleteBlog } = useForm();
 
-    const startEditing = (blog) => {
-        setEditingBlog(blog);
-        setFormData({
-            title: blog.title,
-            desc: blog.desc,
-            image: blog.image,
-            tags: blog.tags,
-            category: blog.category,
-        });
+    const handleDelete = (id) => {
+        deleteBlog(route("blogs.delete", id));
     };
 
     const updateBlog = (id) => {
@@ -91,6 +56,11 @@ const Index = (props) => {
                 alert("Error updating blog: " + error.message);
             });
     };
+
+    const handelEdit = (blog) => {
+        router.visit(route("blogs.edit", { id: blog.blog_id }));
+    };
+
     const handleSingleBlog = (id) => {
         router.visit(route("blogs.single", { id: id }));
     };
@@ -132,11 +102,11 @@ const Index = (props) => {
                             />
                         </div>
 
-                        <button onClick={() => deleteBlog(blog.blog_id)}>
+                        <button onClick={() => handleDelete(blog.blog_id)}>
                             Delete
                         </button>
-                        <button onClick={() => startEditing(blog)}>
-                            Edit Blog
+                        <button onClick={() => handelEdit(blog)}>
+                            Edit Blog1
                         </button>
                         <button onClick={() => handleSingleBlog(blog.blog_id)}>
                             View Blog

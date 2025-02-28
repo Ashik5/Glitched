@@ -29,11 +29,12 @@ class Blogs extends Model
         'content',
         'image',
         'author',
-        'tag', // kon game (valorant ? csgo)
-        'category', // kon type er post (Tips or tricks naki news)
+        'tag',
+        'category',
         'likes',
         'dislikes',
         'comments',
+        'status',
     ];
 
     /**

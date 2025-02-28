@@ -10,7 +10,7 @@ const Dashboard = () => {
                     <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
                     <nav className="space-y-4">
                         <a
-                             href={route("blog.admin.stat")}
+                             href={route("blog.admin")}
                             className="flex items-center gap-2 hover:text-gray-300"
                         >
                             <Home size={20} /> Dashboard
@@ -22,7 +22,7 @@ const Dashboard = () => {
                             <Users size={20} /> Users
                         </a>
                         <a
-                            href={route("blog.admin")}
+                            href={route("blog.admin.posts")}
                             className="flex items-center gap-2 hover:text-gray-300"
                         >
                             <Menu size={20} /> Posts
