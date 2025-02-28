@@ -51,6 +51,7 @@ class BlogsController extends Controller
         try {
             if ($id) {
                 $blog = Blogs::with(['author', 'comments.user'])->findOrFail($id);
+                $blog = Blogs::with(['author', 'comments.user'])->findOrFail($id);
                 return Inertia::render('Blog/SingleBlog', ['blog' => $blog]);
             }
 
@@ -58,15 +59,25 @@ class BlogsController extends Controller
             $query = Blogs::where('status', 'approved');
 
             // Apply category filter if present
+            // Start with the query builder for approved blogs
+            $query = Blogs::where('status', 'approved');
+
+            // Apply category filter if present
             if ($request->has('category')) {
+                $query->where('category', $request->input('category'));
                 $query->where('category', $request->input('category'));
             }
 
             // Apply tags filter if present
+
+            // Apply tags filter if present
             if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
                 $query->where('tags', 'like', '%' . $request->input('tags') . '%');
             }
 
+            // Execute the query with pagination
+            $blogs = $query->paginate(10);
             // Execute the query with pagination
             $blogs = $query->paginate(10);
 
@@ -75,6 +86,7 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
+
 
 
     /**
@@ -171,7 +183,6 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
         }
     }
-
     /**
      * Show the blog creation form
      */

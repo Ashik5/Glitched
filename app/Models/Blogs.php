@@ -11,24 +11,17 @@ class Blogs extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     */
     protected $primaryKey = 'blog_id';
-
-    // Ensure the primary key is not assumed to be 'id'
     public $incrementing = true;
-
-    // Specify the data type of the primary key
     protected $keyType = 'int';
-    /**
-     * Mass assignable attributes.
-     */
+
     protected $fillable = [
         'title',
         'content',
         'image',
         'author',
+        'tag',
+        'category',
         'tag',
         'category',
         'likes',
@@ -37,26 +30,17 @@ class Blogs extends Model
         'status',
     ];
 
-    /**
-     * Attribute casting.
-     */
     protected $casts = [
         'comments' => 'array',
         'likes' => 'integer',
         'dislikes' => 'integer',
     ];
 
-    /**
-     * Relationship with User.
-     */
     public function author()
     {
         return $this->belongsTo(User::class, 'author', 'id');
     }
 
-    /**
-     * Relationship with Comments.
-     */
     public function comments()
     {
         return $this->hasMany(Comment::class, 'blog_id', 'blog_id');
