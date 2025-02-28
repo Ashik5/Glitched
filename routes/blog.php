@@ -5,6 +5,7 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CommentController;
 use Inertia\Inertia;
 use App\Models\Blogs;
+use App\Models\User;
 
 Route::get('/blogs', [BlogsController::class, 'getBlogs'])->name('blogs.index');
 Route::get('/blog/{id}', [BlogsController::class, 'getBlogs'])->name('blogs.single');
@@ -26,8 +27,13 @@ Route::middleware('auth')->group(function () {
     })->name('blog.edit');
 
 });
+
+
 Route::get('/admin', function () {
-    return Inertia::render('Admin/stat');
+    $totalPosts = Blogs::with('author')->count();
+    $pendingPosts = Blogs::with('author')->where('status', 'pending')->count();
+    $totalUsers = User::count();
+    return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers]);
 })->name('blog.admin');
 
 
@@ -41,3 +47,5 @@ Route::get('/admin/posts', function () {
     $verifiedBlogs = Blogs::with('author')->where('status', 'approved')->get();
     return Inertia::render('Admin/posts', props: ['unverifiedBlogs' => $blogs, 'verifiedBlogs' => $verifiedBlogs]);
 })->name('blog.admin.posts');
+
+Route::put('/blogs/bulk-approve', [BlogsController::class, 'bulkApprove'])->name('blogs.bulkApprove');

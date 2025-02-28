@@ -2,16 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Users, FileText, UserCheck, Clock } from "lucide-react";
 import Dashboard from "../Admin/dashboard"; // Import your responsive sidebar
 import Card from "../../Components/Card";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "../../Components/Table";
 
-const AdminDashboard = () => {
+const AdminDashboard = (props) => {
     const topUsers = [
         { name: "Alice", posts: 120 },
         { name: "Bob", posts: 110 },
@@ -34,8 +26,6 @@ const AdminDashboard = () => {
         pendingUsers: 0,
         pendingPosts: 0,
     });
-    console.log("Top Users:", topUsers);
-    console.log("Top Posts:", topPosts);
 
     return (
         <div className="flex bg-gray-900 text-white min-h-screen">
@@ -54,7 +44,7 @@ const AdminDashboard = () => {
                         <div>
                             <h3 className="text-lg font-medium">Total Users</h3>
                             <p className="text-2xl font-bold">
-                                {stats.totalUsers}
+                                {props.totalUsers}
                             </p>
                         </div>
                     </div>
@@ -65,7 +55,7 @@ const AdminDashboard = () => {
                         <div>
                             <h3 className="text-lg font-medium">Total Posts</h3>
                             <p className="text-2xl font-bold">
-                                {stats.totalPosts}
+                                {props.totalPosts}
                             </p>
                         </div>
                     </div>
@@ -91,7 +81,7 @@ const AdminDashboard = () => {
                                 Pending Posts
                             </h3>
                             <p className="text-2xl font-bold">
-                                {stats.pendingPosts}
+                                {props.pendingPosts}
                             </p>
                         </div>
                     </div>

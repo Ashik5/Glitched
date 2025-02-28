@@ -152,4 +152,14 @@ class BlogsController extends Controller
     {
         return Inertia::render('Blog/CreateBlog');
     }
+
+    public function bulkApprove(Request $request)
+    {
+        $blogIds = $request->input('blogs');
+        if (!$blogIds || count($blogIds) === 0) {
+            return response()->json(['message' => 'No blogs selected'], 400);
+        }
+
+        Blogs::whereIn('blog_id', $blogIds)->update(['status' => 'approved']);
+    }
 }
