@@ -20,7 +20,6 @@ const Index = (props) => {
         setLoading(false);
     }, [props.blogs.data]);
 
-    //
     const { delete: deleteBlog } = useForm();
 
     const handleDelete = (id) => {
@@ -69,6 +68,14 @@ const Index = (props) => {
             });
     };
 
+    const handelEdit = (blog) => {
+        router.visit(route("blogs.edit", { id: blog.blog_id }));
+    };
+
+    const handleSingleBlog = (id) => {
+        router.visit(route("blogs.single", { id: id }));
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -98,11 +105,22 @@ const Index = (props) => {
                     <li key={blog.blog_id}>
                         <h2>{blog.title}</h2>
                         <p>{blog.desc}</p>
+
+                        <div className="prose max-w-none rounded-lg p-8 shadow-sm">
+                            <div
+                                dangerouslySetInnerHTML={{ __html: blog.desc }}
+                                className="blog-content"
+                            />
+                        </div>
+
                         <button onClick={() => handleDelete(blog.blog_id)}>
                             Delete
                         </button>
-                        <button onClick={() => startEditing(blog)}>
-                            Edit Blog
+                        <button onClick={() => handelEdit(blog)}>
+                            Edit Blog1
+                        </button>
+                        <button onClick={() => handleSingleBlog(blog.blog_id)}>
+                            View Blog
                         </button>
                     </li>
                 ))}

@@ -103,28 +103,48 @@ class BlogsController extends Controller
     /**
      * Update an existing blog
      */
-    public function updateBlog(Request $request, $id)
-    {
-        try {
-            // if (!Auth::check()) {
-            //     return response()->json(['message' => 'Unauthorized'], 401);
-            // }
+    public function updateBlog(Request $request, $blog_id)  // Change $id to $blog_id
+{
+    try {
+        \Log::info(" Updating blog ID: " . $blog_id);
+        \Log::info(" Request data:", $request->all());
 
-            $blog = Blogs::findOrFail($id);
-            $validated = $request->validate([
-                'title' => 'string|max:255|nullable',
-                'desc' => 'string|nullable',
-                'image' => 'url|nullable',
-                'tags' => 'string|nullable',
-                'category' => 'string|nullable',
-                'status' => 'string|nullable',
-            ]);
+        // Use 'blog_id' instead of 'id'
+        $blog = Blogs::where('blog_id', $blog_id)->firstOrFail();
 
-            $blog->update($validated);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Blog update failed', 'error' => $e->getMessage()], 500);
+        \Log::info("📄 Before update:", $blog->toArray());
+
+        $validated = $request->validate([
+            'title' => 'string|max:255|nullable',
+            'content' => 'string|nullable',
+            'image' => 'nullable|image|max:2048',
+            'tag' => 'string|nullable',
+            'category' => 'string|nullable',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/blogs');
+            $validated['image'] = $path;
+            \Log::info(" Image uploaded: " . $path);
+        } else {
+            \Log::info(" No new image uploaded.");
         }
+
+        $blog->update($validated);
+
+        \Log::info(" Blog updated successfully!");
+        \Log::info("📄 After update:", $blog->toArray());
+
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!');
+    } catch (\Exception $e) {
+        \Log::error(" Blog update failed: " . $e->getMessage());
+        return response()->json(['message' => 'Blog update failed', 'error' => $e->getMessage()], 500);
     }
+}
+
+    
+
+
 
     /**
      * Delete a blog
@@ -162,4 +182,19 @@ class BlogsController extends Controller
 
         Blogs::whereIn('blog_id', $blogIds)->update(['status' => 'approved']);
     }
+
+    public function edit($id)
+{
+    try {
+        $blog = Blogs::where('blog_id', $id)->firstOrFail();
+
+        return Inertia::render('Blog/EditBlog', [
+            'blog' => $blog, // Pass the full blog object
+        ]);
+    } catch (\Exception $e) {
+        return redirect()->route('blogs.index')->with('error', 'Blog not found');
+    }
+}
+
+
 }

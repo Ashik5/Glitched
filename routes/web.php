@@ -47,5 +47,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/users', [UserController::class, 'getUserData'])->name('users.data');
 
+
+
 require __DIR__.'/blog.php';
 require __DIR__.'/auth.php';
