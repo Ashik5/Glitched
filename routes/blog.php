@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CommentController;
 use Inertia\Inertia;
+use App\Models\Blogs;
 
 Route::get('/blogs', [BlogsController::class, 'getBlogs'])->name('blogs.index');
 Route::get('/blog/{id}', [BlogsController::class, 'getBlogs'])->name('blogs.single');
@@ -14,7 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/createblog', function () {
         return Inertia::render('Blog/CreateBlog');
     })->name('blogs.create');
-    Route::delete('/deleteblog', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
+    Route::delete('/deleteblog/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
     Route::get('/search', function () {
         return Inertia::render('Search/index');
     })->name('search');
@@ -23,14 +24,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/editblog', function () {
         return Inertia::render('Blog/EditBlog');
     })->name('blog.edit');
-    
+
 });
 Route::get('/admin', function () {
-    return Inertia::render('Admin/index');
+    return Inertia::render('Admin/stat');
 })->name('blog.admin');
+
+
 Route::get('/admin/users', function () {
     return Inertia::render('Admin/users');
 })->name('blog.admin.users');
-Route::get('/admin/stat', function () {
-    return Inertia::render('Admin/stat');
-})->name('blog.admin.stat');
+
+
+Route::get('/admin/posts', function () {
+    $blogs = Blogs::with('author')->where('status', 'pending')->get();
+    $verifiedBlogs = Blogs::with('author')->where('status', 'approved')->get();
+    return Inertia::render('Admin/posts', props: ['unverifiedBlogs' => $blogs, 'verifiedBlogs' => $verifiedBlogs]);
+})->name('blog.admin.posts');

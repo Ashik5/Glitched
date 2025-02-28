@@ -1,8 +1,8 @@
 import React from "react";
 
-const Card = ({ children, className }) => {
+const Card = ({ children }) => {
     return (
-        <div className={`bg-white shadow-md rounded-2xl p-4 ${className}`}>
+        <div className={`bg-[#1E1A4B] shadow-md rounded-2xl p-4`}>
             {children}
         </div>
     );

@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->unsignedBigInteger('author'); // Foreign key to users table
             $table->string('tag')->nullable(); // e.g., Valorant, CS:GO
-            $table->string('category')->nullable(); // e.g., Tips, News
+            $table->string('category')->nullable();
+            $table->string('status')->default('pending'); // e.g., Tips, News
             $table->integer('likes')->default(0);
             $table->integer('dislikes')->default(0);
             $table->json('comments')->nullable();

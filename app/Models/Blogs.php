@@ -11,51 +11,34 @@ class Blogs extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     */
     protected $primaryKey = 'blog_id';
-
-    // Ensure the primary key is not assumed to be 'id'
     public $incrementing = true;
-
-    // Specify the data type of the primary key
     protected $keyType = 'int';
-    /**
-     * Mass assignable attributes.
-     */
+
     protected $fillable = [
         'title',
         'content',
         'image',
         'author',
-        'tag', // kon game (valorant ? csgo)
-        'category', // kon type er post (Tips or tricks naki news)
+        'tag',
+        'category',
         'likes',
         'dislikes',
         'comments',
+        'status', // New field added
     ];
 
-    /**
-     * Attribute casting.
-     */
     protected $casts = [
         'comments' => 'array',
         'likes' => 'integer',
         'dislikes' => 'integer',
     ];
 
-    /**
-     * Relationship with User.
-     */
     public function author()
     {
         return $this->belongsTo(User::class, 'author', 'id');
     }
 
-    /**
-     * Relationship with Comments.
-     */
     public function comments()
     {
         return $this->hasMany(Comment::class, 'blog_id', 'blog_id');
