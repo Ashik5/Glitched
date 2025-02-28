@@ -4942,3 +4942,264 @@ Did you mean one of these?
 [2025-02-28 16:06:29] local.INFO:  No new image uploaded.  
 [2025-02-28 16:06:29] local.INFO:  Blog updated successfully!  
 [2025-02-28 16:06:29] local.INFO: 📄 After update: {"blog_id":5,"title":"test blog 123","content":"<p>eta test korbo ds</p>","image":null,"author":1,"tag":"csgo","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:53:20.000000Z","updated_at":"2025-02-28T16:06:29.000000Z"} 
+[2025-02-28 16:10:07] local.INFO:  Updating blog ID: 5  
+[2025-02-28 16:10:07] local.INFO:  Request data:  
+[2025-02-28 16:10:07] local.INFO: 📄 Before update: {"blog_id":5,"title":"test blog 123","content":"<p>eta test korbo ds</p>","image":null,"author":1,"tag":"csgo","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:53:20.000000Z","updated_at":"2025-02-28T16:06:29.000000Z"} 
+[2025-02-28 16:10:07] local.INFO:  No new image uploaded.  
+[2025-02-28 16:10:07] local.INFO:  Blog updated successfully!  
+[2025-02-28 16:10:07] local.INFO: 📄 After update: {"blog_id":5,"title":"test blog 123","content":"<p>eta test korbo ds</p>","image":null,"author":1,"tag":"csgo","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:53:20.000000Z","updated_at":"2025-02-28T16:06:29.000000Z"} 
+[2025-02-28 17:36:31] local.INFO:  Updating blog ID: 4  
+[2025-02-28 17:36:31] local.INFO:  Request data: {"title":"123","content":"<p>edited</p>","image":null,"author":1,"tag":"valorant","category":"news"} 
+[2025-02-28 17:36:31] local.INFO: 📄 Before update: {"blog_id":4,"title":"123","content":"<p>notun blog</p>","image":null,"author":1,"tag":"valorant","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:02:54.000000Z","updated_at":"2025-02-28T15:03:00.000000Z"} 
+[2025-02-28 17:36:31] local.INFO:  No new image uploaded.  
+[2025-02-28 17:36:31] local.INFO:  Blog updated successfully!  
+[2025-02-28 17:36:31] local.INFO: 📄 After update: {"blog_id":4,"title":"123","content":"<p>edited</p>","image":null,"author":1,"tag":"valorant","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:02:54.000000Z","updated_at":"2025-02-28T17:36:31.000000Z"} 
+[2025-02-28 17:36:56] local.INFO:  Updating blog ID: 4  
+[2025-02-28 17:36:56] local.INFO:  Request data: {"title":"titel change korsi","content":"<p>edited</p>","image":null,"author":1,"tag":"valorant","category":"news"} 
+[2025-02-28 17:36:56] local.INFO: 📄 Before update: {"blog_id":4,"title":"123","content":"<p>edited</p>","image":null,"author":1,"tag":"valorant","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:02:54.000000Z","updated_at":"2025-02-28T17:36:31.000000Z"} 
+[2025-02-28 17:36:56] local.INFO:  No new image uploaded.  
+[2025-02-28 17:36:56] local.INFO:  Blog updated successfully!  
+[2025-02-28 17:36:56] local.INFO: 📄 After update: {"blog_id":4,"title":"titel change korsi","content":"<p>edited</p>","image":null,"author":1,"tag":"valorant","category":"news","status":"approved","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T15:02:54.000000Z","updated_at":"2025-02-28T17:36:56.000000Z"} 
+[2025-02-28 17:43:46] local.ERROR: Class "AddBanBool" not found {"exception":"[object] (Error(code: 0): Class \"AddBanBool\" not found at D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php:529)
+[stacktrace]
+#0 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(208): Illuminate\\Database\\Migrations\\Migrator->resolvePath('D:\\\\Sd3100\\\\Glitc...')
+#1 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp('D:\\\\Sd3100\\\\Glitc...', 2, false)
+#2 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending(Array, Array)
+#3 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(90): Illuminate\\Database\\Migrations\\Migrator->run(Array, Array)
+#4 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(628): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#5 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(102): Illuminate\\Database\\Migrations\\Migrator->usingConnection(NULL, Object(Closure))
+#6 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#7 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Command\\Command.php(291): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(153): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Application.php(1014): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Application.php(301): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\MigrateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 D:\\Sd3100\\Glitched\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
+[2025-02-28 17:44:46] local.ERROR: Class "AddBanBool" not found {"exception":"[object] (Error(code: 0): Class \"AddBanBool\" not found at D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php:529)
+[stacktrace]
+#0 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(208): Illuminate\\Database\\Migrations\\Migrator->resolvePath('D:\\\\Sd3100\\\\Glitc...')
+#1 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp('D:\\\\Sd3100\\\\Glitc...', 2, false)
+#2 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending(Array, Array)
+#3 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(90): Illuminate\\Database\\Migrations\\Migrator->run(Array, Array)
+#4 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(628): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#5 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(102): Illuminate\\Database\\Migrations\\Migrator->usingConnection(NULL, Object(Closure))
+#6 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#7 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Command\\Command.php(291): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(153): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Application.php(1014): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Application.php(301): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\MigrateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 D:\\Sd3100\\Glitched\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 D:\\Sd3100\\Glitched\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
+[2025-02-28 18:36:14] local.INFO:  Updating blog ID: bulk-approve  
+[2025-02-28 18:36:14] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:36:14] local.ERROR:  Blog update failed: No query results for model [App\Models\Blogs].  
+[2025-02-28 18:36:20] local.INFO:  Updating blog ID: 7  
+[2025-02-28 18:36:20] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:36:20] local.INFO: 📄 Before update: {"blog_id":7,"title":"ekta blog eta","content":"<p>ashik ekta gadha</p>","image":null,"author":2,"tag":"csgo","category":"news","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:36:00.000000Z","updated_at":"2025-02-28T18:36:00.000000Z","blog_banned":0} 
+[2025-02-28 18:36:20] local.INFO:  No new image uploaded.  
+[2025-02-28 18:36:20] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:36:20] local.INFO: 📄 After update: {"blog_id":7,"title":"ekta blog eta","content":"<p>ashik ekta gadha</p>","image":null,"author":2,"tag":"csgo","category":"news","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:36:00.000000Z","updated_at":"2025-02-28T18:36:00.000000Z","blog_banned":0} 
+[2025-02-28 18:36:33] local.INFO:  Updating blog ID: 7  
+[2025-02-28 18:36:33] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:36:33] local.INFO: 📄 Before update: {"blog_id":7,"title":"ekta blog eta","content":"<p>ashik ekta gadha</p>","image":null,"author":2,"tag":"csgo","category":"news","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:36:00.000000Z","updated_at":"2025-02-28T18:36:00.000000Z","blog_banned":0} 
+[2025-02-28 18:36:33] local.INFO:  No new image uploaded.  
+[2025-02-28 18:36:33] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:36:33] local.INFO: 📄 After update: {"blog_id":7,"title":"ekta blog eta","content":"<p>ashik ekta gadha</p>","image":null,"author":2,"tag":"csgo","category":"news","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:36:00.000000Z","updated_at":"2025-02-28T18:36:00.000000Z","blog_banned":0} 
+[2025-02-28 18:36:45] local.INFO:  Updating blog ID: 6  
+[2025-02-28 18:36:45] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:36:45] local.INFO: 📄 Before update: {"blog_id":6,"title":"123","content":"<p>nahid upodeshta</p>","image":null,"author":2,"tag":"valorant","category":"news","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:27:59.000000Z","updated_at":"2025-02-28T18:27:59.000000Z","blog_banned":0} 
+[2025-02-28 18:36:45] local.INFO:  No new image uploaded.  
+[2025-02-28 18:36:45] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:36:45] local.INFO: 📄 After update: {"blog_id":6,"title":"123","content":"<p>nahid upodeshta</p>","image":null,"author":2,"tag":"valorant","category":"news","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:27:59.000000Z","updated_at":"2025-02-28T18:27:59.000000Z","blog_banned":0} 
+[2025-02-28 18:38:09] local.INFO:  Updating blog ID: 8  
+[2025-02-28 18:38:09] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:38:09] local.INFO: 📄 Before update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:38:09] local.INFO:  No new image uploaded.  
+[2025-02-28 18:38:09] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:38:09] local.INFO: 📄 After update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:39:17] local.INFO:  Updating blog ID: 8  
+[2025-02-28 18:39:17] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:39:17] local.INFO: 📄 Before update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:39:17] local.INFO:  No new image uploaded.  
+[2025-02-28 18:39:17] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:39:17] local.INFO: 📄 After update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:39:43] local.INFO:  Updating blog ID: 8  
+[2025-02-28 18:39:43] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:39:43] local.INFO: 📄 Before update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:39:43] local.INFO:  No new image uploaded.  
+[2025-02-28 18:39:43] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:39:43] local.INFO: 📄 After update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:40:00] local.INFO:  Updating blog ID: 8  
+[2025-02-28 18:40:00] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:40:00] local.INFO: 📄 Before update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:40:00] local.INFO:  No new image uploaded.  
+[2025-02-28 18:40:00] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:40:00] local.INFO: 📄 After update: {"blog_id":8,"title":"ban","content":"<p>ami ekta gadha</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:38:00.000000Z","updated_at":"2025-02-28T18:38:00.000000Z","blog_banned":0} 
+[2025-02-28 18:40:48] local.INFO:  Updating blog ID: 9  
+[2025-02-28 18:40:48] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:40:48] local.INFO: 📄 Before update: {"blog_id":9,"title":"ekta blog","content":"<p>123</p>","image":null,"author":3,"tag":"csgo","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:40:43.000000Z","updated_at":"2025-02-28T18:40:43.000000Z","blog_banned":0} 
+[2025-02-28 18:40:48] local.INFO:  No new image uploaded.  
+[2025-02-28 18:40:48] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:40:48] local.INFO: 📄 After update: {"blog_id":9,"title":"ekta blog","content":"<p>123</p>","image":null,"author":3,"tag":"csgo","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:40:43.000000Z","updated_at":"2025-02-28T18:40:43.000000Z","blog_banned":0} 
+[2025-02-28 18:41:51] local.INFO:  Updating blog ID: 10  
+[2025-02-28 18:41:51] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:41:51] local.INFO: 📄 Before update: {"blog_id":10,"title":"123","content":"<p>312</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:41:43.000000Z","updated_at":"2025-02-28T18:41:43.000000Z","blog_banned":0} 
+[2025-02-28 18:41:51] local.INFO:  No new image uploaded.  
+[2025-02-28 18:41:51] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:41:51] local.INFO: 📄 After update: {"blog_id":10,"title":"123","content":"<p>312</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:41:43.000000Z","updated_at":"2025-02-28T18:41:43.000000Z","blog_banned":0} 
+[2025-02-28 18:48:56] local.INFO:  Updating blog ID: 11  
+[2025-02-28 18:48:56] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 18:48:56] local.INFO: 📄 Before update: {"blog_id":11,"title":"dasdas","content":"<p>dasdas</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:44:30.000000Z","updated_at":"2025-02-28T18:44:30.000000Z","blog_banned":0} 
+[2025-02-28 18:48:56] local.INFO:  No new image uploaded.  
+[2025-02-28 18:48:56] local.INFO:  Blog updated successfully!  
+[2025-02-28 18:48:56] local.INFO: 📄 After update: {"blog_id":11,"title":"dasdas","content":"<p>dasdas</p>","image":null,"author":3,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T18:44:30.000000Z","updated_at":"2025-02-28T18:44:30.000000Z","blog_banned":0} 
+[2025-02-28 18:59:15] local.ERROR: Class "App\Http\Controllers\Blogs" not found {"exception":"[object] (Error(code: 0): Class \"App\\Http\\Controllers\\Blogs\" not found at D:\\Sd3100\\Glitched\\app\\Http\\Controllers\\UserController.php:54)
+[stacktrace]
+#0 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\UserController->banUser('3')
+#1 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('banUser', Array)
+#2 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\UserController), 'banUser')
+#3 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#4 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#5 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#6 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#7 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#8 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#9 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#10 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#11 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#12 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(799): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#14 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#15 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#16 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#17 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#18 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#19 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#35 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#36 D:\\Sd3100\\Glitched\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#37 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\Sd3100\\\\Glitc...')
+#38 {main}
+"} 
+[2025-02-28 18:59:40] local.ERROR: Class "App\Http\Controllers\Blogs" not found {"exception":"[object] (Error(code: 0): Class \"App\\Http\\Controllers\\Blogs\" not found at D:\\Sd3100\\Glitched\\app\\Http\\Controllers\\UserController.php:54)
+[stacktrace]
+#0 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\UserController->banUser('3')
+#1 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('banUser', Array)
+#2 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\UserController), 'banUser')
+#3 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#4 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#5 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#6 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#7 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#8 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#9 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#10 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#11 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#12 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(799): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#14 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#15 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#16 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#17 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#18 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#19 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#35 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#36 D:\\Sd3100\\Glitched\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#37 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\Sd3100\\\\Glitc...')
+#38 {main}
+"} 
+[2025-02-28 19:02:47] local.INFO:  Updating blog ID: 12  
+[2025-02-28 19:02:47] local.INFO:  Request data: {"status":"approved"} 
+[2025-02-28 19:02:47] local.INFO: 📄 Before update: {"blog_id":12,"title":"valo","content":"<p>valorant</p>","image":null,"author":2,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T19:02:39.000000Z","updated_at":"2025-02-28T19:02:39.000000Z","blog_banned":0} 
+[2025-02-28 19:02:47] local.INFO:  No new image uploaded.  
+[2025-02-28 19:02:47] local.INFO:  Blog updated successfully!  
+[2025-02-28 19:02:47] local.INFO: 📄 After update: {"blog_id":12,"title":"valo","content":"<p>valorant</p>","image":null,"author":2,"tag":"valorant","category":"tips","status":"pending","likes":0,"dislikes":0,"comments":[],"created_at":"2025-02-28T19:02:39.000000Z","updated_at":"2025-02-28T19:02:39.000000Z","blog_banned":0} 
+[2025-02-28 19:03:22] local.ERROR: Class "App\Http\Controllers\Blogs" not found {"exception":"[object] (Error(code: 0): Class \"App\\Http\\Controllers\\Blogs\" not found at D:\\Sd3100\\Glitched\\app\\Http\\Controllers\\UserController.php:54)
+[stacktrace]
+#0 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\UserController->banUser('2')
+#1 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('banUser', Array)
+#2 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\UserController), 'banUser')
+#3 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#4 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#5 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#6 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#7 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#8 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#9 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#10 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#11 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#12 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(799): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#14 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#15 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#16 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#17 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#18 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#19 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#35 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#36 D:\\Sd3100\\Glitched\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#37 D:\\Sd3100\\Glitched\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\Sd3100\\\\Glitc...')
+#38 {main}
+"} 

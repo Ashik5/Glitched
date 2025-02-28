@@ -40,7 +40,6 @@ export default function EditBlog({ auth, errors, blog }) {
         put(route("blogs.update", { blog_id: blog.blog_id }));
     };
 
-    console.log("Blog data:", blog);
     return (
         <AuthenticatedLayout
             auth={auth}

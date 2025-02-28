@@ -13,6 +13,13 @@ class BlogsController extends Controller
 {
     public function store(Request $request)
     {
+
+        $user = Auth::user();
+        if($user->banned){
+            return redirect()->route('blogs.index')
+                ->with('error', 'You are banned from creating blogs.');
+        }
+        
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'nullable|string',
@@ -183,8 +190,7 @@ class BlogsController extends Controller
         Blogs::whereIn('blog_id', $blogIds)->update(['status' => 'approved']);
     }
 
-    public function edit($id)
-{
+    public function edit($id){
     try {
         $blog = Blogs::where('blog_id', $id)->firstOrFail();
 

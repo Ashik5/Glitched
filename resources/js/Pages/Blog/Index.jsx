@@ -26,17 +26,6 @@ const Index = (props) => {
         deleteBlog(route("blogs.delete", id));
     };
 
-    const startEditing = (blog) => {
-        setEditingBlog(blog);
-        setFormData({
-            title: blog.title,
-            desc: blog.desc,
-            image: blog.image,
-            tags: blog.tags,
-            category: blog.category,
-        });
-    };
-
     const updateBlog = (id) => {
         fetch(route("blogs.update", { id: id }), {
             method: "PUT",
