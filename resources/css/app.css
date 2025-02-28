@@ -4,3 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.icon-active {
+    fill: blue;
+    color: blue;
+}
+
+.icon-inactive {
+    fill: none;
+    color: white;
+}

@@ -1,50 +1,33 @@
 import React, { useState } from "react";
 import { User, Edit as EditIcon, Star, FileText } from "lucide-react";
-import Dashboard from "../Profile/Dashboard"; // Import your Dashboard component
+import Dashboard from "./Dashboard"; // Import your Dashboard component
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
     const [activeTab, setActiveTab] = useState("Posts");
 
-    const favorites = [
-        {
-            title: "Marvel Rivals",
-            image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&q=80&w=400",
-        },
-        {
-            title: "Red Dead Redemption 2",
-            image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=400",
-        },
-    ];
-
-    const posts = [
-        {
-            title: "13 Exciting Games Kicking Off The New Year",
-            game: "Fortnite",
-            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=400",
-        },
-        {
-            title: "Best Open World Games of 2024",
-            game: "Red Dead Redemption 2",
-            image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=400",
-        },
-    ];
+    const favorites = props.user?.fav_posts || [];
+    const posts = props.user?.my_posts || [];
+    const myPostsCount = props.user?.my_posts?.length ?? 0;
+    console.log(props);
 
     return (
-        <div className="flex h-screen bg-gray-900 text-white">
-            {/* Sidebar - Using Dashboard Component */}
-            <Dashboard />
+        <div className="flex h-screen bg-gray-900 text-white overflow-hidden">
+            {/* Sidebar - Using Dashboard Component with fixed position */}
+            <div className="fixed h-screen">
+                <Dashboard />
+            </div>
 
-            {/* Main Content */}
-            <main className="flex-1 p-8">
+            {/* Main Content - Scrollable with left margin to avoid overlap with dashboard */}
+            <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
                 {/* Profile Section */}
                 <div className="flex items-center gap-6 mb-8">
                     <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center">
                         <User className="w-12 h-12 text-gray-400" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold">ANTIK DHAR</h2>
+                        <h2 className="text-2xl font-bold">{props.user?.name}</h2>
                         <div className="flex gap-8 text-gray-400 mt-2">
-                            <span>Posts: 18</span>
+                            <span>Posts: {myPostsCount}</span>
                         </div>
                         <button className="flex items-center gap-2 mt-3 text-blue-500 hover:text-blue-400">
                             <EditIcon className="w-4 h-4" />
