@@ -1,20 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image1 from "@assets/image_1.png";
 import Image2 from "../../assets/image_2.png";
 import Image3 from "../../assets/image_3.png";
 import Image4 from "../../assets/image_4.png";
 import ImageMain from "../../assets/image_main.png";
-import Logo from "../../assets/Logo.svg";
-import Footer_Logo from "../../assets/Footer_Logo.png";
-import {
-    Gamepad2,
-    TrendingUp,
-    Newspaper,
-    Lightbulb,
-    Search,
-    User,
-} from "lucide-react";
-import { FaFacebookF, FaTwitter, FaYoutube, FaDiscord } from "react-icons/fa";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import SwiperSlider from "../Components/SwiperSlider/SwiperSlider";
@@ -23,8 +12,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 function App(props) {
-    const [activeSection, setActiveSection] = useState("trending");
-
+    const { blogs: reviews } = props;
+    const { blogs: tipsAndTricks } = props;
     const newsItems = [
         {
             id: 1,
@@ -48,68 +37,6 @@ function App(props) {
             readTime: "3 min read",
         },
     ];
-    const reviews = [
-        {
-            id: 1,
-            title: "13 Exciting Games Kicking Off The New Year In January",
-            image: Image1,
-            author: "Admin",
-            readTime: "3 min read",
-        },
-        {
-            id: 2,
-            title: "Apex Legends - Tips for Getting Started",
-            image: Image2,
-            author: "Admin",
-            readTime: "5 min read",
-        },
-        {
-            id: 3,
-            title: "The Best Single Player Games of All Time",
-            image: Image3,
-            author: "Admin",
-            readTime: "4 min read",
-        },
-        {
-            id: 4,
-            title: "The ames of All Time",
-            image: Image4,
-            author: "Admin",
-            readTime: "10 min read",
-        },
-    ];
-
-    const tipsAndTricks = [
-        {
-            id: 1,
-            title: "13 Exciting Games Kicking Off The New Year In January",
-            image: Image1,
-            author: "ProGamer",
-            readTime: "6 min read",
-        },
-        {
-            id: 2,
-            title: "Strategies for Winning Battle Royale Matches",
-            image: Image2,
-            author: "GamingExpert",
-            readTime: "7 min read",
-        },
-        {
-            id: 3,
-            title: "How to Build Your Gaming Setup on a Budget",
-            image: Image3,
-            author: "TechGuru",
-            readTime: "5 min read",
-        },
-        {
-            id: 4,
-            title: "The ames of All Time",
-            image: Image4,
-            author: "Admin",
-            readTime: "10 min read",
-        },
-    ];
-
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -186,7 +113,7 @@ function App(props) {
                                             {item.title}
                                         </h3>
                                         <p className="text-gray-400 text-xs">
-                                            By {item.author} • {item.readTime}
+                                            By {item.author}
                                         </p>
                                     </div>
                                 </div>

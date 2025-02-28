@@ -15,7 +15,7 @@ class BlogsController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'desc' => 'required',
+            'content' => 'nullable|string',
             'tag' => 'required|in:valorant,csgo',
             'category' => 'required|in:tips,news',
             'image' => 'nullable|image|max:2048'
@@ -43,25 +43,32 @@ class BlogsController extends Controller
     {
         try {
             if ($id) {
-                $blog = Blogs::findOrFail($id);
-                return response()->json(['message' => 'Blog fetched successfully!', 'blog' => $blog], 200);
+                $blog = Blogs::with(['author', 'comments.user'])->findOrFail($id);
+                return Inertia::render('Blog/SingleBlog', ['blog' => $blog]);
             }
 
-            $blogs = Blogs::query();
+            // Start with the query builder for approved blogs
+            $query = Blogs::where('status', 'approved');
+
+            // Apply category filter if present
             if ($request->has('category')) {
-                $blogs->where('category', $request->input('category'));
-            }
-            if ($request->has('tags')) {
-                $blogs->where('tags', 'like', '%' . $request->input('tags') . '%');
+                $query->where('category', $request->input('category'));
             }
 
-            $blogs = $blogs->paginate(10);
+            // Apply tags filter if present
+            if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+
+            // Execute the query with pagination
+            $blogs = $query->paginate(10);
 
             return Inertia::render('Blog/Index', ['blogs' => $blogs, 'filters' => $request->only(['category', 'tags'])]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
+
 
     /**
      * Look up blogs by title
@@ -110,10 +117,10 @@ class BlogsController extends Controller
                 'image' => 'url|nullable',
                 'tags' => 'string|nullable',
                 'category' => 'string|nullable',
+                'status' => 'string|nullable',
             ]);
 
             $blog->update($validated);
-            return response()->json(['message' => 'Blog updated successfully!', 'blog' => $blog]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Blog update failed', 'error' => $e->getMessage()], 500);
         }
@@ -122,34 +129,21 @@ class BlogsController extends Controller
     /**
      * Delete a blog
      */
-    public function deleteBlog(Request $request)
-{
-    \Log::info('Delete Blog Request:', $request->all());
-
-    try {
-        if (!Auth::check()) {
-            \Log::warning('Unauthorized access attempt');
-            return response()->json(['message' => 'Unauthorized'], 401);
+    public function deleteBlog(Request $request, $id)
+    {
+        try {
+            if (!Auth::check()) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+            if (!$id) {
+                return response()->json(['message' => 'No ID provided'], 400);
+            }
+            $blog = Blogs::where('blog_id', $id)->firstOrFail();
+            $blog->delete();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
         }
-
-        $id = $request->input('id');
-        if (!$id) {
-            \Log::error('No ID provided in request');
-            return response()->json(['message' => 'No ID provided'], 400);
-        }
-
-        \Log::info('Blog ID to delete:', ['id' => $id]);
-
-        $blog = Blogs::where('blog_id', $id)->firstOrFail(); // Use 'blog_id' to find the blog
-        $blog->delete();
-
-        \Log::info('Blog deleted successfully', ['id' => $id]);
-        return response()->json(['message' => 'Blog deleted successfully!'], 200);
-    } catch (\Exception $e) {
-        \Log::error('Failed to delete blog:', ['error' => $e->getMessage()]);
-        return response()->json(['message' => 'Failed to delete blog', 'error' => $e->getMessage()], 500);
     }
-}
 
     /**
      * Show the blog creation form
@@ -157,5 +151,15 @@ class BlogsController extends Controller
     public function create()
     {
         return Inertia::render('Blog/CreateBlog');
+    }
+
+    public function bulkApprove(Request $request)
+    {
+        $blogIds = $request->input('blogs');
+        if (!$blogIds || count($blogIds) === 0) {
+            return response()->json(['message' => 'No blogs selected'], 400);
+        }
+
+        Blogs::whereIn('blog_id', $blogIds)->update(['status' => 'approved']);
     }
 }
