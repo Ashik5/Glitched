@@ -7,8 +7,9 @@ import {
     Share,
     Image as ImageIcon,
     User,
+    Bookmark,
 } from "lucide-react";
-import {useForm } from "@inertiajs/react";
+import { useForm, router} from "@inertiajs/react";
 import Image2 from "../../../assets/image_2.png";
 import Image3 from "../../../assets/image_3.png";
 import Image4 from "../../../assets/image_4.png";
@@ -16,6 +17,7 @@ import SwiperSlider from "@/Components/SwiperSlider/SwiperSlider";
 import SectionDivider from "@/Components/SectionDivider/SectionDivider";
 import Image1 from "../../../assets/image_1.png";
 import GameDetailsCard from "../../Components/GameCard/Valorant";
+import { useState,useEffect } from "react";
 
 const SingleBlog = (props) => {
     const games = [
@@ -52,17 +54,33 @@ const SingleBlog = (props) => {
         blog_id: props.blog.blog_id,
         comment: "",
     });
+    const {userLiked,userDisliked,userFavorited} = props;
 
+    const handleLike = (blog_id) => {
+        post(route("blog.like", blog_id), { preserveScroll: true });
+    };
+    const handleDisLike = (blog_id) => {
+        post(route("blog.dislike", blog_id), { preserveScroll: true });
+    };
+    const handleFavourite = (blog_id) => {
+        post(route("blog.favourite", blog_id), { preserveScroll: true });
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route("comments.store"), {
             preserveScroll: true,
             onSuccess: () => {
-                setData('comment', '');
+                setData("comment", "");
             },
         });
     };
+    const likesCount = props.blog?.likes?.length ?? 0;
+    const dislikesCount = props.blog?.dislikes?.length ?? 0;
+    const favouritesCount = props.blog?.favourites?.length ?? 0;
+    const commentsCount = props.blog?.comments?.length ?? 0;
+
     console.log(props.blog);
+    console.log(props);
     return (
         <Authenticated auth={props.auth}>
             <main className="flex-grow">
@@ -100,17 +118,34 @@ const SingleBlog = (props) => {
                     {/* Reaction Bar */}
                     <div className="flex justify-between items-center mt-8 text-gray-400">
                         <div className="flex space-x-4">
-                            <button className="flex items-center space-x-1 hover:text-gray-200">
-                                <ThumbsUp size={18} />
-                                <span>69</span>
+                            <button
+                                onClick={() => handleLike(props.blog.blog_id)}
+                                className="flex items-center space-x-1 hover:text-gray-200"
+                            >
+                                <ThumbsUp size={18} className={userLiked ? 'icon-active' : 'icon-inactive'}/>
+                                <span>{likesCount}</span>
                             </button>
-                            <button className="flex items-center space-x-1 hover:text-gray-200">
-                                <ThumbsDown size={18} />
-                                <span>10</span>
+                            <button
+                                onClick={() =>
+                                    handleDisLike(props.blog.blog_id)
+                                }
+                                className="flex items-center space-x-1 hover:text-gray-200"
+                            >
+                                <ThumbsDown size={18} className={userDisliked ? 'icon-active' : 'icon-inactive'}/>
+                                <span>{dislikesCount}</span>
                             </button>
                             <button className="flex items-center space-x-1 hover:text-gray-200">
                                 <MessageCircle size={18} />
-                                <span>9</span>
+                                <span>{commentsCount}</span>
+                            </button>
+                            <button
+                                onClick={() =>
+                                    handleFavourite(props.blog.blog_id)
+                                }
+                                className="flex items-center space-x-1 hover:text-gray-200"
+                            >
+                                <Bookmark size={18} className={userFavorited ? 'icon-active' : 'icon-inactive'}/>
+                                <span>{favouritesCount}</span>
                             </button>
                         </div>
                         <button className="flex items-center space-x-1 hover:text-gray-200">

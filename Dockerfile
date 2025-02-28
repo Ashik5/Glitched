@@ -14,7 +14,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
 # Install PHP extensions
-RUN docker-php-ext-install zip pdo pdo_pgsql  # PostgreSQL extension
+RUN docker-php-ext-install zip pdo pdo_pgsql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -27,7 +27,8 @@ COPY . /var/www/html
 
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html \
+    && chmod -R 777 storage bootstrap/cache
 
 # Configure Apache
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
@@ -42,5 +43,5 @@ RUN npm ci && npm run build
 # Expose port
 EXPOSE 80
 
-# Run migrations and start Apache
-CMD php artisan migrate --force && apache2-foreground
+# Run migrations, storage link, and start Apache
+CMD php artisan storage:link && php artisan migrate --force && apache2-foreground
