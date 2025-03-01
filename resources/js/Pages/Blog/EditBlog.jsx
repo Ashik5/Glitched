@@ -14,7 +14,30 @@ export default function EditBlog({ auth, errors, blog }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("blogs.update", blog.id));
+
+        const blogId = blog.blog_id; // Ensure ID is being passed
+
+        if (!blogId) {
+            console.error("❌ Blog ID is missing!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("content", data.content);
+        formData.append("tag", data.tag);
+        formData.append("category", data.category);
+
+        if (data.image instanceof File) {
+            formData.append("image", data.image);
+        }
+
+        console.log("🚀 Submitting update for blog ID:", blogId);
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
+
+        put(route("blogs.update", { blog_id: blog.blog_id }));
     };
 
     return (

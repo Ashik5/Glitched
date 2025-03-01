@@ -23,6 +23,13 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = Auth::user();
+        if($user->banned){
+            return redirect()->route('blogs.index')
+                ->with('error', 'You are banned from commenting.');
+        }
+
         $validated = $request->validate([
             'blog_id' => 'required|exists:blogs,blog_id',
             'comment' => 'required|string|max:1000'

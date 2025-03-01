@@ -4,6 +4,7 @@ import { Search, ChevronDown } from "lucide-react";
 import SectionDivider from "@/Components/SectionDivider/SectionDivider";
 import { usePage } from "@inertiajs/react";
 import SearchLogo from "../../../assets/SearchPage_logo.png";
+import { router } from "@inertiajs/react";
 
 function SearchPage({ auth }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -83,30 +84,45 @@ function SearchPage({ auth }) {
                     <SectionDivider />
 
                     {/* Filtered Blog Results */}
-                    <div className="mb-16">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {filteredBlogs.length > 0 ? (
-                            filteredBlogs.map((blog) => (
-                                <div
-                                    key={blog.id}
-                                    className="mb-8 border-b pb-4"
+                            filteredBlogs.map((item) => (
+                                <li
+                                    onClick={() => {
+                                        router.visit(
+                                            route("blogs.single", {
+                                                id: item.blog_id,
+                                            })
+                                        );
+                                    }}
+                                    key={item.id}
+                                    className="rounded-lg overflow-hidden shadow-lg cursor-pointer" // Add cursor-pointer here
                                 >
-                                    <h2 className="text-2xl font-bold">
-                                        {blog.title}
-                                    </h2>
-                                    <p className="text-gray-600">
-                                        {blog.author?.name || "Unknown Author"}
-                                    </p>
-                                    <p className="mt-2 text-gray-700">
-                                        {blog.content.substring(0, 150)}...
-                                    </p>
-                                </div>
+                                    {/* Blog Image */}
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-56 object-cover"
+                                    />
+                                    {/* Blog Content */}
+                                    <div className="p-4 bg-[#242244]">
+                                        <h3 className="text-white font-semibold mb-2 text-sm">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-gray-400 text-xs">
+                                            By{" "}
+                                            {item.author?.name ||
+                                                "Unknown Author"}
+                                        </p>
+                                    </div>
+                                </li>
                             ))
                         ) : (
                             <p className="text-center text-gray-500">
                                 No blogs found.
                             </p>
                         )}
-                    </div>
+                    </ul>
                 </div>
             </main>
         </Authenticated>
