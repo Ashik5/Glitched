@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { User, Edit as EditIcon, Star, FileText } from "lucide-react";
 import Dashboard from "./Dashboard"; // Import your Dashboard component
+import { router } from "@inertiajs/react";
 
 const ProfilePage = (props) => {
     const [activeTab, setActiveTab] = useState("Posts");
@@ -29,10 +30,10 @@ const ProfilePage = (props) => {
                         <div className="flex gap-8 text-gray-400 mt-2">
                             <span>Posts: {myPostsCount}</span>
                         </div>
-                        <button className="flex items-center gap-2 mt-3 text-blue-500 hover:text-blue-400">
+                        <a href={route("profile.edit")} className="flex items-center gap-2 mt-3 text-blue-500 hover:text-blue-400">
                             <EditIcon className="w-4 h-4" />
                             Edit Profile
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -66,10 +67,10 @@ const ProfilePage = (props) => {
                 {activeTab === "Posts" ? (
                     <section>
                         <h3 className="text-xl font-bold mb-6">My Posts</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {posts.map((post, index) => (
                                 <div
-                                    key={index}
+                                    onClick={()=>{router.visit(route("blogs.single", { id: post.blog_id }));}} key={index}
                                     className="bg-[#252538] rounded-lg overflow-hidden group cursor-pointer"
                                 >
                                     <img
@@ -92,23 +93,26 @@ const ProfilePage = (props) => {
                 ) : (
                     <section>
                         <h3 className="text-xl font-bold mb-6">Favorites</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {favorites.map((game, index) => (
-                                <div
-                                    key={index}
-                                    className="relative rounded-lg overflow-hidden group"
-                                >
-                                    <img
-                                        src={game.image}
-                                        alt={game.title}
-                                        className="w-full h-48 object-cover"
-                                    />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                                        <h4 className="text-lg font-semibold">
-                                            {game.title}
-                                        </h4>
-                                    </div>
-                                </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {favorites.map((post, index) => (
+                               <div
+                               onClick={()=>{router.visit(route("blogs.single", { id: post.blog_id }));}} key={index}
+                               className="bg-[#252538] rounded-lg overflow-hidden group cursor-pointer"
+                           >
+                               <img
+                                   src={post.image}
+                                   alt={post.title}
+                                   className="w-full h-48 object-cover"
+                               />
+                               <div className="p-4">
+                                   <span className="text-sm text-gray-400">
+                                       {post.game}
+                                   </span>
+                                   <h4 className="text-lg font-semibold mt-1 group-hover:text-blue-500">
+                                       {post.title}
+                                   </h4>
+                               </div>
+                           </div>
                             ))}
                         </div>
                     </section>
