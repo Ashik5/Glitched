@@ -15,7 +15,7 @@ export default function EditBlog({ auth, errors, blog }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const blogId = blog.id || blog.blog_id; // Ensure ID is being passed
+        const blogId = blog.blog_id; // Ensure ID is being passed
 
         if (!blogId) {
             console.error("❌ Blog ID is missing!");
