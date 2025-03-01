@@ -54,10 +54,8 @@ class BlogsController extends Controller
                 return Inertia::render('Blog/SingleBlog', ['blog' => $blog]);
             }
 
-            // Start with the query builder for approved blogs
             $query = Blogs::where('status', 'approved');
 
-            // Apply category filter if present
             if ($request->has('category')) {
                 $query->where('category', $request->input('category'));
             }
@@ -110,16 +108,11 @@ class BlogsController extends Controller
     /**
      * Update an existing blog
      */
-    public function updateBlog(Request $request, $blog_id)  // Change $id to $blog_id
+    public function updateBlog(Request $request, $blog_id)  
 {
     try {
-        \Log::info(" Updating blog ID: " . $blog_id);
-        \Log::info(" Request data:", $request->all());
-
-        // Use 'blog_id' instead of 'id'
+        
         $blog = Blogs::where('blog_id', $blog_id)->firstOrFail();
-
-        \Log::info("📄 Before update:", $blog->toArray());
 
         $validated = $request->validate([
             'title' => 'string|max:255|nullable',
@@ -140,7 +133,7 @@ class BlogsController extends Controller
         $blog->update($validated);
 
         \Log::info(" Blog updated successfully!");
-        \Log::info("📄 After update:", $blog->toArray());
+        \Log::info("After update:", $blog->toArray());
 
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!');
     } catch (\Exception $e) {
