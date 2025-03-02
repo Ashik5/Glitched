@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Glitched
+# Glitched  
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Team Members  
+| ID           | Name                | Email                      | Role       |  
+|--------------|---------------------|----------------------------|------------|  
+| 20220104013  | Syed Abir Hossain   | borshonjsr@gmail.com       | Backend    |  
+| 20220104016  | Alim Bin Yeasin     | alimbinyeasin@gmail.com    | Frontend   |  
+| 20220104021  | Ashik Mahmud        | ashikmamud123@gmail.com    | Lead       |  
+| 20220104024  | Antik Dhar          | antikdhar1357@gmail.com    | Frontend   |  
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Overview  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Project Title  
+**Glitched**  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Objective  
+Glitched is a gaming blog platform that delivers the latest gaming news, reviews, and engaging content. It fosters a vibrant community for gamers and gaming enthusiasts.  
 
-## Learning Laravel
+### Target Audience  
+Gamers, game developers, and gaming enthusiasts who want to stay updated on gaming trends, share opinions, and participate in discussions.  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Tech Stack  
+- **Backend**: Laravel (mandatory)  
+- **Frontend**: React with Inertia.js  
+- **Rendering Method**: Client-Side Rendering (CSR)  
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## UI Design  
 
-## Laravel Sponsors
+### Mock UI  
+The mock user interface for Glitched has been designed using Figma. It includes screens for filtering articles, profile page, browsing blogs, viewing detailed articles, and interactive features such as likes and comments.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+[Figma Design Link](https://www.figma.com/design/WhoQl0oP5QzoSnDZk9HwUl/Glitched?node-id=0-1&t=aOdN5ttpQUVZf6Bc-1) 
+---
 
-### Premium Partners
+## Project Features  
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- **User Authentication**: Registration, login, and profile management.  
+- **Blog Management**:  
+  - `GET /blogs` - Fetch all blogs.  
+  - `POST /blogs` - Add a new blog.  
+  - `GET /blogs/{id}` - Fetch a specific blog.  
+  - `PUT /blogs/{id}` - Update a blog.  
+  - `DELETE /blogs/{id}` - Delete a blog.  
+- **Comment System**: Add comments on blogs.  
+- **Like and Save Functionality**: Users can like blogs and save them for later.  
+- **Search and Filter**: Search blogs by game titles, genres, or trending topics.  
+- **Interactive Features**: Trending sections for enhanced engagement.  
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Milestones  
 
-## Security Vulnerabilities
+### Milestone 1: CRUD Operations & Basic Profile  
+- Set up the Laravel backend for handling CRUD operations.  
+- Implement user registration, login, and authentication APIs.  
+- Create a database schema for users, including profiles and roles.  
+- Build APIs for creating, updating, and deleting user profiles.  
+- Design and develop a responsive home page.  
+- Display user information (e.g., name, profile picture) on the home page.  
+- Set up a basic navigation system for the platform.  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Milestone 2: Blog Functionality  
+- Develop the blog creation form with text, images, and tags input.  
+- Implement the backend logic for saving blogs to the database.  
+- Build APIs for fetching, updating, and deleting blogs.  
+- Create the blog description page to display detailed blog content.  
+- Add functionality to post comments on blogs.  
+- Enable users to like and save blogs.  
+- Create an interactive UI for liking and saving blogs with real-time feedback.  
+- Display the number of likes and comments for each blog.  
+- Allow users to view their saved blogs in a dedicated section.  
 
-## License
+### Milestone 3: Filters and Related Features  
+- Add a blog tagging system (e.g., genres, trending topics).  
+- Implement filtering functionality on the home page for:  
+  - Tags (e.g., Action, Strategy, RPG).  
+  - Popular blogs (e.g., by most likes or views).  
+  - Recently posted blogs.  
+- Build APIs to handle filter queries from the frontend.  
+- Design and develop a filtering UI with checkboxes, dropdowns, and search bars.  
+- Create dynamic pages to display filtered blog results.  
+- Optimize database queries for efficient filtering and retrieval.  
+- Include pagination for filtered results to enhance performance.  
+- Add an analytics section showing trending tags or most viewed blogs.  
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+
