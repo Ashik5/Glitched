@@ -20,11 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->text('bio')->nullable(); // Add bio field
-            $table->string('image')->nullable(); // Add image field
-            $table->json('my_posts')->nullable(); // Add my_posts field
-            $table->json('fav_posts')->nullable(); // Add fav_posts field
-            $table->integer('followers')->default(0); // Add followers count
-            $table->integer('followings')->default(0); // Add followings count
+            $table->string('image')->nullable();
+            $table->boolean('banned')->default(false); // Add image field
             $table->rememberToken();
             $table->timestamps();
         });

@@ -32,3 +32,7 @@ Route::post('/upload-image', function (Request $request) {
     $path = $request->file('file')->store('blog-images', 'public');
     return response()->json(['location' => Storage::url($path)]);
 });
+
+Route::get('/users', [UserController::class, 'getAllUsers']);
+
+Route::post('/users/{id}/ban', [UserController::class, 'banUser']);
