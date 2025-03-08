@@ -31,7 +31,7 @@ Route::get('/', function () {
         'topTipsBlogs' => $topTipsBlogs,
         'topNewsBlogs' => $topNewsBlogs,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

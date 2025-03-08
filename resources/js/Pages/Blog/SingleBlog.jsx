@@ -170,9 +170,10 @@ const SingleBlog = (props) => {
                             {props.blog.comments.map((comment,index) => (
                                 <div key={index} className="flex items-start space-x-4">
                                     <div className="w-10 h-10 bg-gray-500 flex items-center justify-center rounded-full">
-                                        <User
-                                            size={24}
-                                            className="text-gray-300"
+                                        <img
+                                            src={comment.user.image}
+                                            alt={comment.user.name}
+                                            className="h-24 w-24 rounded-full"
                                         />
                                     </div>
                                     <div>

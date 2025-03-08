@@ -52,6 +52,10 @@ class BlogsController extends Controller
     {
         try {
             if ($id) {
+                if (!auth()->user()) {
+                    return redirect()->route('welcome');
+                }
+
                 $user = auth()->user();
                 $blog = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])->findOrFail($id);
                 $userLiked = $blog->likes()->where('user_id', $user->id)->exists();
@@ -61,15 +65,16 @@ class BlogsController extends Controller
                     ->where('blog_id', '!=', $blog->blog_id)
                     ->take(5)
                     ->get();
-                return Inertia::render('Blog/SingleBlog', ['blog' => $blog, 'userLiked' => $userLiked, 'userDisliked' => $userDisliked, 'userFavorited' => $userFavorited,'relatedBlogs'=>$relatedBlogs]);
+                return Inertia::render('Blog/SingleBlog', ['blog' => $blog, 'userLiked' => $userLiked, 'userDisliked' => $userDisliked, 'userFavorited' => $userFavorited, 'relatedBlogs' => $relatedBlogs]);
             }
 
             // Start with the query builder for approved blogs
-            $query = Blogs::where('status', 'approved');
+            $query = Blogs::with('author')->where('status', 'approved')
+                ->where('blog_banned', false);
 
             // Apply category filter if present
             // Start with the query builder for approved blogs
-            $query = Blogs::where('status', 'approved');
+
 
             // Apply category filter if present
             if ($request->has('category')) {
@@ -95,6 +100,7 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
+
     /**
      * Look up blogs by title
      */
@@ -273,4 +279,53 @@ class BlogsController extends Controller
             return back()->with('success', 'Blog updated successfully!');
         }
     }
+
+    public function getTipsBlogs(Request $request)
+    {
+        try {
+            $query = Blogs::with('author')->where('status', 'approved')
+                ->where('category', 'tips')
+                ->where('blog_banned', false);
+
+            // Apply tags filter if present
+            if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+
+            // Execute query with pagination
+            $blogs = $query->paginate(10);
+
+            return Inertia::render('Blog/Index', [
+                'blogs' => $blogs,
+                'filters' => $request->only(['tags']),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to fetch tips blogs', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getNewsBlogs(Request $request)
+    {
+        try {
+            $query = Blogs::with('author')->where('status', 'approved')
+                ->where('category', 'news')
+                ->where('blog_banned', false);
+
+            // Apply tags filter if present
+            if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+
+            // Execute query with pagination
+            $blogs = $query->paginate(10);
+
+            return Inertia::render('Blog/Index', [
+                'blogs' => $blogs,
+                'filters' => $request->only(['tags']),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to fetch news blogs', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 }

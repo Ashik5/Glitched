@@ -10,14 +10,27 @@ function SearchPage({ auth, blogs = [], filters = {} }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedGame, setSelectedGame] = useState("Select Games");
     const [searchTerm, setSearchTerm] = useState("");
+    const [sortByPopularity, setSortByPopularity] = useState(false);
 
-    const gamesList = ["Counter Strike", "Valorant"];
+    const gamesList = [
+        { label: "Counter Strike", value: "csgo" },
+        { label: "Valorant", value: "valorant" },
+    ];
 
     const { blogs = [] } = usePage().props;
 
-    const filteredBlogs = blogs.filter((blog) =>
-        blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredBlogs = blogs
+        .filter(
+            (blog) =>
+                blog.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                (selectedGame === "Select Games" || blog.tag === selectedGame)
+        )
+        .sort((a, b) => {
+            if (sortByPopularity) {
+                return b.likes - a.likes; // Sort by likes in descending order
+            }
+            return 0; // No sorting if the button isn't pressed
+        });
 
     // Format blog results for display
     const formatBlogData = (data) => {
@@ -136,7 +149,11 @@ function SearchPage({ auth, blogs = [], filters = {} }) {
                                 }
                                 className="flex items-center space-x-2 bg-[#231E60] px-4 py-2 rounded-full text-white"
                             >
-                                <span>{selectedGame}</span>
+                                <span>
+                                    {gamesList.find(
+                                        (game) => game.value === selectedGame
+                                    )?.label || "Select Games"}
+                                </span>
                                 <ChevronDown size={18} />
                             </button>
 
@@ -147,19 +164,24 @@ function SearchPage({ auth, blogs = [], filters = {} }) {
                                             key={index}
                                             type="button"
                                             onClick={() => {
-                                                setSelectedGame(game);
+                                                setSelectedGame(game.value);
                                                 setIsDropdownOpen(false);
                                             }}
                                             className="block w-full text-left px-4 py-2 hover:bg-[#2D277B] text-white"
                                         >
-                                            {game}
+                                            {game.label}
                                         </button>
                                     ))}
                                 </div>
                             )}
                         </div>
 
-                        <button className="bg-[#231E60] px-4 py-2 rounded-full text-white">
+                        <button
+                            onClick={() =>
+                                setSortByPopularity(!sortByPopularity)
+                            }
+                            className="bg-[#231E60] px-4 py-2 rounded-full text-white"
+                        >
                             Popularity
                         </button>
                     </div>

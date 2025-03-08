@@ -57,3 +57,5 @@ Route::get('/search', function () {
 Route::get('/edit', function () {
     return Inertia::render('Profile/Edit');
 })->name('profile.edit');
+Route::get('/tips', [BlogsController::class, 'getTipsBlogs'])->name('blog.tips');
+Route::get('/news', [BlogsController::class, 'getNewsBlogs'])->name('blog.news');

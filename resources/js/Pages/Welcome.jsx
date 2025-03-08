@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import Image1 from "@assets/image_1.png";
-import Image2 from "../../assets/image_2.png";
-import Image3 from "../../assets/image_3.png";
-import Image4 from "../../assets/image_4.png";
-import ImageMain from "../../assets/image_main.png";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import SwiperSlider from "../Components/SwiperSlider/SwiperSlider";
 import SectionDivider from "../Components/SectionDivider/SectionDivider";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 function App(props) {
-    const { topTipsBlogs,topNewsBlogs,topBlogs,featuredBlog } = props;
+    const { topTipsBlogs, topNewsBlogs, topBlogs, featuredBlog } = props;
     return (
-        <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
-        >
+        <AuthenticatedLayout auth={props.auth} errors={props.errors}>
             {/* Main Content */}
             <main className="flex-grow">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     {/* Featured Section */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
                         {/* Main Featured News */}
-                        <div className="lg:col-span-2 relative rounded-lg overflow-hidden shadow-md">
+                        <div
+                            onClick={() => {
+                                router.visit(
+                                    route("blogs.single", {
+                                        id: featuredBlog.blog_id,
+                                    })
+                                );
+                            }}
+                            className="lg:col-span-2 relative rounded-lg overflow-hidden shadow-md cursor-pointer"
+                        >
                             <img
                                 src={featuredBlog.image}
                                 alt="Valorant"
@@ -36,7 +36,9 @@ function App(props) {
                                     {featuredBlog.title}
                                 </h1>
                                 <div className="flex items-center text-gray-400 text-sm space-x-4">
-                                    <span className="pr-4">By {featuredBlog.author.name}</span>{" "}
+                                    <span className="pr-4">
+                                        By {featuredBlog.author.name}
+                                    </span>{" "}
                                     {/* Added padding for spacing */}
                                     <span>•</span>
                                     <span>5 min read</span>
@@ -44,27 +46,41 @@ function App(props) {
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Up Icon */}
                                         <AiOutlineArrowUp className="w-4 h-4 text-white" />
-                                        <span>{featuredBlog.likes.length}</span> {/* Upvotes */}
+                                        <span>{featuredBlog.likes.length}</span>{" "}
+                                        {/* Upvotes */}
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Down Icon */}
                                         <AiOutlineArrowDown className="w-4 h-4 text-white" />
-                                        <span>{featuredBlog.dislikes.length}</span> {/* Downvotes */}
+                                        <span>
+                                            {featuredBlog.dislikes.length}
+                                        </span>{" "}
+                                        {/* Downvotes */}
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         {/* Comment Icon */}
                                         <BiCommentDetail className="w-4 h-4 text-white" />
-                                        <span>{featuredBlog.comments.length}</span> {/* Comments */}
+                                        <span>
+                                            {featuredBlog.comments.length}
+                                        </span>{" "}
+                                        {/* Comments */}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* News Items on the Right */}
                         <div className="flex flex-col space-y-6">
-                            {topBlogs.map((item,index) => (
+                            {topBlogs.map((item, index) => (
                                 <div
+                                    onClick={() => {
+                                        router.visit(
+                                            route("blogs.single", {
+                                                id: item.blog_id,
+                                            })
+                                        );
+                                    }}
                                     key={index}
-                                    className="bg-[#242244] rounded-lg overflow-hidden"
+                                    className="bg-[#242244] rounded-lg overflow-hidden cursor-pointer"
                                 >
                                     {/* News Item Image */}
                                     <img
