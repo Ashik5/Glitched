@@ -18,7 +18,7 @@ export default function EditBlog({ auth, errors, blog }) {
         const blogId = blog.blog_id; // Ensure ID is being passed
 
         if (!blogId) {
-            console.error("❌ Blog ID is missing!");
+            console.error("Blog ID is missing!");
             return;
         }
 

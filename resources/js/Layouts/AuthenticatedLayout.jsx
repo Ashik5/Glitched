@@ -34,28 +34,19 @@ export default function Authenticated({ auth, header, children }) {
                                 Blogs
                             </NavLink>
                             <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("tips")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "tips"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
+                            <NavLink
+                                href={route("blog.tips")}
+                                active={route().current("blogs")}
                             >
-                                <Lightbulb className="h-4 w-4 mr-2" />
                                 Tips & Tricks
-                            </button>
+                            </NavLink>
                             <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("reviews")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "reviews"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
+                            <NavLink
+                                href={route("blog.news")}
+                                active={route().current("blogs")}
                             >
-                                Reviews
-                            </button>
+                                News
+                            </NavLink>
                         </div>
 
                         {/* Right Icons */}

@@ -14,30 +14,52 @@ class UserController extends Controller
      * Update the user's profile (name, bio, image link).
      */
     public function updateProfile(Request $request)
-    {
-        $user = auth()->user(); // Get the authenticated user
-
-        // Validate the incoming data
-        $validatedData = $request->validate([
-            'name' => 'string|max:255', 
-            'bio' => 'string|nullable', 
-            'image' => 'url|nullable',  
-        ]);
-
-        // Update the fields if provided
-        if ($request->has('name')) $user->name = $validatedData['name'];
-        if ($request->has('bio')) $user->bio = $validatedData['bio'];
-        if ($request->has('image')) $user->image = $validatedData['image']; 
-
-        $user->save(); // Save changes to the database
-
-        return Inertia::render('Dashboard', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'message' => 'Profile updated successfully!',
-            'user' => $user,
-        ]);
+{
+    $user = auth()->user();
+    
+    // Only validate the fields that were actually submitted
+    $rules = [];
+    
+    if ($request->has('name')) {
+        $rules['name'] = 'string|max:255';
     }
+    
+    if ($request->has('email')) {
+        $rules['email'] = 'email';
+    }
+    
+    if ($request->hasFile('image')) {
+        $rules['image'] = 'image|mimes:jpeg,png,jpg|max:2048'; 
+    }
+    
+    $validatedData = $request->validate($rules);
+    
+    // Update only the validated fields
+    if (isset($validatedData['name'])) {
+        $user->name = $validatedData['name'];
+    }
+    
+    if (isset($validatedData['email'])) {
+        $user->email = $validatedData['email'];
+    }
+    
+    if ($request->hasFile('image')) {
+        // Handle file upload
+        $imagePath = $request->file('image')->store('profile-images', 'public');
+        $user->image = $imagePath;
+    }
+    
+    $user->save();
+    
+    return Inertia::render('Dashboard', [
+        'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+        'status' => session('status'),
+        'message' => 'Profile updated successfully!',
+        'user' => $user,
+    ]);
+}
+
+
 
     public function getAllUsers()
     {
@@ -65,4 +87,11 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function editProfile()
+{
+    return Inertia::render('edit', [
+        'user' => auth()->user()
+    ]);
+}
 }
