@@ -26,20 +26,33 @@ Route::middleware('auth')->group(function () {
 
 
 });
-Route::get('/admin', function () {
-    $totalPosts = Blogs::with('author')->count();
-    $pendingPosts = Blogs::with('author')->where('status', 'pending')->count();
-    $totalUsers = User::count();
-    return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers]);
-})->name('blog.admin');
-Route::get('/admin/users', function () {
-    return Inertia::render('Admin/users');
-})->name('blog.admin.users');
-Route::get('/admin/posts', function () {
-    $blogs = Blogs::with('author')->where('status', 'pending')->get();
-    $verifiedBlogs = Blogs::with('author')->where('status', 'approved')->get();
-    return Inertia::render('Admin/posts', props: ['unverifiedBlogs' => $blogs, 'verifiedBlogs' => $verifiedBlogs]);
-})->name('blog.admin.posts');
+
+Route::middleware('admin')->group(function () {
+    Route::get('/admin', function () {
+        $totalPosts = Blogs::with('author')->count();
+        $pendingPosts = Blogs::with('author')->where('status', 'pending')->count();
+        $totalUsers = User::count();
+    
+        $topUsers = User::withCount(['myPosts as posts_count'])
+            ->orderByDesc('posts_count')
+            ->take(5)
+            ->get();
+        $topBlogs = Blogs::withCount(['likes as likes_count'])
+            ->orderByDesc('likes_count')
+            ->take(5)
+            ->get();
+    
+        return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers, 'topUsers' => $topUsers, 'topBlogs' => $topBlogs]);
+    })->name('blog.admin');
+    Route::get('/admin/users', function () {
+        return Inertia::render('Admin/users');
+    })->name('blog.admin.users');
+    Route::get('/admin/posts', function () {
+        $blogs = Blogs::with('author')->where('status', 'pending')->get();
+        $verifiedBlogs = Blogs::with('author')->where('status', 'approved')->get();
+        return Inertia::render('Admin/posts', props: ['unverifiedBlogs' => $blogs, 'verifiedBlogs' => $verifiedBlogs]);
+    })->name('blog.admin.posts');
+});
 
 Route::put('/blogs/bulk-approve', [BlogsController::class, 'bulkApprove'])->name('blogs.bulkApprove');
 

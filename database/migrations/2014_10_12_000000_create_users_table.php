@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->text('bio')->nullable(); // Add bio field
             $table->string('image')->nullable();
+            $table->string('role')->default("user");
             $table->boolean('banned')->default(false); // Add image field
             $table->rememberToken();
             $table->timestamps();

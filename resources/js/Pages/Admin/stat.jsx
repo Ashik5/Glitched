@@ -4,13 +4,6 @@ import Dashboard from "../Admin/dashboard"; // Import your responsive sidebar
 import Card from "../../Components/Card";
 
 const AdminDashboard = (props) => {
-    const topUsers = [
-        { name: "Alice", posts: 120 },
-        { name: "Bob", posts: 110 },
-        { name: "Charlie", posts: 90 },
-        { name: "David", posts: 85 },
-        { name: "Emma", posts: 75 },
-    ];
 
     const topPosts = [
         { title: "AI Revolution", likes: 320 },
@@ -26,7 +19,6 @@ const AdminDashboard = (props) => {
         pendingUsers: 0,
         pendingPosts: 0,
     });
-
     return (
         <div className="flex bg-gray-900 text-white min-h-screen">
             {/* Sidebar */}
@@ -108,7 +100,7 @@ const AdminDashboard = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {topUsers.map((user, index) => (
+                                {props.topUsers.map((user, index) => (
                                     <tr
                                         key={index}
                                         className="hover:bg-blue-600 text-center"
@@ -120,7 +112,7 @@ const AdminDashboard = (props) => {
                                             {user.name}
                                         </td>
                                         <td className="px-4 py-2">
-                                            {user.posts}
+                                            {user.posts_count}
                                         </td>
                                     </tr>
                                 ))}
@@ -148,7 +140,7 @@ const AdminDashboard = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {topPosts.map((post, index) => (
+                                {props.topBlogs.map((post, index) => (
                                     <tr
                                         key={index}
                                         className="hover:bg-blue-600 text-center"
@@ -160,7 +152,7 @@ const AdminDashboard = (props) => {
                                             {post.title}
                                         </td>
                                         <td className="px-4 py-2">
-                                            {post.likes}
+                                            {post.likes_count}
                                         </td>
                                     </tr>
                                 ))}

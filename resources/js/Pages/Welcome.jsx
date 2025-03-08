@@ -19,25 +19,25 @@ function App(props) {
                             onClick={() => {
                                 router.visit(
                                     route("blogs.single", {
-                                        id: featuredBlog.blog_id,
+                                        id: featuredBlog?.blog_id,
                                     })
                                 );
                             }}
                             className="lg:col-span-2 relative rounded-lg overflow-hidden shadow-md cursor-pointer"
                         >
                             <img
-                                src={featuredBlog.image}
+                                src={featuredBlog?.image}
                                 alt="Valorant"
                                 className="w-full h-[500px] object-cover"
                             />
                             {/* Overlapping Text Content */}
                             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-8">
                                 <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
-                                    {featuredBlog.title}
+                                    {featuredBlog?.title}
                                 </h1>
                                 <div className="flex items-center text-gray-400 text-sm space-x-4">
                                     <span className="pr-4">
-                                        By {featuredBlog.author.name}
+                                        By {featuredBlog?.author.name}
                                     </span>{" "}
                                     {/* Added padding for spacing */}
                                     <span>•</span>
@@ -46,14 +46,14 @@ function App(props) {
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Up Icon */}
                                         <AiOutlineArrowUp className="w-4 h-4 text-white" />
-                                        <span>{featuredBlog.likes.length}</span>{" "}
+                                        <span>{featuredBlog?.likes.length}</span>{" "}
                                         {/* Upvotes */}
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Down Icon */}
                                         <AiOutlineArrowDown className="w-4 h-4 text-white" />
                                         <span>
-                                            {featuredBlog.dislikes.length}
+                                            {featuredBlog?.dislikes.length}
                                         </span>{" "}
                                         {/* Downvotes */}
                                     </div>
@@ -61,7 +61,7 @@ function App(props) {
                                         {/* Comment Icon */}
                                         <BiCommentDetail className="w-4 h-4 text-white" />
                                         <span>
-                                            {featuredBlog.comments.length}
+                                            {featuredBlog?.comments.length}
                                         </span>{" "}
                                         {/* Comments */}
                                     </div>
@@ -70,7 +70,7 @@ function App(props) {
                         </div>
                         {/* News Items on the Right */}
                         <div className="flex flex-col space-y-6">
-                            {topBlogs.map((item, index) => (
+                            {topBlogs?.map((item, index) => (
                                 <div
                                     onClick={() => {
                                         router.visit(

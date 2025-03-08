@@ -173,7 +173,7 @@ const SingleBlog = (props) => {
                                         <img
                                             src={comment.user.image}
                                             alt={comment.user.name}
-                                            className="h-24 w-24 rounded-full"
+                                            className="h-10 w-10 rounded-full"
                                         />
                                     </div>
                                     <div>

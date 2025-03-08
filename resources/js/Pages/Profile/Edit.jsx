@@ -6,7 +6,6 @@ export default function EditProfile() {
     const user = auth.user;
 
     const { props } = usePage();
-    console.log("user ", user);
     const { data, setData, patch, processing, errors } = useForm({
         name: user?.name || "",
         email: user?.email || "",
