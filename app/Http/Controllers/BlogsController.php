@@ -25,7 +25,7 @@ class BlogsController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'nullable|string',
-            'tag' => 'required|in:valorant,csgo',
+            'tag' => 'required|string',
             'category' => 'required|in:tips,news',
             'image' => 'nullable|image|max:2048'
         ]);
@@ -52,21 +52,29 @@ class BlogsController extends Controller
     {
         try {
             if ($id) {
+                if (!auth()->user()) {
+                    return redirect()->route('welcome');
+                }
+
                 $user = auth()->user();
                 $blog = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])->findOrFail($id);
                 $userLiked = $blog->likes()->where('user_id', $user->id)->exists();
                 $userDisliked = $blog->dislikes()->where('user_id', $user->id)->exists();
                 $userFavorited = $blog->favourites()->where('user_id', $user->id)->exists();
-                return Inertia::render('Blog/SingleBlog', ['blog' => $blog, 'userLiked' => $userLiked, 'userDisliked' => $userDisliked, 'userFavorited' => $userFavorited]);
+                $relatedBlogs = Blogs::with('author')->where('tag', 'like', '%' . $blog->tag . '%')
+                    ->where('blog_id', '!=', $blog->blog_id)
+                    ->take(5)
+                    ->get();
+                return Inertia::render('Blog/SingleBlog', ['blog' => $blog, 'userLiked' => $userLiked, 'userDisliked' => $userDisliked, 'userFavorited' => $userFavorited, 'relatedBlogs' => $relatedBlogs]);
             }
 
             // Start with the query builder for approved blogs
-            $query = Blogs::where('status', 'approved')
-                    ->where('blog_banned', false);
+            $query = Blogs::with('author')->where('status', 'approved')
+                ->where('blog_banned', false);
 
             // Apply category filter if present
             // Start with the query builder for approved blogs
-            
+
 
             // Apply category filter if present
             if ($request->has('category')) {
@@ -92,7 +100,7 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
-    
+
     /**
      * Look up blogs by title
      */
@@ -116,8 +124,8 @@ class BlogsController extends Controller
      */
     public function searchByTags(Request $request)
     {
-        $request->validate(['tags' => 'required|string']);
-        $blogs = Blogs::where('tags', 'like', '%' . $request->input('tags') . '%')->get();
+        $request->validate(['tag' => 'required|string']);
+        $blogs = Blogs::where('tag', 'like', '%' . $request->input('tag') . '%')->get();
         return response()->json(['message' => 'Blogs fetched successfully!', 'blogs' => $blogs], 200);
     }
     /**
@@ -272,20 +280,21 @@ class BlogsController extends Controller
         }
     }
 
-    public function getTipsBlogs(Request $request) {
+    public function getTipsBlogs(Request $request)
+    {
         try {
-            $query = Blogs::where('status', 'approved')
+            $query = Blogs::with('author')->where('status', 'approved')
                 ->where('category', 'tips')
                 ->where('blog_banned', false);
-    
+
             // Apply tags filter if present
             if ($request->has('tags')) {
                 $query->where('tags', 'like', '%' . $request->input('tags') . '%');
             }
-    
+
             // Execute query with pagination
             $blogs = $query->paginate(10);
-    
+
             return Inertia::render('Blog/Index', [
                 'blogs' => $blogs,
                 'filters' => $request->only(['tags']),
@@ -294,21 +303,22 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch tips blogs', 'error' => $e->getMessage()], 500);
         }
     }
-    
-    public function getNewsBlogs(Request $request) {
+
+    public function getNewsBlogs(Request $request)
+    {
         try {
-            $query = Blogs::where('status', 'approved')
+            $query = Blogs::with('author')->where('status', 'approved')
                 ->where('category', 'news')
                 ->where('blog_banned', false);
-    
+
             // Apply tags filter if present
             if ($request->has('tags')) {
                 $query->where('tags', 'like', '%' . $request->input('tags') . '%');
             }
-    
+
             // Execute query with pagination
             $blogs = $query->paginate(10);
-    
+
             return Inertia::render('Blog/Index', [
                 'blogs' => $blogs,
                 'filters' => $request->only(['tags']),
@@ -317,5 +327,5 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch news blogs', 'error' => $e->getMessage()], 500);
         }
     }
-    
+
 }

@@ -9,7 +9,7 @@ import {
     User,
     Bookmark,
 } from "lucide-react";
-import { useForm, router} from "@inertiajs/react";
+import { useForm, router } from "@inertiajs/react";
 import Image2 from "../../../assets/image_2.png";
 import Image3 from "../../../assets/image_3.png";
 import Image4 from "../../../assets/image_4.png";
@@ -17,44 +17,13 @@ import SwiperSlider from "@/Components/SwiperSlider/SwiperSlider";
 import SectionDivider from "@/Components/SectionDivider/SectionDivider";
 import Image1 from "../../../assets/image_1.png";
 import GameDetailsCard from "../../Components/GameCard/Valorant";
-import { useState,useEffect } from "react";
 
 const SingleBlog = (props) => {
-    const games = [
-        {
-            id: 1,
-            title: "13 Exciting Games Kicking Off The New Year In January",
-            image: Image1,
-            author: "ProGamer",
-            readTime: "6 min read",
-        },
-        {
-            id: 2,
-            title: "Strategies for Winning Battle Royale Matches",
-            image: Image2,
-            author: "GamingExpert",
-            readTime: "7 min read",
-        },
-        {
-            id: 3,
-            title: "How to Build Your Gaming Setup on a Budget",
-            image: Image3,
-            author: "TechGuru",
-            readTime: "5 min read",
-        },
-        {
-            id: 4,
-            title: "The Best Games of All Time",
-            image: Image4,
-            author: "Admin",
-            readTime: "10 min read",
-        },
-    ];
     const { data, setData, post, processing, errors } = useForm({
         blog_id: props.blog.blog_id,
         comment: "",
     });
-    const {userLiked,userDisliked,userFavorited} = props;
+    const { userLiked, userDisliked, userFavorited } = props;
 
     const handleLike = (blog_id) => {
         post(route("blog.like", blog_id), { preserveScroll: true });
@@ -78,9 +47,6 @@ const SingleBlog = (props) => {
     const dislikesCount = props.blog?.dislikes?.length ?? 0;
     const favouritesCount = props.blog?.favourites?.length ?? 0;
     const commentsCount = props.blog?.comments?.length ?? 0;
-
-    console.log(props.blog);
-    console.log(props);
     return (
         <Authenticated auth={props.auth}>
             <main className="flex-grow">
@@ -96,10 +62,10 @@ const SingleBlog = (props) => {
                             <img
                                 src={props.blog.image}
                                 alt="Valorant Banner"
-                                className="w-full h-full object-cover rounded-lg shadow-lg"
+                                className="w-full h-[80vh] object-cover rounded-lg shadow-lg"
                             />
                         </div>
-                        <GameDetailsCard />
+                        <GameDetailsCard game={props.blog.tag}/>
                     </div>
 
                     <div
@@ -122,7 +88,14 @@ const SingleBlog = (props) => {
                                 onClick={() => handleLike(props.blog.blog_id)}
                                 className="flex items-center space-x-1 hover:text-gray-200"
                             >
-                                <ThumbsUp size={18} className={userLiked ? 'icon-active' : 'icon-inactive'}/>
+                                <ThumbsUp
+                                    size={18}
+                                    className={
+                                        userLiked
+                                            ? "icon-active"
+                                            : "icon-inactive"
+                                    }
+                                />
                                 <span>{likesCount}</span>
                             </button>
                             <button
@@ -131,7 +104,14 @@ const SingleBlog = (props) => {
                                 }
                                 className="flex items-center space-x-1 hover:text-gray-200"
                             >
-                                <ThumbsDown size={18} className={userDisliked ? 'icon-active' : 'icon-inactive'}/>
+                                <ThumbsDown
+                                    size={18}
+                                    className={
+                                        userDisliked
+                                            ? "icon-active"
+                                            : "icon-inactive"
+                                    }
+                                />
                                 <span>{dislikesCount}</span>
                             </button>
                             <button className="flex items-center space-x-1 hover:text-gray-200">
@@ -144,7 +124,14 @@ const SingleBlog = (props) => {
                                 }
                                 className="flex items-center space-x-1 hover:text-gray-200"
                             >
-                                <Bookmark size={18} className={userFavorited ? 'icon-active' : 'icon-inactive'}/>
+                                <Bookmark
+                                    size={18}
+                                    className={
+                                        userFavorited
+                                            ? "icon-active"
+                                            : "icon-inactive"
+                                    }
+                                />
                                 <span>{favouritesCount}</span>
                             </button>
                         </div>
@@ -180,12 +167,13 @@ const SingleBlog = (props) => {
 
                         {/* Existing Comments */}
                         <div className="mt-6 space-y-4">
-                            {props.blog.comments.map((comment) => (
-                                <div className="flex items-start space-x-4">
+                            {props.blog.comments.map((comment,index) => (
+                                <div key={index} className="flex items-start space-x-4">
                                     <div className="w-10 h-10 bg-gray-500 flex items-center justify-center rounded-full">
-                                        <User
-                                            size={24}
-                                            className="text-gray-300"
+                                        <img
+                                            src={comment.user.image}
+                                            alt={comment.user.name}
+                                            className="h-24 w-24 rounded-full"
                                         />
                                     </div>
                                     <div>
@@ -205,7 +193,7 @@ const SingleBlog = (props) => {
 
                     {/* Swiper Section */}
                     <div className="mb-16">
-                        <SwiperSlider title="Reviews" items={games} />
+                        <SwiperSlider title="Related Blogs" items={props.relatedBlogs} />
                     </div>
                 </div>
             </main>
