@@ -1,0 +1,22 @@
+name: Deploy to Render
+on:
+  push:
+    branches:
+      - development  # Trigger the action on push to the 'development' branch (adjust as necessary)
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment for CI jobs
+    steps:
+      # 1. Checkout code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # 2. Deploy to Render using the Render API
+      - name: Trigger Render Deployment
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Store your Render API key in GitHub secrets
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"branch": "development"}' \
+            https://api.render.com/deploy/srv-cu9n5sdds78s739g353g?key=CDwjpcusMeY  

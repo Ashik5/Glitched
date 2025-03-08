@@ -39,7 +39,7 @@ const Index = (props) => {
                         <h3 className="text-white font-semibold mb-2 text-sm">
                             {item.title}
                         </h3>
-                        <p className="text-gray-400 text-xs">By {item.author}</p>
+                        <p className="text-gray-400 text-xs">By {item.author.name}</p>
                     </div>
                 </li>
             ))}

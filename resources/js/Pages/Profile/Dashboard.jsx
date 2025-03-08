@@ -1,5 +1,5 @@
-import React from "react";
-import { CirclePlus, XCircle, Menu, Home, LogOut } from "lucide-react";
+import { CirclePlus,Home, LogOut } from "lucide-react";
+import Dropdown from "@/Components/Dropdown";
 
 const Dashboard = () => {
     return (
@@ -23,9 +23,9 @@ const Dashboard = () => {
                         </a>
                     </nav>
                 </div>
-                <button className="flex items-center gap-2 text-red-400 hover:text-red-300">
-                    <LogOut size={20} /> Logout
-                </button>
+                <Dropdown.Link href={route("logout")} method="post" as="button" className="flex items-center gap-2 text-red-400 hover:text-red-300">
+                <LogOut size={20} /> Logout
+                </Dropdown.Link>
             </aside>
         </div>
     );

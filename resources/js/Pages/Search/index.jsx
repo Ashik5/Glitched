@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Search, ChevronDown } from "lucide-react";
 import SectionDivider from "@/Components/SectionDivider/SectionDivider";
@@ -6,18 +6,107 @@ import { usePage } from "@inertiajs/react";
 import SearchLogo from "../../../assets/SearchPage_logo.png";
 import { router } from "@inertiajs/react";
 
-function SearchPage({ auth }) {
+function SearchPage({ auth, blogs = [], filters = {} }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedGame, setSelectedGame] = useState("Select Games");
     const [searchTerm, setSearchTerm] = useState("");
+    const [sortByPopularity, setSortByPopularity] = useState(false);
 
-    const gamesList = ["Counter Strike", "Valorant"];
+    const gamesList = [
+        { label: "Counter Strike", value: "csgo" },
+        { label: "Valorant", value: "valorant" },
+    ];
 
     const { blogs = [] } = usePage().props;
 
-    const filteredBlogs = blogs.filter((blog) =>
-        blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredBlogs = blogs
+        .filter(
+            (blog) =>
+                blog.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                (selectedGame === "Select Games" || blog.tag === selectedGame)
+        )
+        .sort((a, b) => {
+            if (sortByPopularity) {
+                return b.likes - a.likes; // Sort by likes in descending order
+            }
+            return 0; // No sorting if the button isn't pressed
+        });
+
+    // Format blog results for display
+    const formatBlogData = (data) => {
+        if (!data || !Array.isArray(data) || data.length === 0) return [];
+        
+        return data.map(blog => ({
+            id: blog.blog_id,
+            title: blog.title,
+            image: blog.image || Image1, // Fallback image if none provided
+            author: blog.author?.name || "Unknown",
+            readTime: "5 min read",
+            content: blog.content,
+            category: blog.category,
+            tag: blog.tag
+        }));
+    };
+
+    // Handle search by title
+    const handleTitleSearch = (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        
+        router.get(route("blogs.index"), {
+            title: searchQuery
+        }, {
+            preserveState: true,
+            onFinish: () => {
+                setIsLoading(false);
+            }
+        });
+    };
+
+    // Handle search by tag
+    const handleTagSearch = (tag) => {
+        setIsLoading(true);
+        
+        router.get(route("blogs.index"), {
+            tags: tag
+        }, {
+            preserveState: true,
+            onFinish: () => {
+                setIsLoading(false);
+            }
+        });
+    };
+
+    // Handle filter by category
+    const handleCategoryFilter = (category) => {
+        setIsLoading(true);
+        
+        router.get(route("blogs.index"), {
+            category: category
+        }, {
+            preserveState: true,
+            onFinish: () => {
+                setIsLoading(false);
+            }
+        });
+    };
+
+    // Apply tag search when game selection changes
+    useEffect(() => {
+        if (selectedGame !== "Select Games") {
+            handleTagSearch(selectedGame);
+        }
+    }, [selectedGame]);
+
+    // Navigate to single blog page
+    const viewBlog = (blogId) => {
+        router.visit(route("blogs.show", blogId));
+    };
+
+    // Determine whether to show search results or default content
+    const displayItems = blogs && blogs.length > 0 
+        ? formatBlogData(blogs) 
+        : defaultGames;
 
     return (
         <Authenticated auth={auth}>
@@ -32,7 +121,7 @@ function SearchPage({ auth }) {
                     </div>
 
                     {/* Search Bar */}
-                    <div className="max-w-2xl mx-auto mb-12">
+                    <form onSubmit={handleTitleSearch} className="max-w-2xl mx-auto mb-12">
                         <div className="relative">
                             <input
                                 type="text"
@@ -42,8 +131,14 @@ function SearchPage({ auth }) {
                                 className="w-full py-3 px-4 pl-12 rounded-full bg-white/10 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                             />
                             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                            <button 
+                                type="submit"
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-purple-500 text-white py-1 px-4 rounded-full text-sm hover:bg-purple-600"
+                            >
+                                Search
+                            </button>
                         </div>
-                    </div>
+                    </form>
 
                     {/* Dropdown & Popularity Buttons */}
                     <div className="flex justify-center space-x-8 mb-12">
@@ -54,7 +149,11 @@ function SearchPage({ auth }) {
                                 }
                                 className="flex items-center space-x-2 bg-[#231E60] px-4 py-2 rounded-full text-white"
                             >
-                                <span>{selectedGame}</span>
+                                <span>
+                                    {gamesList.find(
+                                        (game) => game.value === selectedGame
+                                    )?.label || "Select Games"}
+                                </span>
                                 <ChevronDown size={18} />
                             </button>
 
@@ -63,20 +162,26 @@ function SearchPage({ auth }) {
                                     {gamesList.map((game, index) => (
                                         <button
                                             key={index}
+                                            type="button"
                                             onClick={() => {
-                                                setSelectedGame(game);
+                                                setSelectedGame(game.value);
                                                 setIsDropdownOpen(false);
                                             }}
                                             className="block w-full text-left px-4 py-2 hover:bg-[#2D277B] text-white"
                                         >
-                                            {game}
+                                            {game.label}
                                         </button>
                                     ))}
                                 </div>
                             )}
                         </div>
 
-                        <button className="bg-[#231E60] px-4 py-2 rounded-full text-white">
+                        <button
+                            onClick={() =>
+                                setSortByPopularity(!sortByPopularity)
+                            }
+                            className="bg-[#231E60] px-4 py-2 rounded-full text-white"
+                        >
                             Popularity
                         </button>
                     </div>
