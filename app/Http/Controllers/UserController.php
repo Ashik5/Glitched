@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Blogs;
 
 class UserController extends Controller
 {
@@ -36,6 +37,24 @@ class UserController extends Controller
             'message' => 'Profile updated successfully!',
             'user' => $user,
         ]);
+    }
+
+    public function getAllUsers()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
+    public function banUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->banned = true;
+        $user->save();
+
+        
+        Blogs::where('author', $id)->update(['blog_banned' => true]);
+
+        return response()->json(['message' => 'User banned successfully']);
     }
 
     public function getUserData(Request $request): \Inertia\Response

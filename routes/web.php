@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'profileData'])->name('profile.index');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/blogs/{id}', [BlogsController::class, 'updateBlog']);
 });
 Route::get('/users', [UserController::class, 'getUserData'])->name('users.data');
+
+
 
 require __DIR__.'/blog.php';
 require __DIR__.'/auth.php';

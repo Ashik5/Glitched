@@ -21,10 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('author'); // Foreign key to users table
             $table->string('tag')->nullable(); // e.g., Valorant, CS:GO
             $table->string('category')->nullable();
-            $table->string('status')->default('pending'); // e.g., Tips, News
-            $table->integer('likes')->default(0);
-            $table->integer('dislikes')->default(0);
-            $table->json('comments')->nullable();
+            $table->string('status')->default('pending');
+            $table->boolean('blog_banned')->default(false);// e.g., Tips, News
             $table->timestamps();
 
             // Define foreign key constraint for author
