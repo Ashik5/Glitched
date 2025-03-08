@@ -26,7 +26,6 @@ Route::middleware('auth')->group(function () {
 
 
 });
-
 Route::middleware('admin')->group(function () {
     Route::get('/admin', function () {
         $totalPosts = Blogs::with('author')->count();
@@ -64,7 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/search', function () {
     return Inertia::render('Search/index', [
-        'blogs' => Blogs::with('author')->where('status', 'approved')->get()
+        'blogs' => Blogs::with(['author','likes'])->where('status', 'approved')->get()
     ]);
 })->name('search');
 Route::get('/edit', function () {

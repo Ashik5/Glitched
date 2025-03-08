@@ -20,18 +20,18 @@ const AdminDashboard = (props) => {
         pendingPosts: 0,
     });
     return (
-        <div className="flex bg-gray-900 text-white min-h-screen">
+        <div className="flex bg-[#1E1A4B] text-white min-h-screen">
             {/* Sidebar */}
             <Dashboard />
 
             {/* Main Content */}
-            <div className="flex-1 p-6">
+            <div className="flex-1 p-6 ">
                 <h1 className="text-3xl font-semibold mb-6">Admin Dashboard</h1>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Total Users */}
-                    <div className="bg-[#1E1A4B] p-6 rounded-lg shadow-md flex items-center gap-4">
+                    <div className="bg-gray-900 p-6 rounded-lg shadow-md flex items-center gap-4">
                         <Users size={40} className="text-blue-400" />
                         <div>
                             <h3 className="text-lg font-medium">Total Users</h3>
@@ -42,7 +42,7 @@ const AdminDashboard = (props) => {
                     </div>
 
                     {/* Total Posts */}
-                    <div className="bg-[#1E1A4B] p-6 rounded-lg shadow-md flex items-center gap-4">
+                    <div className="bg-gray-900 p-6 rounded-lg shadow-md flex items-center gap-4">
                         <FileText size={40} className="text-green-400" />
                         <div>
                             <h3 className="text-lg font-medium">Total Posts</h3>
@@ -53,7 +53,7 @@ const AdminDashboard = (props) => {
                     </div>
 
                     {/* Pending Users */}
-                    <div className="bg-[#1E1A4B] p-6 rounded-lg shadow-md flex items-center gap-4">
+                    <div className="bg-gray-900 p-6 rounded-lg shadow-md flex items-center gap-4">
                         <UserCheck size={40} className="text-yellow-400" />
                         <div>
                             <h3 className="text-lg font-medium">
@@ -66,7 +66,7 @@ const AdminDashboard = (props) => {
                     </div>
 
                     {/* Pending Posts */}
-                    <div className="bg-[#1E1A4B] p-6 rounded-lg shadow-md flex items-center gap-4">
+                    <div className="bg-gray-900 p-6 rounded-lg shadow-md flex items-center gap-4">
                         <Clock size={40} className="text-red-400" />
                         <div>
                             <h3 className="text-lg font-medium">
