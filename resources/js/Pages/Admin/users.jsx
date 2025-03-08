@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CheckCircle, Trash2 } from "lucide-react";
 import Dashboard from "../Admin/dashboard";
-import axios from "axios"; 
+import axios from "axios";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -21,7 +21,13 @@ const Users = () => {
 
     const toggleBan = async (id, banned) => {
         try {
-            const response = await axios.post(`/api/users/${id}/toggle-ban`);
+            const url = banned
+                ? `/api/users/${id}/unBan` // Unban API
+                : `/api/users/${id}/ban`; // Correct Ban API
+
+            console.log(`Calling API: ${url}`); // Debugging output
+
+            const response = await axios.post(url);
 
             if (response.status === 200) {
                 setUsers(
@@ -31,7 +37,10 @@ const Users = () => {
                 );
             }
         } catch (error) {
-            console.error(`Error ${banned ? "unbanning" : "banning"} user:`, error);
+            console.error(
+                `Error ${banned ? "unbanning" : "banning"} user:`,
+                error
+            );
         }
     };
 
@@ -60,17 +69,29 @@ const Users = () => {
                                 <div className="flex space-x-3">
                                     {user.banned ? (
                                         <button
-                                            onClick={() => toggleBan(user.id, true)}
+                                            onClick={() =>
+                                                toggleBan(user.id, true)
+                                            }
                                             className="flex items-center bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
                                         >
-                                            <CheckCircle size={16} className="mr-1" /> Unban
+                                            <CheckCircle
+                                                size={16}
+                                                className="mr-1"
+                                            />{" "}
+                                            Unban
                                         </button>
                                     ) : (
                                         <button
-                                            onClick={() => toggleBan(user.id, false)}
+                                            onClick={() =>
+                                                toggleBan(user.id, false)
+                                            }
                                             className="flex items-center bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
                                         >
-                                            <Trash2 size={16} className="mr-1" /> Ban
+                                            <Trash2
+                                                size={16}
+                                                className="mr-1"
+                                            />{" "}
+                                            Ban
                                         </button>
                                     )}
                                 </div>
