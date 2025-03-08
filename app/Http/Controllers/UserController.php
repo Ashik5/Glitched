@@ -29,7 +29,7 @@ class UserController extends Controller
     }
     
     if ($request->hasFile('image')) {
-        $rules['image'] = 'image|mimes:jpeg,png,jpg,gif|max:2048'; // Add proper image validation
+        $rules['image'] = 'image|mimes:jpeg,png,jpg|max:2048'; 
     }
     
     $validatedData = $request->validate($rules);
