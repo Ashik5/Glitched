@@ -3,9 +3,9 @@ import Dropdown from "@/Components/Dropdown";
 
 const Dashboard = () => {
     return (
-        <div className="flex h-screen bg-gray-900 text-white">
+        <div className="flex h-screen bg-[#1E1A4B] text-white">
             {/* Sidebar */}
-            <aside className="w-64 bg-[#1E1A4B] p-6 flex flex-col justify-between">
+            <aside className="w-64 bg-gray-900 p-6 flex flex-col justify-between">
                 <div>
                     <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
                     <nav className="space-y-4">
