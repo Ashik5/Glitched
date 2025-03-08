@@ -26,13 +26,7 @@ export default function Authenticated({ auth, header, children }) {
 
                         {/* Center Navigation Links */}
                         <div className="flex space-x-4 items-center">
-                            <NavLink
-                                href={route("dashboard")}
-                                active={route().current("dashboard")}
-                            >
-                                Dashboard
-                            </NavLink>
-                            <span className="h-6 border-l border-gray-700"></span>
+                           
                             <NavLink
                                 href={route("blogs.index")}
                                 active={route().current("blogs")}
