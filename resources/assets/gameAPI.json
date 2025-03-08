@@ -1,0 +1,67 @@
+{
+    "games": [
+        {
+            "name": "Counter-Strike 2",
+            "os": "Windows 10 64-bit",
+            "ram": "8 GB",
+            "gpu": "NVIDIA GeForce GTX 1060 / AMD Radeon RX 580",
+            "hdd": "85 GB",
+            "bio": "Counter-Strike 2 is the latest iteration of the legendary tactical shooter from Valve, featuring updated graphics and physics.",
+            "video": "https://www.youtube.com/watch?v=c80dVYcL69E"
+        },
+        {
+            "name": "Valorant",
+            "os": "Windows 7/10 64-bit",
+            "ram": "4 GB",
+            "gpu": "Intel HD 3000 / NVIDIA GeForce GT 730",
+            "hdd": "30 GB",
+            "bio": "Valorant is a tactical shooter developed by Riot Games, known for its precision gunplay and unique agent abilities.",
+            "video": "https://www.youtube.com/watch?v=PlpqhZiumDM"
+        },
+        {
+            "name": "Fortnite",
+            "os": "Windows 10 64-bit / macOS Mojave 10.14.6",
+            "ram": "8 GB",
+            "gpu": "NVIDIA GeForce GTX 960 / AMD R9 280",
+            "hdd": "50 GB",
+            "bio": "Fortnite is a battle royale game with building mechanics, developed by Epic Games, featuring vibrant visuals and creative gameplay.",
+            "video": "https://www.youtube.com/watch?v=i0cRjXWGQ34"
+        },
+        {
+            "name": "Marvel Rivals",
+            "os": "Windows 10 64-bit",
+            "ram": "16 GB",
+            "gpu": "NVIDIA GeForce RTX 2060 / AMD Radeon RX 5700",
+            "hdd": "100 GB",
+            "bio": "Marvel Rivals is an upcoming team-based multiplayer shooter featuring Marvel superheroes and villains in action-packed battles.",
+            "video": "https://www.youtube.com/watch?v=FFWzIbkXxBU"
+        },
+        {
+            "name": "Rainbow Six Siege",
+            "os": "Windows 10 64-bit",
+            "ram": "8 GB",
+            "gpu": "NVIDIA GeForce GTX 960 / AMD Radeon R9 280X",
+            "hdd": "61 GB",
+            "bio": "Rainbow Six Siege is a tactical shooter emphasizing strategy, teamwork, and destructible environments.",
+            "video": "https://www.youtube.com/watch?v=mj99yIzCQpc"
+        },
+        {
+            "name": "Apex Legends",
+            "os": "Windows 10 64-bit",
+            "ram": "8 GB",
+            "gpu": "NVIDIA GeForce GTX 970 / AMD Radeon R9 290",
+            "hdd": "80 GB",
+            "bio": "Apex Legends is a free-to-play battle royale set in the Titanfall universe, featuring unique legends and fast-paced gameplay.",
+            "video": "https://www.youtube.com/watch?v=lwp429eqER4"
+        },
+        {
+            "name": "Dota 2",
+            "os": "Windows 7/10 64-bit",
+            "ram": "4 GB",
+            "gpu": "NVIDIA GeForce GTX 650 / AMD Radeon HD 7750",
+            "hdd": "15 GB",
+            "bio": "Dota 2 is a legendary MOBA developed by Valve, featuring deep strategy and intense 5v5 battles.",
+            "video": "https://www.youtube.com/watch?v=-cSFPIwMEq4"
+        }
+    ]
+}
