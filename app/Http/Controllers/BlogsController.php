@@ -67,6 +67,7 @@ class BlogsController extends Controller
             // Start with the query builder for approved blogs
             $query = Blogs::where('status', 'approved');
 
+            // Apply category filter if present
             if ($request->has('category')) {
                 $query->where('category', $request->input('category'));
                 $query->where('category', $request->input('category'));

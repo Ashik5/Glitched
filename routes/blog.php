@@ -49,3 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/blogs/{blog_id}/dislike', [BlogsController::class, 'toggleDislike'])->name('blog.dislike');
     Route::post('/blogs/{blog}/favourite', [BlogsController::class, 'toggleFavourite'])->name('blog.favourite');
 });
+
+Route::get('/search', function () {
+    return Inertia::render('Search/index', [
+        'blogs' => Blogs::with('author')->where('status', 'approved')->get()
+    ]);
+})->name('search');
