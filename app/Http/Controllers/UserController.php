@@ -2,61 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Blogs;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     /**
      * Update the user's profile (name, bio, image link).
      */
-    public function updateProfile(Request $request)
+    public function updateProfile(ProfileUpdateRequest $request)
     {
-        $user = auth()->user();
 
-        // Only validate the fields that were actually submitted
-        $rules = [];
+        try {
+            $user = Auth::user();
 
-        if ($request->has('name')) {
-            $rules['name'] = 'string|max:255';
+            $validated = $request->validate([
+                'name' => 'nullable|string|max:255',
+                'email' => 'nullable|string|email|max:255',
+                'image' => 'nullable|image|max:2048'
+            ]);
+
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('public/blogs');
+                $validated['image'] = Storage::url($path);
+            }
+            else{
+                $validated['image'] = $user->image;
+            }
+            $validated['password'] = $user->password;
+            $user->update($validated);
+
+            return redirect()->route('profile.index');
+        } catch (\Exception $e) {
+            \Log::error(" User update failed: " . $e->getMessage());
+            return response()->json(['message' => 'User update failed', 'error' => $e->getMessage()], 500);
         }
-
-        if ($request->has('email')) {
-            $rules['email'] = 'email';
-        }
-
-        if ($request->hasFile('image')) {
-            $rules['image'] = 'image|mimes:jpeg,png,jpg|max:2048';
-        }
-
-        $validatedData = $request->validate($rules);
-
-        // Update only the validated fields
-        if (isset($validatedData['name'])) {
-            $user->name = $validatedData['name'];
-        }
-
-        if (isset($validatedData['email'])) {
-            $user->email = $validatedData['email'];
-        }
-
-        if ($request->hasFile('image')) {
-            // Handle file upload
-            $imagePath = $request->file('image')->store('profile-images', 'public');
-            $user->image = $imagePath;
-        }
-
-        $user->save();
-
-        return Inertia::render('Dashboard', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'message' => 'Profile updated successfully!',
-            'user' => $user,
-        ]);
     }
 
 
