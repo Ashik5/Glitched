@@ -2,7 +2,7 @@ name: Deploy to Render
 on:
   push:
     branches:
-      - development  # Trigger the action on push to the 'main' branch (adjust as necessary)
+      - development  # Trigger the action on push to the 'development' branch (adjust as necessary)
 jobs:
   deploy:
     runs-on: ubuntu-latest  # Use the latest Ubuntu environment for CI jobs
@@ -18,5 +18,5 @@ jobs:
           curl -X POST \
             -H "Authorization: Bearer $RENDER_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{"branch": "main"}' \
+            -d '{"branch": "development"}' \
             https://api.render.com/deploy/srv-cu9n5sdds78s739g353g?key=CDwjpcusMeY  

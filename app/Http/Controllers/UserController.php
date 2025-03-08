@@ -15,21 +15,41 @@ class UserController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        $user = auth()->user(); // Get the authenticated user
+        $user = auth()->user();
 
-        // Validate the incoming data
-        $validatedData = $request->validate([
-            'name' => 'string|max:255', 
-            'bio' => 'string|nullable', 
-            'image' => 'url|nullable',  
-        ]);
+        // Only validate the fields that were actually submitted
+        $rules = [];
 
-        // Update the fields if provided
-        if ($request->has('name')) $user->name = $validatedData['name'];
-        if ($request->has('bio')) $user->bio = $validatedData['bio'];
-        if ($request->has('image')) $user->image = $validatedData['image']; 
+        if ($request->has('name')) {
+            $rules['name'] = 'string|max:255';
+        }
 
-        $user->save(); // Save changes to the database
+        if ($request->has('email')) {
+            $rules['email'] = 'email';
+        }
+
+        if ($request->hasFile('image')) {
+            $rules['image'] = 'image|mimes:jpeg,png,jpg|max:2048';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        // Update only the validated fields
+        if (isset($validatedData['name'])) {
+            $user->name = $validatedData['name'];
+        }
+
+        if (isset($validatedData['email'])) {
+            $user->email = $validatedData['email'];
+        }
+
+        if ($request->hasFile('image')) {
+            // Handle file upload
+            $imagePath = $request->file('image')->store('profile-images', 'public');
+            $user->image = $imagePath;
+        }
+
+        $user->save();
 
         return Inertia::render('Dashboard', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
@@ -38,6 +58,8 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+
 
     public function getAllUsers()
     {
@@ -51,7 +73,7 @@ class UserController extends Controller
         $user->banned = true;
         $user->save();
 
-        
+
         Blogs::where('author', $id)->update(['blog_banned' => true]);
 
         return response()->json(['message' => 'User banned successfully']);
@@ -63,6 +85,13 @@ class UserController extends Controller
 
         return Inertia::render('Dashboard', [
             'user' => $user,
+        ]);
+    }
+
+    public function editProfile()
+    {
+        return Inertia::render('edit', [
+            'user' => auth()->user()
         ]);
     }
 }

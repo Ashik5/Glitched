@@ -12,31 +12,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 function App(props) {
-    const { blogs: reviews } = props;
-    const { blogs: tipsAndTricks } = props;
-    const newsItems = [
-        {
-            id: 1,
-            title: "13 Exciting Games Kicking Off The New Year In January",
-            image: Image2,
-            author: "Admin",
-            readTime: "3 min read",
-        },
-        {
-            id: 2,
-            title: "13 Exciting Games Kicking Off The New Year In January",
-            image: Image3,
-            author: "Admin",
-            readTime: "3 min read",
-        },
-        {
-            id: 3,
-            title: "13 Exciting Games Kicking Off The New Year In January",
-            image: Image4,
-            author: "Admin",
-            readTime: "3 min read",
-        },
-    ];
+    const { topTipsBlogs,topNewsBlogs,topBlogs,featuredBlog } = props;
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -50,24 +26,17 @@ function App(props) {
                         {/* Main Featured News */}
                         <div className="lg:col-span-2 relative rounded-lg overflow-hidden shadow-md">
                             <img
-                                src={ImageMain}
+                                src={featuredBlog.image}
                                 alt="Valorant"
                                 className="w-full h-[500px] object-cover"
                             />
                             {/* Overlapping Text Content */}
                             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-8">
                                 <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
-                                    Nintendo Patent Details AI-Upscaling Tech
-                                    Ahead Of Switch 2 Reveal
+                                    {featuredBlog.title}
                                 </h1>
-                                <p className="text-gray-300 mb-6 drop-shadow-lg">
-                                    13 Exciting Games Kicking Off The New Year
-                                    In January | Exciting Games Kicking Off The
-                                    New Year In January | Exciting Games Kicking
-                                    Off The New Year In January
-                                </p>
                                 <div className="flex items-center text-gray-400 text-sm space-x-4">
-                                    <span className="pr-4">By Borshon</span>{" "}
+                                    <span className="pr-4">By {featuredBlog.author.name}</span>{" "}
                                     {/* Added padding for spacing */}
                                     <span>•</span>
                                     <span>5 min read</span>
@@ -75,26 +44,26 @@ function App(props) {
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Up Icon */}
                                         <AiOutlineArrowUp className="w-4 h-4 text-white" />
-                                        <span>69</span> {/* Upvotes */}
+                                        <span>{featuredBlog.likes.length}</span> {/* Upvotes */}
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Down Icon */}
                                         <AiOutlineArrowDown className="w-4 h-4 text-white" />
-                                        <span>5</span> {/* Downvotes */}
+                                        <span>{featuredBlog.dislikes.length}</span> {/* Downvotes */}
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         {/* Comment Icon */}
                                         <BiCommentDetail className="w-4 h-4 text-white" />
-                                        <span>10</span> {/* Comments */}
+                                        <span>{featuredBlog.comments.length}</span> {/* Comments */}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* News Items on the Right */}
                         <div className="flex flex-col space-y-6">
-                            {newsItems.map((item) => (
+                            {topBlogs.map((item,index) => (
                                 <div
-                                    key={item.id}
+                                    key={index}
                                     className="bg-[#242244] rounded-lg overflow-hidden"
                                 >
                                     {/* News Item Image */}
@@ -113,7 +82,7 @@ function App(props) {
                                             {item.title}
                                         </h3>
                                         <p className="text-gray-400 text-xs">
-                                            By {item.author}
+                                            By {item.author.name}
                                         </p>
                                     </div>
                                 </div>
@@ -126,7 +95,7 @@ function App(props) {
 
                     {/* Reviews Section */}
                     <div className="mb-16">
-                        <SwiperSlider title="Reviews" items={reviews} />
+                        <SwiperSlider title="News" items={topNewsBlogs} />
                     </div>
 
                     {/* Second Divider */}
@@ -136,7 +105,7 @@ function App(props) {
                     <div className="mb-16">
                         <SwiperSlider
                             title="Tips & Tricks"
-                            items={tipsAndTricks}
+                            items={topTipsBlogs}
                         />
                     </div>
                 </div>

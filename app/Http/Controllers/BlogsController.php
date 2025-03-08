@@ -25,7 +25,7 @@ class BlogsController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'nullable|string',
-            'tag' => 'required|in:valorant,csgo',
+            'tag' => 'required|string',
             'category' => 'required|in:tips,news',
             'image' => 'nullable|image|max:2048'
         ]);
@@ -57,7 +57,11 @@ class BlogsController extends Controller
                 $userLiked = $blog->likes()->where('user_id', $user->id)->exists();
                 $userDisliked = $blog->dislikes()->where('user_id', $user->id)->exists();
                 $userFavorited = $blog->favourites()->where('user_id', $user->id)->exists();
-                return Inertia::render('Blog/SingleBlog', ['blog' => $blog, 'userLiked' => $userLiked, 'userDisliked' => $userDisliked, 'userFavorited' => $userFavorited]);
+                $relatedBlogs = Blogs::with('author')->where('tag', 'like', '%' . $blog->tag . '%')
+                    ->where('blog_id', '!=', $blog->blog_id)
+                    ->take(5)
+                    ->get();
+                return Inertia::render('Blog/SingleBlog', ['blog' => $blog, 'userLiked' => $userLiked, 'userDisliked' => $userDisliked, 'userFavorited' => $userFavorited,'relatedBlogs'=>$relatedBlogs]);
             }
 
             // Start with the query builder for approved blogs
@@ -114,8 +118,8 @@ class BlogsController extends Controller
      */
     public function searchByTags(Request $request)
     {
-        $request->validate(['tags' => 'required|string']);
-        $blogs = Blogs::where('tags', 'like', '%' . $request->input('tags') . '%')->get();
+        $request->validate(['tag' => 'required|string']);
+        $blogs = Blogs::where('tag', 'like', '%' . $request->input('tag') . '%')->get();
         return response()->json(['message' => 'Blogs fetched successfully!', 'blogs' => $blogs], 200);
     }
     /**
