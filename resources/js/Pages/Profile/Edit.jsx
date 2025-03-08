@@ -65,25 +65,6 @@ export default function EditProfile() {
                             </div>
                         )}
                     </div>
-
-                    <div className="mb-4">
-                        <label className="block text-white text-sm font-bold mb-2">
-                            Profile image
-                        </label>
-                        <input
-                            type="file"
-                            onChange={(e) =>
-                                setData("image", e.target.files[0])
-                            }
-                            className="shadow appearance-none border rounded w-full py-2 px-3"
-                        />
-                        {errors.image && (
-                            <div className="text-red-500 text-xs">
-                                {errors.image}
-                            </div>
-                        )}
-                    </div>
-
                     <button
                         type="submit"
                         disabled={processing}
