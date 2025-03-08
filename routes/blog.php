@@ -30,7 +30,17 @@ Route::get('/admin', function () {
     $totalPosts = Blogs::with('author')->count();
     $pendingPosts = Blogs::with('author')->where('status', 'pending')->count();
     $totalUsers = User::count();
-    return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers]);
+
+    $topUsers = User::withCount(['myPosts as posts_count'])
+        ->orderByDesc('posts_count')
+        ->take(5)
+        ->get();
+    $topBlogs = Blogs::withCount(['likes as likes_count'])
+        ->orderByDesc('likes_count')
+        ->take(5)
+        ->get();
+
+    return Inertia::render('Admin/stat', props: ['totalPosts' => $totalPosts, 'pendingPosts' => $pendingPosts, 'totalUsers' => $totalUsers, 'topUsers' => $topUsers, 'topBlogs' => $topBlogs]);
 })->name('blog.admin');
 Route::get('/admin/users', function () {
     return Inertia::render('Admin/users');
@@ -51,7 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/search', function () {
     return Inertia::render('Search/index', [
-        'blogs' => Blogs::with('author')->where('status', 'approved')->get()
+        'blogs' => Blogs::with(['author','likes'])->where('status', 'approved')->get()
     ]);
 })->name('search');
 Route::get('/edit', function () {

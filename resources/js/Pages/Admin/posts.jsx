@@ -55,7 +55,7 @@ const AdminPanel = (props) => {
     };
 
     return (
-        <div className="flex h-screen bg-gray-900 text-white">
+        <div className="flex h-screen bg-[#1E1A4B] text-white">
             <Dashboard />
             <main className="flex-1 p-6 overflow-y-auto">
                 <h3 className="text-xl font-semibold mt-6 mb-2">
