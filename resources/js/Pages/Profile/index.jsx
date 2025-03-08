@@ -9,7 +9,6 @@ const ProfilePage = (props) => {
     const favorites = props.user?.fav_posts || [];
     const posts = props.user?.my_posts || [];
     const myPostsCount = props.user?.my_posts?.length ?? 0;
-    console.log(props);
 
     return (
         <div className="flex h-screen bg-[#1E1A4B] text-white overflow-hidden">
@@ -23,7 +22,11 @@ const ProfilePage = (props) => {
                 {/* Profile Section */}
                 <div className="flex items-center gap-6 mb-8">
                     <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center">
-                        <User className="w-12 h-12 text-gray-400" />
+                        <img
+                            src={props.user?.image}
+                            alt={props.user?.name}
+                            className="h-24 w-24 rounded-full"
+                        />
                     </div>
                     <div>
                         <h2 className="text-2xl font-bold">

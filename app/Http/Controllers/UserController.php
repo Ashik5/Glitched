@@ -67,7 +67,7 @@ class UserController extends Controller
         return response()->json($users);
     }
 
- 
+
 
     public function banUser($id)
     {
@@ -75,36 +75,36 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->banned = true;
             $user->save();
-    
+
             Blogs::where('author', $id)->update(['blog_banned' => true]);
-    
+
             return response()->json(['message' => 'User banned successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to ban user', 'error' => $e->getMessage()], 500);
         }
     }
-    
 
-public function unBanUser($id)
-{
-    try {
-        $user = User::findOrFail($id);
 
-        if (!$user->banned) {
-            return response()->json(['message' => 'User is already unbanned'], 400);
+    public function unBanUser($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            if (!$user->banned) {
+                return response()->json(['message' => 'User is already unbanned'], 400);
+            }
+
+            $user->banned = false;
+            $user->save();
+
+            // Unban all blogs authored by this user
+            Blogs::where('author', $id)->update(['blog_banned' => false]);
+
+            return response()->json(['message' => 'User unbanned successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error unbanning user', 'error' => $e->getMessage()], 500);
         }
-
-        $user->banned = false;
-        $user->save();
-
-        // Unban all blogs authored by this user
-        Blogs::where('author', $id)->update(['blog_banned' => false]);
-
-        return response()->json(['message' => 'User unbanned successfully']);
-    } catch (\Exception $e) {
-        return response()->json(['message' => 'Error unbanning user', 'error' => $e->getMessage()], 500);
     }
-}
 
 
     public function getUserData(Request $request): \Inertia\Response
@@ -113,13 +113,6 @@ public function unBanUser($id)
 
         return Inertia::render('Dashboard', [
             'user' => $user,
-        ]);
-    }
-
-    public function editProfile()
-    {
-        return Inertia::render('edit', [
-            'user' => auth()->user()
         ]);
     }
 }

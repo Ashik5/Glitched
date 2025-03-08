@@ -17,8 +17,6 @@ function SearchPage({ auth }) {
         { label: "Valorant", value: "valorant" },
     ];
 
-    const { blogs = [] } = usePage().props;
-
     const filteredBlogs = blogs
         .filter(
             (blog) =>
