@@ -36,6 +36,7 @@ Route::post('/upload-image', function (Request $request) {
 Route::get('/users', [UserController::class, 'getAllUsers']);
 
 Route::post('/users/{id}/ban', [UserController::class, 'banUser']);
+Route::post('/users/{id}/unBan', [UserController::class, 'unBanUser']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
