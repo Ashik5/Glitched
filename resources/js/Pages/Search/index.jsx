@@ -6,16 +6,24 @@ import { usePage } from "@inertiajs/react";
 import SearchLogo from "../../../assets/SearchPage_logo.png";
 import { router } from "@inertiajs/react";
 
-function SearchPage({ auth }) {
+function SearchPage(props) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedGame, setSelectedGame] = useState("Select Games");
     const [searchTerm, setSearchTerm] = useState("");
     const [sortByPopularity, setSortByPopularity] = useState(false);
 
     const gamesList = [
-        { label: "Counter Strike", value: "csgo" },
+        { label: "Counter-Strike 2", value: "counter-strike-2" },
         { label: "Valorant", value: "valorant" },
+        { label: "Fortnite", value: "fortnite" },
+        { label: "Marvel Rivals", value: "marvel rivals" },
+        { label: "Rainbow Six Siege", value: "rainbow six siege" },
+        { label: "Apex Legends", value: "apex legends" },
+        { label: "Dota 2", value: "dota 2" }
     ];
+    
+
+    const { blogs,auth } = props;
 
     const filteredBlogs = blogs
         .filter(
