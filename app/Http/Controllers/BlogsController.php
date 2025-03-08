@@ -91,6 +91,7 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch blogs', 'error' => $e->getMessage()], 500);
         }
     }
+    
     /**
      * Look up blogs by title
      */
@@ -269,4 +270,51 @@ class BlogsController extends Controller
             return back()->with('success', 'Blog updated successfully!');
         }
     }
+
+    public function getTipsBlogs(Request $request) {
+        try {
+            $query = Blogs::where('status', 'approved')
+                ->where('category', 'tips')
+                ->where('blog_banned', false);
+    
+            // Apply tags filter if present
+            if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+    
+            // Execute query with pagination
+            $blogs = $query->paginate(10);
+    
+            return Inertia::render('Blog/Index', [
+                'blogs' => $blogs,
+                'filters' => $request->only(['tags']),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to fetch tips blogs', 'error' => $e->getMessage()], 500);
+        }
+    }
+    
+    public function getNewsBlogs(Request $request) {
+        try {
+            $query = Blogs::where('status', 'approved')
+                ->where('category', 'news')
+                ->where('blog_banned', false);
+    
+            // Apply tags filter if present
+            if ($request->has('tags')) {
+                $query->where('tags', 'like', '%' . $request->input('tags') . '%');
+            }
+    
+            // Execute query with pagination
+            $blogs = $query->paginate(10);
+    
+            return Inertia::render('Blog/Index', [
+                'blogs' => $blogs,
+                'filters' => $request->only(['tags']),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to fetch news blogs', 'error' => $e->getMessage()], 500);
+        }
+    }
+    
 }
