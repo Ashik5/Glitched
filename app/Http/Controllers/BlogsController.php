@@ -61,11 +61,12 @@ class BlogsController extends Controller
             }
 
             // Start with the query builder for approved blogs
-            $query = Blogs::where('status', 'approved');
+            $query = Blogs::where('status', 'approved')
+                    ->where('blog_banned', false);
 
             // Apply category filter if present
             // Start with the query builder for approved blogs
-            $query = Blogs::where('status', 'approved');
+            
 
             // Apply category filter if present
             if ($request->has('category')) {
