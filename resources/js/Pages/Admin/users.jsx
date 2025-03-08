@@ -25,8 +25,6 @@ const Users = () => {
                 ? `/api/users/${id}/unBan` // Unban API
                 : `/api/users/${id}/ban`; // Correct Ban API
 
-            console.log(`Calling API: ${url}`); // Debugging output
-
             const response = await axios.post(url);
 
             if (response.status === 200) {

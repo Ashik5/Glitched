@@ -85,9 +85,6 @@ class UserController extends Controller
     }
     
 
-
-
-
 public function unBanUser($id)
 {
     try {
