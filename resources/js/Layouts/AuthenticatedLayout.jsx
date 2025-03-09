@@ -12,8 +12,6 @@ export default function Authenticated({ auth, header, children }) {
 
     return (
         <div className="min-h-screen text-white bg-gradient-to-br from-[#080715] to-[#2D277B]">
-
-
             <nav className="bg-[#1a1832] border-b border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
@@ -27,41 +25,25 @@ export default function Authenticated({ auth, header, children }) {
                         {/* Center Navigation Links */}
                         <div className="flex space-x-4 items-center">
                             <NavLink
-                                href={route("dashboard")}
-                                active={route().current("dashboard")}
-                            >
-                                Dashboard
-                            </NavLink>
-                            <span className="h-6 border-l border-gray-700"></span>
-                            <NavLink
                                 href={route("blogs.index")}
                                 active={route().current("blogs")}
                             >
                                 Blogs
                             </NavLink>
                             <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("tips")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "tips"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
+                            <NavLink
+                                href={route("blog.tips")}
+                                active={route().current("blogs")}
                             >
-                                <Lightbulb className="h-4 w-4 mr-2" />
                                 Tips & Tricks
-                            </button>
+                            </NavLink>
                             <span className="h-6 border-l border-gray-700"></span>
-                            <button
-                                onClick={() => setActiveSection("reviews")}
-                                className={`flex items-center px-3 py-2 text-sm font-medium ${
-                                    activeSection === "reviews"
-                                        ? "text-white"
-                                        : "text-gray-300 hover:text-white"
-                                }`}
+                            <NavLink
+                                href={route("blog.news")}
+                                active={route().current("blogs")}
                             >
-                                Reviews
-                            </button>
+                                News
+                            </NavLink>
                         </div>
 
                         {/* Right Icons */}
@@ -75,46 +57,69 @@ export default function Authenticated({ auth, header, children }) {
 
                             <div className="hidden sm:flex sm:items-center sm:ml-6">
                                 <div className="ml-3 relative">
-                                    <Dropdown>
-                                        <Dropdown.Trigger>
-                                            <span className="inline-flex rounded-md">
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                                >
-                                                    {auth.user.name}
-
-                                                    <svg
-                                                        className="ml-2 -mr-0.5 h-4 w-4"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 20 20"
-                                                        fill="currentColor"
+                                    {auth.user ? (
+                                        <Dropdown>
+                                            <Dropdown.Trigger>
+                                                <span className="inline-flex rounded-md">
+                                                    <button
+                                                        type="button"
+                                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                                     >
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                            clipRule="evenodd"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </span>
-                                        </Dropdown.Trigger>
+                                                        {auth.user.name}
 
-                                        <Dropdown.Content>
+                                                        <svg
+                                                            className="ml-2 -mr-0.5 h-4 w-4"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            viewBox="0 0 20 20"
+                                                            fill="currentColor"
+                                                        >
+                                                            <path
+                                                                fillRule="evenodd"
+                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                clipRule="evenodd"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </span>
+                                            </Dropdown.Trigger>
+
+                                            <Dropdown.Content>
+                                                <Dropdown.Link
+                                                    href={route(
+                                                        "profile.index"
+                                                    )}
+                                                >
+                                                    Profile
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route("logout")}
+                                                    method="post"
+                                                    as="button"
+                                                >
+                                                    Log Out
+                                                </Dropdown.Link>
+                                            </Dropdown.Content>
+                                        </Dropdown>
+                                    ) : (
+                                        <div className="flex flex-row space-x-5">
                                             <Dropdown.Link
-                                                href={route("profile.index")}
-                                            >
-                                                Profile
-                                            </Dropdown.Link>
-                                            <Dropdown.Link
-                                                href={route("logout")}
-                                                method="post"
+                                                href={route("login")}
+                                                method="get"
                                                 as="button"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                Log Out
+                                                Log in
                                             </Dropdown.Link>
-                                        </Dropdown.Content>
-                                    </Dropdown>
+                                            <Dropdown.Link
+                                                href={route("register")}
+                                                method="get"
+                                                as="button"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                Register
+                                            </Dropdown.Link>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

@@ -6,18 +6,37 @@ import { usePage } from "@inertiajs/react";
 import SearchLogo from "../../../assets/SearchPage_logo.png";
 import { router } from "@inertiajs/react";
 
-function SearchPage({ auth }) {
+function SearchPage(props) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedGame, setSelectedGame] = useState("Select Games");
     const [searchTerm, setSearchTerm] = useState("");
+    const [sortByPopularity, setSortByPopularity] = useState(false);
 
-    const gamesList = ["Counter Strike", "Valorant"];
+    const gamesList = [
+        { label: "Counter-Strike 2", value: "counter-strike-2" },
+        { label: "Valorant", value: "valorant" },
+        { label: "Fortnite", value: "fortnite" },
+        { label: "Marvel Rivals", value: "marvel rivals" },
+        { label: "Rainbow Six Siege", value: "rainbow six siege" },
+        { label: "Apex Legends", value: "apex legends" },
+        { label: "Dota 2", value: "dota 2" }
+    ];
+    
 
-    const { blogs = [] } = usePage().props;
+    const { blogs,auth } = props;
 
-    const filteredBlogs = blogs.filter((blog) =>
-        blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredBlogs = blogs
+        .filter(
+            (blog) =>
+                blog.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                (selectedGame === "Select Games" || blog.tag === selectedGame)
+        )
+        .sort((a, b) => {
+            if (sortByPopularity) {
+                return b.likes.length - a.likes.length; // Sort by likes in descending order
+            }
+            return 0; // No sorting if the button isn't pressed
+        });
 
     return (
         <Authenticated auth={auth}>
@@ -54,7 +73,11 @@ function SearchPage({ auth }) {
                                 }
                                 className="flex items-center space-x-2 bg-[#231E60] px-4 py-2 rounded-full text-white"
                             >
-                                <span>{selectedGame}</span>
+                                <span>
+                                    {gamesList.find(
+                                        (game) => game.value === selectedGame
+                                    )?.label || "Select Games"}
+                                </span>
                                 <ChevronDown size={18} />
                             </button>
 
@@ -64,19 +87,24 @@ function SearchPage({ auth }) {
                                         <button
                                             key={index}
                                             onClick={() => {
-                                                setSelectedGame(game);
+                                                setSelectedGame(game.value);
                                                 setIsDropdownOpen(false);
                                             }}
                                             className="block w-full text-left px-4 py-2 hover:bg-[#2D277B] text-white"
                                         >
-                                            {game}
+                                            {game.label}
                                         </button>
                                     ))}
                                 </div>
                             )}
                         </div>
 
-                        <button className="bg-[#231E60] px-4 py-2 rounded-full text-white">
+                        <button
+                            onClick={() =>
+                                setSortByPopularity(!sortByPopularity)
+                            }
+                            className="bg-[#231E60] px-4 py-2 rounded-full text-white"
+                        >
                             Popularity
                         </button>
                     </div>

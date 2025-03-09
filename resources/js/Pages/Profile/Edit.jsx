@@ -1,119 +1,70 @@
-import { useForm } from "@inertiajs/react";
-import TinyEditor from "@/Components/Blog/TinyEditor";
+import { useForm, usePage } from "@inertiajs/react";
 import Dashboard from "../Profile/Dashboard";
 
-export default function Create(props) {
-    const { data, setData, post, processing, errors } = useForm({
-        title: "",
-        content: "",
+export default function EditProfile() {
+    const { auth } = usePage().props;
+    const user = auth.user;
+
+    const { props } = usePage();
+    const { data, setData, patch, processing, errors } = useForm({
+        name: user?.name || "",
+        email: user?.email || "",
         image: null,
-        author: "", // This should probably come from auth user
-        tag: "",
-        category: "",
-        likes: 0,
-        dislikes: 0,
-        comments: [],
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("blogs.store"));
+        patch(route("profile.update"));
     };
 
     return (
         <div className="flex h-screen bg-gray-900 text-white overflow-hidden">
-            {/* Sidebar - Using Dashboard Component with fixed position */}
             <div className="fixed h-screen">
                 <Dashboard />
             </div>
-            
-            {/* Main content area with scrolling */}
+
             <div className="flex-1 ml-64 overflow-y-auto h-screen">
                 <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-4">
+                    {/* Success message */}
+                    {props.message && (
+                        <div className="text-green-500 mb-4">
+                            {props.message}
+                        </div>
+                    )}
+
                     <div className="mb-4">
-                        <label className="block text-white-700 text-sm font-bold mb-2">
+                        <label className="block text-white text-sm font-bold mb-2">
                             Name
                         </label>
                         <input
                             type="text"
-                            value={data.title}
-                            onChange={(e) => setData("title", e.target.value)}
+                            value={data.name}
+                            onChange={(e) => setData("name", e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                         />
-                        {errors.title && (
+                        {errors.name && (
                             <div className="text-red-500 text-xs">
-                                {errors.title}
+                                {errors.name}
                             </div>
                         )}
                     </div>
+
                     <div className="mb-4">
-                        <label className="block text-white-700 text-sm font-bold mb-2">
+                        <label className="block text-white text-sm font-bold mb-2">
                             Email
                         </label>
                         <input
-                            type="text"
-                            value={data.title}
-                            onChange={(e) => setData("title", e.target.value)}
+                            type="email"
+                            value={data.email}
+                            onChange={(e) => setData("email", e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                         />
-                        {errors.title && (
+                        {errors.email && (
                             <div className="text-red-500 text-xs">
-                                {errors.title}
+                                {errors.email}
                             </div>
                         )}
                     </div>
-                    
-
-                    <div className="mb-4">
-                        <label className="block text-white-700 text-sm font-bold mb-2">
-                            Phone
-                        </label>
-                        <input
-                            type="text"
-                            value={data.title}
-                            onChange={(e) => setData("title", e.target.value)}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
-                        />
-                        {errors.title && (
-                            <div className="text-red-500 text-xs">
-                                {errors.title}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="mb-4">
-                        <label className="block text-white-700 text-sm font-bold mb-2">
-                            Address
-                        </label>
-                        <input
-                            type="text"
-                            value={data.title}
-                            onChange={(e) => setData("title", e.target.value)}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
-                        />
-                        {errors.title && (
-                            <div className="text-red-500 text-xs">
-                                {errors.title}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="mb-4">
-                        <label className="block text-white-700 text-sm font-bold mb-2">
-                            Profile image
-                        </label>
-                        <input
-                            type="file"
-                            onChange={(e) => setData("image", e.target.files[0])}
-                            className="shadow appearance-none border rounded w-full py-2 px-3"
-                        />
-                        {errors.image && (
-                            <div className="text-red-500 text-xs">
-                                {errors.image}
-                            </div>
-                        )}
-                    </div>
-
                     <button
                         type="submit"
                         disabled={processing}

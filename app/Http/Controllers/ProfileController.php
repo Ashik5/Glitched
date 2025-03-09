@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -39,17 +40,33 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        try {
+            $user = Auth::user();
+
+            $validated = $request->validate([
+                'name' => 'nullable|string|max:255',
+                'email' => 'nullable|string|email|max:255',
+                'image' => 'nullable|image|max:2048'
+            ]);
+
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('public/blogs');
+                $validated['image'] = Storage::url($path);
+            }
+            else{
+                $validated['image'] = $user->image;
+            }
+            $validated['password'] = $user->password;
+            $user->update($validated);
+
+            return redirect()->route('profile.index');
+        } catch (\Exception $e) {
+            \Log::error(" User update failed: " . $e->getMessage());
+            return response()->json(['message' => 'User update failed', 'error' => $e->getMessage()], 500);
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.index');
     }
 
     /**

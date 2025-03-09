@@ -20,15 +20,18 @@ use App\Models\Blogs;
 */
 
 Route::get('/', function () {
-    $blogs = Blogs::with('author')->where('status','approved')->limit(5)->get();
+    $featuredBlog = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->latest()->first();
+    $topBlogs = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->orderByDesc('created_at')->limit(3)->get();
+    $topTipsBlogs = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->where('category', 'tips')->limit(5)->get();
+    $topNewsBlogs = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->where('category', 'news')->limit(5)->get();
+    
     return Inertia::render('Welcome', [
-        'blogs' => $blogs,
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'featuredBlog' => $featuredBlog,
+        'topBlogs' => $topBlogs,
+        'topTipsBlogs' => $topTipsBlogs,
+        'topNewsBlogs' => $topNewsBlogs,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

@@ -1,13 +1,15 @@
 import { useForm } from "@inertiajs/react";
 import TinyEditor from "@/Components/Blog/TinyEditor";
 import Dashboard from "../Profile/Dashboard";
+import { useEffect, useState } from "react";
 
-export default function Create(props) {
+export default function Create() {
+    const [games, setGames] = useState([]);
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         content: "",
         image: null,
-        author: "", // This should probably come from auth user
+        author: "",
         tag: "",
         category: "",
         likes: 0,
@@ -15,6 +17,15 @@ export default function Create(props) {
         comments: [],
     });
 
+    useEffect(() => {
+        fetch("/api/gameAPI.json")
+            .then((response) => response.json())
+            .then((data) => {
+                setGames(data.games);
+            });
+    }, []);
+
+    console.log(games);
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route("blogs.store"));
@@ -26,7 +37,7 @@ export default function Create(props) {
             <div className="fixed h-screen">
                 <Dashboard />
             </div>
-            
+
             {/* Main content area with scrolling */}
             <div className="flex-1 ml-64 overflow-y-auto h-screen">
                 <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-4">
@@ -72,11 +83,23 @@ export default function Create(props) {
                             className="shadow border rounded w-full py-2 px-3 text-black"
                         >
                             <option value="">Select Game</option>
-                            <option value="valorant">Valorant</option>
-                            <option value="csgo">CSGO</option>
+                            {games.length > 0 ? (
+                                games.map((game, index) => (
+                                    <option
+                                        key={index}
+                                        value={game.name.toLowerCase()}
+                                    >
+                                        {game.name}
+                                    </option>
+                                ))
+                            ) : (
+                                <option disabled>No games available</option> // Show when no games
+                            )}
                         </select>
                         {errors.tag && (
-                            <div className="text-red-500 text-xs">{errors.tag}</div>
+                            <div className="text-red-500 text-xs">
+                                {errors.tag}
+                            </div>
                         )}
                     </div>
 
@@ -86,7 +109,9 @@ export default function Create(props) {
                         </label>
                         <select
                             value={data.category}
-                            onChange={(e) => setData("category", e.target.value)}
+                            onChange={(e) =>
+                                setData("category", e.target.value)
+                            }
                             className="shadow border rounded w-full py-2 px-3 text-black"
                         >
                             <option value="">Select Category</option>
@@ -106,7 +131,9 @@ export default function Create(props) {
                         </label>
                         <input
                             type="file"
-                            onChange={(e) => setData("image", e.target.files[0])}
+                            onChange={(e) =>
+                                setData("image", e.target.files[0])
+                            }
                             className="shadow appearance-none border rounded w-full py-2 px-3"
                         />
                         {errors.image && (

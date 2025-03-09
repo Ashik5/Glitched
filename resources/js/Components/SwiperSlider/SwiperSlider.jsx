@@ -29,8 +29,8 @@ const SwiperSlider = ({ title, items }) => {
                     },
                 }}
             >
-                {items.map((item) => (
-                    <SwiperSlide key={item.blog_id}>
+                {items.map((item,index) => (
+                    <SwiperSlide key={index}>
                         <div onClick={()=>{router.visit(route("blogs.single", { id: item.blog_id }));}} className="bg-[#242244] rounded-lg overflow-hidden w-full h-[250px] flex flex-col cursor-pointer">
                             <img
                                 src={item.image}
