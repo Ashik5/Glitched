@@ -24,7 +24,6 @@ export default function Authenticated({ auth, header, children }) {
 
                         {/* Center Navigation Links */}
                         <div className="flex space-x-4 items-center">
-                           
                             <NavLink
                                 href={route("blogs.index")}
                                 active={route().current("blogs")}
@@ -102,14 +101,24 @@ export default function Authenticated({ auth, header, children }) {
                                             </Dropdown.Content>
                                         </Dropdown>
                                     ) : (
-                                        <Dropdown.Link
-                                            href={route("login")}
-                                            method="get"
-                                            as="button"
-                                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                        >
-                                            Log in
-                                        </Dropdown.Link>
+                                        <div className="flex flex-row space-x-5">
+                                            <Dropdown.Link
+                                                href={route("login")}
+                                                method="get"
+                                                as="button"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                Log in
+                                            </Dropdown.Link>
+                                            <Dropdown.Link
+                                                href={route("register")}
+                                                method="get"
+                                                as="button"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                Register
+                                            </Dropdown.Link>
+                                        </div>
                                     )}
                                 </div>
                             </div>

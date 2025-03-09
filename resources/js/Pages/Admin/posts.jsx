@@ -12,38 +12,6 @@ const AdminPanel = (props) => {
     const { unverifiedBlogs: unverifiedPosts } = props;
     const { verifiedBlogs: verifiedPosts } = props;
 
-    const [selectedBlogs, setSelectedBlogs] = useState([]);
-
-    // Handle checkbox selection
-    const handleCheckboxChange = (id) => {
-        setSelectedBlogs((prev) =>
-            prev.includes(id)
-                ? prev.filter((blogId) => blogId !== id)
-                : [...prev, id]
-        );
-    };
-
-    // Approve multiple posts
-    const handleApproveMultiple = () => {
-        if (selectedBlogs.length === 0) {
-            console.log("No blogs selected");
-            return;
-        }
-    
-        put(route("blogs.bulkApprove"), {
-            blogs: selectedBlogs,
-        }, {
-            preserveState: true,
-            onSuccess: () => {
-                setSelectedBlogs([]); // Clear selection after success
-                console.log("Blogs approved successfully");
-            },
-            onError: (errors) => {
-                console.error("Error approving blogs:", errors);
-            }
-        });
-    };
-    
     // Approve single post
     const handleApprove = (id) => {
         put(route("blogs.update", id));
@@ -67,36 +35,12 @@ const AdminPanel = (props) => {
                         <p className="text-gray-400">No unverified posts.</p>
                     ) : (
                         <>
-                            <button
-                                onClick={handleApproveMultiple}
-                                disabled={selectedBlogs.length === 0}
-                                className={`mb-3 px-4 py-2 rounded-md text-white ${
-                                    selectedBlogs.length === 0
-                                        ? "bg-gray-600 cursor-not-allowed"
-                                        : "bg-blue-500 hover:bg-blue-600"
-                                }`}
-                            >
-                                Approve Selected ({selectedBlogs.length})
-                            </button>
-
                             {unverifiedPosts.map((post) => (
                                 <div
                                     key={post.blog_id}
                                     className="flex justify-between items-center bg-gray-700 p-3 rounded-md mb-2"
                                 >
                                     <div className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            className="mr-3"
-                                            checked={selectedBlogs.includes(
-                                                post.blog_id
-                                            )}
-                                            onChange={() =>
-                                                handleCheckboxChange(
-                                                    post.blog_id
-                                                )
-                                            }
-                                        />
                                         <div>
                                             <p className="text-lg">
                                                 {post.title}
