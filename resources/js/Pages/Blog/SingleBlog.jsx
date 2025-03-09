@@ -69,7 +69,7 @@ const SingleBlog = (props) => {
                     </div>
 
                     <div
-                        className="prose max-w-none"
+                        className="prose max-w-none text-white"
                         dangerouslySetInnerHTML={{ __html: props.blog.content }}
                     />
 
