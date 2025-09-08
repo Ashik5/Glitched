@@ -43,4 +43,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 });
+// new routes for followings. change korle ekhan theke korbi 
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::post('/users/{user}/follow', [UserController::class, 'follow'])->name('users.follow');
+Route::post('/users/{user}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
+Route::get('/users/{user}/following', [UserController::class, 'followingList'])->name('users.following');
+Route::get('/users/{user}/followers', [UserController::class, 'followersList'])->name('users.followers');
 

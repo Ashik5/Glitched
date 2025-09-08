@@ -71,3 +71,5 @@ Route::get('/edit', function () {
 })->name('profile.edit');
 Route::get('/tips', [BlogsController::class, 'getTipsBlogs'])->name('blog.tips');
 Route::get('/news', [BlogsController::class, 'getNewsBlogs'])->name('blog.news');
+
+Route::get('/blogs/following', [BlogsController::class, 'getFollowingBlogs'])->name('blogs.following');//followiung blogs

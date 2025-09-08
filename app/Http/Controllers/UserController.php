@@ -100,4 +100,58 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function show(User $user)
+    {
+        // Eager load counts for efficiency
+        $user->loadCount(['myPosts', 'followers', 'following']);
+
+        // Check if the currently authenticated user is following the viewed user
+        $isFollowing = auth()->user() ? auth()->user()->following->contains($user->id) : false;
+
+        return Inertia::render('Profile/Show', [
+            'profileUser' => $user,
+            'posts' => $user->myPosts()->paginate(10), // Paginate the user's posts
+            'isFollowing' => $isFollowing,
+        ]);
+    }
+
+    public function follow(User $user)
+    {
+        $follower = Auth::user();
+
+        // Prevent users from following themselves
+        if ($follower->id === $user->id) {
+            return back()->with('error', 'You cannot follow yourself.');
+        }
+
+        // Use syncWithoutDetaching to avoid duplicate entries
+        $follower->following()->syncWithoutDetaching([$user->id]);
+
+        return back()->with('success', 'You are now following ' . $user->name);
+    }
+
+    public function unfollow(User $user)
+    {
+        $follower = Auth::user();
+        $follower->following()->detach($user->id);
+
+        return back()->with('success', 'You have unfollowed ' . $user->name);
+    }
+
+    public function followingList(User $user)
+    {
+        return Inertia::render('Profile/Following', [
+            'profileUser' => $user,
+            'following' => $user->following()->paginate(15),
+        ]);
+    }
+
+    public function followersList(User $user)
+    {
+        return Inertia::render('Profile/Followers', [
+            'profileUser' => $user,
+            'followers' => $user->followers()->paginate(15),
+        ]);
+    }
 }

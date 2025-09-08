@@ -56,6 +56,100 @@ The mock user interface for Glitched has been designed using Figma. It includes 
 ---
 
 ---
+## Installation
+
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+- PHP >= 8.0.3
+- Composer
+- Node.js >= 16.x
+- NPM 
+- MySQL
+
+### Backend Installation
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/Ashik5/Glitched.git
+    cd Glitched
+    ```
+
+2. **Install PHP dependencies**:
+    ```bash
+    composer install
+    ```
+
+3. **Set up your `.env` file**:
+    Copy the `.env.example` to `.env`:
+    ```bash
+    cp .env.example .env
+    ```
+
+    Then, configure your database credentials and other environment variables.
+
+
+4. **Run migrations**:
+    ```bash
+    php artisan migrate:fresh
+    ```
+
+5. **Start the Laravel server**:
+    ```bash
+    php artisan serve
+    ```
+
+The backend should now be running on `http://localhost:8000`.
+
+### Frontend Installation
+
+1. **Install JavaScript dependencies**:
+    ```bash
+    npm install
+    ```
+
+2. **Configure the API base URL**:
+   Ensure the frontend is set to connect to the correct backend URL. You may want to set the backend URL in an environment variable or directly within the frontend application.
+   
+   Add your TinyMCE apikey
+   
+
+4. **Start the development server**:
+    ```bash
+    npm run dev
+    ```
+
+The frontend should now be running on `http://localhost:5173`.
+
+
+### Database Setup
+
+1. **Create a new MySQL database**:
+   Use MySQL workbench or command-line tools to create a new database (e.g., `glitched`).
+
+2. **Update `.env` for database**:
+   Set the correct database connection settings in the `.env` file in the root directory of the Laravel application:
+   ```dotenv
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=glitched
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+
+### Run database migrations
+
+3. **Run database migrations**:
+    ```bash
+    php artisan migrate
+    ```
+
+4. **Seed the database (optional)**:
+    If you want to populate the database with sample data:
+    ```bash
+    php artisan db:seed
 
 ## Milestones  
 
