@@ -5,9 +5,14 @@ import { router } from "@inertiajs/react";
 
 const ProfilePage = (props) => {
     const [activeTab, setActiveTab] = useState("Posts");
+    const [showFollowersModal, setShowFollowersModal] = useState(false);
+    const [showFollowingModal, setShowFollowingModal] = useState(false);
 
     const favorites = props.user?.fav_posts || [];
     const posts = props.user?.my_posts || [];
+
+    const followers = props.followers || [];
+    const following = props.following || [];
 
     return (
         <div className="flex h-screen bg-[#1E1A4B] text-white overflow-hidden">
@@ -27,7 +32,7 @@ const ProfilePage = (props) => {
                             className="h-24 w-24 rounded-full"
                         />
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <h2 className="text-2xl font-bold">
                             {props.user?.name}
                         </h2>
@@ -36,12 +41,18 @@ const ProfilePage = (props) => {
                                 <span>Posts: {props.postsCount || 0}</span>
                             </div>
                             <div className="flex gap-8 text-gray-400 mt-2">
-                                <span>
+                                <span
+                                    className="cursor-pointer"
+                                    onClick={() => setShowFollowersModal(true)}
+                                >
                                     Followers: {props.followerCount || 0}
                                 </span>
                             </div>
                             <div className="flex gap-8 text-gray-400 mt-2">
-                                <span>
+                                <span
+                                    className="cursor-pointer"
+                                    onClick={() => setShowFollowingModal(true)}
+                                >
                                     Following: {props.followingCount || 0}
                                 </span>
                             </div>
@@ -195,6 +206,86 @@ const ProfilePage = (props) => {
                             ))}
                         </div>
                     </section>
+                )}
+
+                {/* Followers Modal */}
+                {showFollowersModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-[#252538] rounded-lg p-6 w-96 max-h-96 overflow-y-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-bold">Followers</h3>
+                                <button
+                                    onClick={() => setShowFollowersModal(false)}
+                                    className="text-gray-400 hover:text-white text-xl"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="space-y-3">
+                                {followers.map((follower) => (
+                                    <div
+                                        onClick={() => {
+                                            router.visit(
+                                                route("author.profile.index", {
+                                                    id: followerid,
+                                                })
+                                            );
+                                        }}
+                                        key={follower.id}
+                                        className="flex items-center gap-3 p-2 hover:bg-gray-700 rounded cursor-pointer"
+                                    >
+                                        <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                                            <User size={20} />
+                                        </div>
+                                        <span>{follower.name}</span>
+                                    </div>
+                                ))}
+                                {followers.length === 0 && (
+                                    <div>No followers found.</div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Following Modal */}
+                {showFollowingModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-[#252538] rounded-lg p-6 w-96 max-h-96 overflow-y-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-bold">Following</h3>
+                                <button
+                                    onClick={() => setShowFollowingModal(false)}
+                                    className="text-gray-400 hover:text-white text-xl"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="space-y-3">
+                                {following.map((person) => (
+                                    <div
+                                        onClick={() => {
+                                            router.visit(
+                                                route("author.profile.index", {
+                                                    id: person.id,
+                                                })
+                                            );
+                                        }}
+                                        key={person.id}
+                                        className="flex items-center gap-3 p-2 hover:bg-gray-700 rounded cursor-pointer"
+                                    >
+                                        <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                                            <User size={20} />
+                                        </div>
+                                        <span>{person.name}</span>
+                                    </div>
+                                ))}
+                                {following.length === 0 && (
+                                    <div>No following found.</div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 )}
             </main>
         </div>

@@ -23,6 +23,8 @@ class ProfileController extends Controller
         $followerCount = $user->followers()->count();
         $followingCount = $user->following()->count();
         $postsCount = $user->myPosts()->count();
+        $followers = $user->followers;
+        $following = $user->following;
         return Inertia::render('Profile/index', [
             'user' => $user,
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
@@ -30,6 +32,8 @@ class ProfileController extends Controller
             'followerCount' => $followerCount,
             'followingCount' => $followingCount,
             'postsCount' => $postsCount,
+            'followers' => $followers,
+            'following' => $following,
         ]);
     }
     public function AuthorProfileData(Request $request, $id = null): Response
