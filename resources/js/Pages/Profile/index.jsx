@@ -5,10 +5,25 @@ import { router } from "@inertiajs/react";
 
 const ProfilePage = (props) => {
     const [activeTab, setActiveTab] = useState("Posts");
+    const [showFollowersModal, setShowFollowersModal] = useState(false);
+    const [showFollowingModal, setShowFollowingModal] = useState(false);
 
     const favorites = props.user?.fav_posts || [];
     const posts = props.user?.my_posts || [];
     const myPostsCount = props.user?.my_posts?.length ?? 0;
+
+    // Sample data - replace with your actual followers/following data from props
+    const followers = props.user?.followers || [
+        { id: 1, name: "John Doe", image: "/path/to/avatar1.jpg" },
+        { id: 2, name: "Jane Smith", image: "/path/to/avatar2.jpg" },
+        { id: 3, name: "Mike Johnson", image: "/path/to/avatar3.jpg" },
+    ];
+
+    const following = props.user?.following || [
+        { id: 1, name: "Alice Brown", image: "/path/to/avatar4.jpg" },
+        { id: 2, name: "Bob Wilson", image: "/path/to/avatar5.jpg" },
+        { id: 3, name: "Carol Davis", image: "/path/to/avatar6.jpg" },
+    ];
 
     return (
         <div className="flex h-screen bg-[#1E1A4B] text-white overflow-hidden">
@@ -28,13 +43,30 @@ const ProfilePage = (props) => {
                             className="h-24 w-24 rounded-full"
                         />
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <h2 className="text-2xl font-bold">
                             {props.user?.name}
                         </h2>
-                        <div className="flex gap-8 text-gray-400 mt-2">
+                        <div className="flex gap-8 text-gray-400">
                             <span>Posts: {myPostsCount}</span>
                         </div>
+                        {/* Follower and Following Buttons */}
+                        <div className="flex gap-3 ml-36">
+                            
+                            <button 
+                                onClick={() => setShowFollowersModal(true)}
+                                className="px-4 py-2 text-white hover:text-blue-500 transition-colors"
+                            >
+                                Followers: 350
+                            </button>
+                            <button 
+                                onClick={() => setShowFollowingModal(true)}
+                                className="px-4 py-2 text-white hover:text-blue-500 transition-colors"
+                            >
+                                Following: 200
+                            </button>
+                        </div>
+                        
                         <a
                             href={route("profile.edit")}
                             className="flex items-center gap-2 mt-3 text-blue-500 hover:text-blue-400"
@@ -184,6 +216,60 @@ const ProfilePage = (props) => {
                             ))}
                         </div>
                     </section>
+                )}
+
+                {/* Followers Modal */}
+                {showFollowersModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-[#252538] rounded-lg p-6 w-96 max-h-96 overflow-y-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-bold">Followers</h3>
+                                <button 
+                                    onClick={() => setShowFollowersModal(false)}
+                                    className="text-gray-400 hover:text-white text-xl"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="space-y-3">
+                                {followers.map((follower) => (
+                                    <div key={follower.id} className="flex items-center gap-3 p-2 hover:bg-gray-700 rounded cursor-pointer">
+                                        <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                                            <User size={20} />
+                                        </div>
+                                        <span>{follower.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Following Modal */}
+                {showFollowingModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-[#252538] rounded-lg p-6 w-96 max-h-96 overflow-y-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-bold">Following</h3>
+                                <button 
+                                    onClick={() => setShowFollowingModal(false)}
+                                    className="text-gray-400 hover:text-white text-xl"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="space-y-3">
+                                {following.map((person) => (
+                                    <div key={person.id} className="flex items-center gap-3 p-2 hover:bg-gray-700 rounded cursor-pointer">
+                                        <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                                            <User size={20} />
+                                        </div>
+                                        <span>{person.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 )}
             </main>
         </div>
