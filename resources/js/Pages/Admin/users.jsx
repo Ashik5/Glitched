@@ -43,7 +43,7 @@ const Users = () => {
     };
 
     return (
-        <div className="flex h-screen bg-gray-900 text-white">
+        <div className="flex h-screen bg-[#1E1A4B] text-white">
             <Dashboard />
             <div className="flex-1 p-6 text-white">
                 <h2 className="text-2xl font-bold mb-4">User Management</h2>

@@ -69,7 +69,7 @@ const SingleBlog = (props) => {
                     </div>
 
                     <div
-                        className="prose max-w-none"
+                        className="prose max-w-none text-white"
                         dangerouslySetInnerHTML={{ __html: props.blog.content }}
                     />
 
@@ -173,7 +173,7 @@ const SingleBlog = (props) => {
                                         <img
                                             src={comment.user.image}
                                             alt={comment.user.name}
-                                            className="h-24 w-24 rounded-full"
+                                            className="h-10 w-10 rounded-full"
                                         />
                                     </div>
                                     <div>
