@@ -330,5 +330,35 @@ class BlogsController extends Controller
             return response()->json(['message' => 'Failed to fetch news blogs', 'error' => $e->getMessage()], 500);
         }
     }
+    public function getFollowingBlogs(Request $request)
+    {
+        try {
+            $user = Auth::user();
+
+            // Get the IDs of the users the current user is following
+            $followingIds = $user->following()->pluck('users.id');
+
+            $query = Blogs::with('author')
+                ->whereIn('author', $followingIds) // Filter blogs by followed authors
+                ->where('status', 'approved')
+                ->where('blog_banned', false)
+                ->latest(); // Order by the newest blogs first
+
+            // Apply optional tag filtering
+            if ($request->has('tags')) {
+                $query->where('tag', 'like', '%' . $request->input('tags') . '%');
+            }
+
+            $blogs = $query->paginate(10);
+
+            return Inertia::render('Blog/Index', [
+                'blogs' => $blogs,
+                'filters' => $request->only(['tags']),
+                'feed' => 'following' // A prop to help your frontend identify the feed type
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to fetch blogs from followed users.', 'error' => $e->getMessage()], 500);
+        }
+    }
 
 }

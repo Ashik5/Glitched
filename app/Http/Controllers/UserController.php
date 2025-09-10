@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Blogs;
+use App\Models\Follower;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,8 +31,7 @@ class UserController extends Controller
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('public/blogs');
                 $validated['image'] = Storage::url($path);
-            }
-            else{
+            } else {
                 $validated['image'] = $user->image;
             }
             $validated['password'] = $user->password;
@@ -98,6 +98,58 @@ class UserController extends Controller
 
         return Inertia::render('Dashboard', [
             'user' => $user,
+        ]);
+    }
+
+    public function show(User $user)
+    {
+        // Eager load counts for efficiency
+        $user->loadCount(['myPosts', 'followers', 'following']);
+
+        // Check if the currently authenticated user is following the viewed user
+        $isFollowing = auth()->user() ? auth()->user()->following->contains($user->id) : false;
+
+        return Inertia::render('Profile/Show', [
+            'profileUser' => $user,
+            'posts' => $user->myPosts()->paginate(10), // Paginate the user's posts
+            'isFollowing' => $isFollowing,
+        ]);
+    }
+
+    public function follow(Request $request, $following_id)
+    {
+        $user_id = $request->user()->id;
+
+        if (is_null($user_id)) {
+            return back()->with('error', 'You must be logged in to follow a user.');
+        }
+
+        $existingFollow = Follower::where('following_id', $following_id)->where('follower_id', $user_id)->first();
+
+        if ($existingFollow) {
+            $existingFollow->delete();
+            return back()->with('success', 'Unfollowed successfully!');
+        } else {
+            Follower::create(['following_id' => $following_id, 'follower_id' => $user_id]);
+            return back()->with('success', 'Followed successfully!');
+        }
+    }
+
+
+
+    public function followingList(User $user)
+    {
+        return Inertia::render('Profile/Following', [
+            'profileUser' => $user,
+            'following' => $user->following()->paginate(15),
+        ]);
+    }
+
+    public function followersList(User $user)
+    {
+        return Inertia::render('Profile/Followers', [
+            'profileUser' => $user,
+            'followers' => $user->followers()->paginate(15),
         ]);
     }
 }

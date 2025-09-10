@@ -8,7 +8,6 @@ const ProfilePage = (props) => {
 
     const favorites = props.user?.fav_posts || [];
     const posts = props.user?.my_posts || [];
-    const myPostsCount = props.user?.my_posts?.length ?? 0;
 
     return (
         <div className="flex h-screen bg-[#1E1A4B] text-white overflow-hidden">
@@ -32,8 +31,20 @@ const ProfilePage = (props) => {
                         <h2 className="text-2xl font-bold">
                             {props.user?.name}
                         </h2>
-                        <div className="flex gap-8 text-gray-400 mt-2">
-                            <span>Posts: {myPostsCount}</span>
+                        <div className="flex flex-col md:flex-row md:items-center gap-6">
+                            <div className="flex gap-8 text-gray-400 mt-2">
+                                <span>Posts: {props.postsCount || 0}</span>
+                            </div>
+                            <div className="flex gap-8 text-gray-400 mt-2">
+                                <span>
+                                    Followers: {props.followerCount || 0}
+                                </span>
+                            </div>
+                            <div className="flex gap-8 text-gray-400 mt-2">
+                                <span>
+                                    Following: {props.followingCount || 0}
+                                </span>
+                            </div>
                         </div>
                         <a
                             href={route("profile.edit")}

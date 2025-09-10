@@ -20,16 +20,28 @@ use App\Models\Blogs;
 */
 
 Route::get('/', function () {
-    $featuredBlog = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->latest()->first();
-    $topBlogs = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->orderByDesc('created_at')->limit(3)->get();
-    $topTipsBlogs = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->where('category', 'tips')->limit(5)->get();
-    $topNewsBlogs = Blogs::with(['author','comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->where('category', 'news')->limit(5)->get();
-    
+    $featuredBlog = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->latest()->first();
+    $topBlogs = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->orderByDesc('created_at')->limit(3)->get();
+    $topTipsBlogs = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->where('category', 'tips')->limit(5)->get();
+    $topNewsBlogs = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])->where('status', 'approved')->where('category', 'news')->limit(5)->get();
+
+    $topFollowingBlogs = collect();
+    if (auth()->check()) {
+        $followingIds = auth()->user()->following()->pluck('users.id');
+        $topFollowingBlogs = Blogs::with(['author', 'comments.user', 'likes', 'dislikes', 'favourites'])
+            ->where('status', 'approved')
+            ->whereIn('author', $followingIds)
+            ->latest()
+            ->limit(5)
+            ->get();
+    }
+
     return Inertia::render('Welcome', [
         'featuredBlog' => $featuredBlog,
         'topBlogs' => $topBlogs,
         'topTipsBlogs' => $topTipsBlogs,
         'topNewsBlogs' => $topNewsBlogs,
+        'topFollowingBlogs' => $topFollowingBlogs,
     ]);
 })->name('welcome');
 
@@ -39,11 +51,17 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'profileData'])->name('profile.index');
+    Route::get('/authorprofile/{id?}', [ProfileController::class, 'AuthorProfileData'])->name('author.profile.index');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware('auth')->group(function () {
     Route::post('/user/update-profile', [UserController::class, 'updateProfile']);
+
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::post('/users/{user}/follow', [UserController::class, 'follow'])->name('users.follow');
+    Route::get('/users/{user}/following', [UserController::class, 'followingList'])->name('users.following');
+    Route::get('/users/{user}/followers', [UserController::class, 'followersList'])->name('users.followers');
 });
 Route::middleware('auth')->group(function () {
     Route::put('/blogs/{id}', [BlogsController::class, 'updateBlog']);
@@ -51,6 +69,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/users', [UserController::class, 'getUserData'])->name('users.data');
 
 
+// new routes for followings. change korle ekhan theke korbi 
 
-require __DIR__.'/blog.php';
-require __DIR__.'/auth.php';
+
+
+require __DIR__ . '/blog.php';
+require __DIR__ . '/auth.php';

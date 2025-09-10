@@ -44,3 +44,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 });
 
+

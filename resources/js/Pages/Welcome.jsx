@@ -6,7 +6,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 
 function App(props) {
-    const { topTipsBlogs, topNewsBlogs, topBlogs, featuredBlog } = props;
+    const {
+        topTipsBlogs,
+        topNewsBlogs,
+        topBlogs,
+        featuredBlog,
+        topFollowingBlogs,
+    } = props;
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
             {/* Main Content */}
@@ -46,7 +52,9 @@ function App(props) {
                                     <div className="flex items-center space-x-2">
                                         {/* Arrow Up Icon */}
                                         <AiOutlineArrowUp className="w-4 h-4 text-white" />
-                                        <span>{featuredBlog?.likes.length}</span>{" "}
+                                        <span>
+                                            {featuredBlog?.likes.length}
+                                        </span>{" "}
                                         {/* Upvotes */}
                                     </div>
                                     <div className="flex items-center space-x-2">
@@ -113,7 +121,13 @@ function App(props) {
                     <div className="mb-16">
                         <SwiperSlider title="News" items={topNewsBlogs} />
                     </div>
-
+                    {/* Following Section */}
+                    <div className="mb-16">
+                        <SwiperSlider
+                            title="Following"
+                            items={topFollowingBlogs}
+                        />
+                    </div>
                     {/* Second Divider */}
                     <SectionDivider />
 

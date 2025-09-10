@@ -6,16 +6,11 @@ import {
     MessageCircle,
     Share,
     Image as ImageIcon,
-    User,
     Bookmark,
 } from "lucide-react";
 import { useForm, router } from "@inertiajs/react";
-import Image2 from "../../../assets/image_2.png";
-import Image3 from "../../../assets/image_3.png";
-import Image4 from "../../../assets/image_4.png";
 import SwiperSlider from "@/Components/SwiperSlider/SwiperSlider";
 import SectionDivider from "@/Components/SectionDivider/SectionDivider";
-import Image1 from "../../../assets/image_1.png";
 import GameDetailsCard from "../../Components/GameCard/Valorant";
 
 const SingleBlog = (props) => {
@@ -65,7 +60,7 @@ const SingleBlog = (props) => {
                                 className="w-full h-[80vh] object-cover rounded-lg shadow-lg"
                             />
                         </div>
-                        <GameDetailsCard game={props.blog.tag}/>
+                        <GameDetailsCard game={props.blog.tag} />
                     </div>
 
                     <div
@@ -76,9 +71,18 @@ const SingleBlog = (props) => {
                     {/* Author */}
                     <div className="mt-6 text-right text-sm text-gray-400">
                         — Author:{" "}
-                        <span className="font-semibold">
+                        <a
+                            onClick={() => {
+                                router.visit(
+                                    route("author.profile.index", {
+                                        id: props.blog.author?.id,
+                                    })
+                                );
+                            }}
+                            className="font-semibold hover:underline cursor-pointer"
+                        >
                             {props.blog.author?.name}
-                        </span>
+                        </a>
                     </div>
 
                     {/* Reaction Bar */}
@@ -167,8 +171,11 @@ const SingleBlog = (props) => {
 
                         {/* Existing Comments */}
                         <div className="mt-6 space-y-4">
-                            {props.blog.comments.map((comment,index) => (
-                                <div key={index} className="flex items-start space-x-4">
+                            {props.blog.comments.map((comment, index) => (
+                                <div
+                                    key={index}
+                                    className="flex items-start space-x-4"
+                                >
                                     <div className="w-10 h-10 bg-gray-500 flex items-center justify-center rounded-full">
                                         <img
                                             src={comment.user.image}
@@ -193,7 +200,10 @@ const SingleBlog = (props) => {
 
                     {/* Swiper Section */}
                     <div className="mb-16">
-                        <SwiperSlider title="Related Blogs" items={props.relatedBlogs} />
+                        <SwiperSlider
+                            title="Related Blogs"
+                            items={props.relatedBlogs}
+                        />
                     </div>
                 </div>
             </main>

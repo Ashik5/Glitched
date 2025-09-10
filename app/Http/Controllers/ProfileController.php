@@ -18,12 +18,38 @@ class ProfileController extends Controller
 
     public function profileData(Request $request, $id = null): Response
     {
-        $user_id = auth()->id();
+        $user_id = $id ?? auth()->id();
         $user = User::with(['myPosts', 'favPosts'])->findOrFail($user_id);
+        $followerCount = $user->followers()->count();
+        $followingCount = $user->following()->count();
+        $postsCount = $user->myPosts()->count();
         return Inertia::render('Profile/index', [
             'user' => $user,
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'followerCount' => $followerCount,
+            'followingCount' => $followingCount,
+            'postsCount' => $postsCount,
+        ]);
+    }
+    public function AuthorProfileData(Request $request, $id = null): Response
+    {
+        $user_id = $id;
+        $user = User::with(['myPosts', 'favPosts'])->findOrFail($user_id);
+        $isFollowing = auth()->user() ? auth()->user()->following->contains($user->id) : false;
+        $followerCount = $user->followers()->count();
+        $followingCount = $user->following()->count();
+        $postsCount = $user->myPosts()->count();
+        $myPosts = $user->myPosts;
+        return Inertia::render('Profile/AuthorProfile', [
+            'user' => $user,
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'isFollowing' => $isFollowing,
+            'followerCount' => $followerCount,
+            'followingCount' => $followingCount,
+            'postsCount' => $postsCount,
+            'myPosts' => $myPosts,
         ]);
     }
     /**
@@ -55,14 +81,13 @@ class ProfileController extends Controller
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('public/blogs');
                 $validated['image'] = Storage::url($path);
-            }
-            else{
+            } else {
                 $validated['image'] = $user->image;
             }
             $validated['password'] = $user->password;
             $user->update($validated);
 
-            return redirect()->route('profile.index');
+            return redirect()->route('profile.index', ['id' => $user->id]);
         } catch (\Exception $e) {
             \Log::error(" User update failed: " . $e->getMessage());
             return response()->json(['message' => 'User update failed', 'error' => $e->getMessage()], 500);
