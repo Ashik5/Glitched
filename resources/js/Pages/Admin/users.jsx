@@ -53,48 +53,52 @@ const Users = () => {
                     {users.length === 0 ? (
                         <p className="text-gray-400">No users found.</p>
                     ) : (
-                        users.map((user) => (
-                            <div
-                                key={user.id}
-                                className="flex justify-between items-center bg-gray-700 p-3 rounded-md mb-2"
-                            >
-                                <div>
-                                    <p className="text-lg">{user.name}</p>
-                                    <p className="text-gray-400 text-sm">
-                                        {user.email}
-                                    </p>
+                        users.map((user) =>
+                            user.role !== "admin" ? (
+                                <div
+                                    key={user.id}
+                                    className="flex justify-between items-center bg-gray-700 p-3 rounded-md mb-2"
+                                >
+                                    <div>
+                                        <p className="text-lg">{user.name}</p>
+                                        <p className="text-gray-400 text-sm">
+                                            {user.email}
+                                        </p>
+                                    </div>
+                                    <div className="flex space-x-3">
+                                        {user.banned ? (
+                                            <button
+                                                onClick={() =>
+                                                    toggleBan(user.id, true)
+                                                }
+                                                className="flex items-center bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
+                                            >
+                                                <CheckCircle
+                                                    size={16}
+                                                    className="mr-1"
+                                                />{" "}
+                                                Unban
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() =>
+                                                    toggleBan(user.id, false)
+                                                }
+                                                className="flex items-center bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                                            >
+                                                <Trash2
+                                                    size={16}
+                                                    className="mr-1"
+                                                />{" "}
+                                                Ban
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="flex space-x-3">
-                                    {user.banned ? (
-                                        <button
-                                            onClick={() =>
-                                                toggleBan(user.id, true)
-                                            }
-                                            className="flex items-center bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
-                                        >
-                                            <CheckCircle
-                                                size={16}
-                                                className="mr-1"
-                                            />{" "}
-                                            Unban
-                                        </button>
-                                    ) : (
-                                        <button
-                                            onClick={() =>
-                                                toggleBan(user.id, false)
-                                            }
-                                            className="flex items-center bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                                        >
-                                            <Trash2
-                                                size={16}
-                                                className="mr-1"
-                                            />{" "}
-                                            Ban
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        ))
+                            ) : (
+                                ""
+                            )
+                        )
                     )}
                 </div>
             </div>
